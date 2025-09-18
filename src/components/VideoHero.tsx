@@ -12,23 +12,27 @@ const VideoHero = () => {
   }, []);
 
   return (
-    <section className="relative h-screen w-screen overflow-hidden">
-      {/* Video Background - Full Coverage */}
+    <section className="fixed inset-0 h-screen w-screen overflow-hidden">
+      {/* Video Background - Adaptive Full Coverage */}
       <video
         ref={videoRef}
-        className="absolute top-0 left-0 w-screen h-screen object-cover"
+        className="absolute inset-0 min-w-full min-h-full w-auto h-auto object-cover"
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
         style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
           minWidth: '100vw',
           minHeight: '100vh',
-          width: '100vw',
-          height: '100vh',
+          width: 'auto',
+          height: 'auto',
+          transform: 'translate(-50%, -50%) scale(1.1)',
           objectFit: 'cover',
-          transform: 'scale(1.02)'
+          zIndex: 0
         }}
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
