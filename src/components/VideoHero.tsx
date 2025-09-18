@@ -100,7 +100,7 @@ const VideoHero = () => {
           {/* Stats or Features */}
           <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 animate-fade-in-up [animation-delay:0.6s] opacity-0 [animation-fill-mode:forwards]">
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">25+</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">200+</div>
               <div className="text-sm sm:text-base text-muted-foreground">Sacred Monasteries</div>
             </div>
             <div className="text-center">
