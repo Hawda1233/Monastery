@@ -13,15 +13,22 @@ const VideoHero = () => {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Video Background */}
+      {/* Video Background - Full Coverage */}
       <video
         ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover scale-105"
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
+        style={{
+          minWidth: '100%',
+          minHeight: '100%',
+          width: '100vw',
+          height: '100vh',
+          objectFit: 'cover'
+        }}
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
