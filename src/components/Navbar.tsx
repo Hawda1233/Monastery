@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Play, Sparkles } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, X, Play, Sparkles, ChevronDown, Map, Camera, Archive, Calendar, Car, Smartphone, Info, MessageCircle } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,11 +17,32 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#" },
-    { name: "Features", href: "#features" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#", icon: null },
+    { 
+      name: "Explore Monasteries", 
+      href: "#explore",
+      icon: Map,
+      submenu: [
+        { name: "Virtual Tours (360°)", href: "#virtual-tours", icon: Camera },
+        { name: "Interactive Map", href: "#map", icon: Map },
+        { name: "Nearby Attractions", href: "#attractions", icon: Sparkles }
+      ]
+    },
+    { name: "Digital Archives", href: "#archives", icon: Archive },
+    { name: "Events & Festivals", href: "#events", icon: Calendar },
+    { 
+      name: "Travel & Services", 
+      href: "#travel",
+      icon: Car,
+      submenu: [
+        { name: "Transportation", href: "#transport", icon: Car },
+        { name: "Accommodation", href: "#hotels", icon: Info },
+        { name: "Tourism Packages", href: "#packages", icon: Sparkles }
+      ]
+    },
+    { name: "Audio Guide App", href: "#audio-guide", icon: Smartphone },
+    { name: "About Us", href: "#about", icon: Info },
+    { name: "Contact", href: "#contact", icon: MessageCircle },
   ];
 
   return (
@@ -38,37 +60,66 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <a
               href="#"
-              className="text-2xl font-bold bg-gradient-text bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+              className="text-2xl font-bold bg-gradient-text bg-clip-text text-transparent hover:scale-105 transition-all duration-500 hover:rotate-1"
             >
-              Cinema
+              🏔️ Sikkim Monasteries
             </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-foreground/80 hover:text-foreground px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group"
-                >
-                  {item.name}
-                  <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                </a>
-              ))}
+            <div className="ml-10 flex items-baseline space-x-6">
+              {navItems.map((item) => {
+                if (item.submenu) {
+                  return (
+                    <DropdownMenu key={item.name}>
+                      <DropdownMenuTrigger className="text-foreground/80 hover:text-foreground px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 bg-transparent border-0 hover:bg-transparent focus:bg-transparent">
+                        {item.icon && <item.icon className="h-4 w-4" />}
+                        {item.name}
+                        <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
+                        <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="bg-background/95 backdrop-blur-lg border-white/10 shadow-2xl rounded-2xl min-w-48">
+                        {item.submenu.map((subItem) => (
+                          <DropdownMenuItem key={subItem.name} asChild>
+                            <a
+                              href={subItem.href}
+                              className="flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 hover:bg-primary/10 rounded-xl cursor-pointer"
+                            >
+                              {subItem.icon && <subItem.icon className="h-4 w-4" />}
+                              {subItem.name}
+                            </a>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  );
+                }
+                
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-foreground/80 hover:text-foreground px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-2"
+                  >
+                    {item.icon && <item.icon className="h-4 w-4" />}
+                    {item.name}
+                    <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  </a>
+                );
+              })}
             </div>
           </div>
 
           {/* Desktop CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
             <Button variant="heroSecondary" size="sm" className="group">
-              <Sparkles className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-              Experience
+              <Camera className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+              Virtual Tour
             </Button>
             <Button variant="hero" size="sm" className="group">
-              <Play className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
-              Watch Now
+              <Map className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+              Explore Now
             </Button>
           </div>
 
@@ -94,22 +145,63 @@ const Navbar = () => {
         <div className="lg:hidden mt-4 mx-4">
           <div className="bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5 rounded-3xl overflow-hidden">
             <div className="px-4 pt-4 pb-6 space-y-2">
-              {navItems.map((item, index) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-foreground/80 hover:text-foreground block px-4 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 rounded-2xl"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  style={{
-                    animationDelay: `${index * 50}ms`,
-                    animation: isMobileMenuOpen
-                      ? "fade-in-up 0.3s ease-out forwards"
-                      : "none",
-                  }}
-                >
-                  {item.name}
-                </a>
-              ))}
+              {navItems.map((item, index) => {
+                if (item.submenu) {
+                  return (
+                    <div key={item.name} className="space-y-1">
+                      <div
+                        className="text-foreground hover:text-primary block px-4 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 rounded-2xl flex items-center gap-3"
+                        style={{
+                          animationDelay: `${index * 50}ms`,
+                          animation: isMobileMenuOpen
+                            ? "fade-in-up 0.3s ease-out forwards"
+                            : "none",
+                        }}
+                      >
+                        {item.icon && <item.icon className="h-5 w-5" />}
+                        {item.name}
+                      </div>
+                      <div className="ml-8 space-y-1">
+                        {item.submenu.map((subItem, subIndex) => (
+                          <a
+                            key={subItem.name}
+                            href={subItem.href}
+                            className="text-foreground/70 hover:text-foreground block px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-white/5 rounded-xl flex items-center gap-3"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            style={{
+                              animationDelay: `${(index * 50) + (subIndex * 25)}ms`,
+                              animation: isMobileMenuOpen
+                                ? "fade-in-up 0.3s ease-out forwards"
+                                : "none",
+                            }}
+                          >
+                            {subItem.icon && <subItem.icon className="h-4 w-4" />}
+                            {subItem.name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+                
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-foreground/80 hover:text-foreground block px-4 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 rounded-2xl flex items-center gap-3"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                      animation: isMobileMenuOpen
+                        ? "fade-in-up 0.3s ease-out forwards"
+                        : "none",
+                    }}
+                  >
+                    {item.icon && <item.icon className="h-5 w-5" />}
+                    {item.name}
+                  </a>
+                );
+              })}
               
               {/* Mobile CTA Buttons */}
               <div className="pt-4 space-y-3 px-2">
@@ -118,16 +210,16 @@ const Navbar = () => {
                   className="w-full group"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Sparkles className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                  Experience
+                  <Camera className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+                  Virtual Tour
                 </Button>
                 <Button
                   variant="hero"
                   className="w-full group"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Play className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
-                  Watch Now
+                  <Map className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+                  Explore Now
                 </Button>
               </div>
             </div>
