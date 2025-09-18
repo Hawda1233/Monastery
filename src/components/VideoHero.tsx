@@ -75,41 +75,41 @@ const VideoHero = () => {
               className="bg-gradient-text bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer"
               style={{ backgroundSize: "200% auto" }}
             >
-              Cinematic
+              Experience Peace
             </span>
             <br />
-            <span className="text-foreground">Experience</span>
+            <span className="text-foreground">· Explore Heritage</span>
           </h1>
 
           {/* Subtitle */}
           <p className="mb-8 text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-fade-in-up [animation-delay:0.2s] opacity-0 [animation-fill-mode:forwards]">
-            Immerse yourself in stunning visuals that bring your imagination to life
+            Discover the spiritual essence of Sikkim's monasteries through peace, heritage, and exploration
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up [animation-delay:0.4s] opacity-0 [animation-fill-mode:forwards]">
             <Button variant="hero" size="lg" className="group w-full sm:w-auto">
               <Play className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-              Watch Experience
+              Start Virtual Tour
             </Button>
             <Button variant="heroSecondary" size="lg" className="w-full sm:w-auto">
-              Learn More
+              Explore Monasteries
             </Button>
           </div>
 
           {/* Stats or Features */}
           <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 animate-fade-in-up [animation-delay:0.6s] opacity-0 [animation-fill-mode:forwards]">
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">4K</div>
-              <div className="text-sm sm:text-base text-muted-foreground">Ultra HD Quality</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">25+</div>
+              <div className="text-sm sm:text-base text-muted-foreground">Sacred Monasteries</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-accent mb-2">60fps</div>
-              <div className="text-sm sm:text-base text-muted-foreground">Smooth Motion</div>
+              <div className="text-2xl sm:text-3xl font-bold text-accent mb-2">360°</div>
+              <div className="text-sm sm:text-base text-muted-foreground">Virtual Tours</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-primary-glow mb-2">∞</div>
-              <div className="text-sm sm:text-base text-muted-foreground">Endless Possibilities</div>
+              <div className="text-sm sm:text-base text-muted-foreground">Spiritual Journey</div>
             </div>
           </div>
         </div>
