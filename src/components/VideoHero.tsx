@@ -1,16 +1,28 @@
 import { Button } from "@/components/ui/button";
-import { Play, ChevronDown } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { Play, ChevronDown, Loader2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import monasteryHero from "@/assets/monastery-hero.jpg";
 
 const VideoHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch(console.error);
+      videoRef.current.play().catch(() => {
+        setVideoError(true);
+      });
     }
   }, []);
+
+  const handleVideoLoad = () => {
+    setVideoLoaded(true);
+  };
+
+  const handleVideoError = () => {
+    setVideoError(true);
+  };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -31,9 +43,21 @@ const VideoHero = () => {
           playsInline
           preload="auto"
           poster={monasteryHero}
+          onLoadedData={handleVideoLoad}
+          onError={handleVideoError}
         >
           <source src="/videos/hero-video.mp4" type="video/mp4" />
         </video>
+        
+        {/* Video Loading Indicator */}
+        {!videoLoaded && !videoError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-foreground">
+              <Loader2 className="h-6 w-6 animate-spin" />
+              <span className="text-sm">Loading experience...</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Gradient Overlay */}
