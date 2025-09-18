@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, X, Play, Sparkles, ChevronDown, Map, Camera, Archive, Calendar, Car, Smartphone, Info, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,19 +18,19 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#", icon: null },
+    { name: "Home", href: "/", icon: null },
     { 
       name: "Explore Monasteries", 
-      href: "#explore",
+      href: "/explore",
       icon: Map,
       submenu: [
-        { name: "Virtual Tours (360°)", href: "#virtual-tours", icon: Camera },
-        { name: "Interactive Map", href: "#map", icon: Map },
-        { name: "Nearby Attractions", href: "#attractions", icon: Sparkles }
+        { name: "Virtual Tours (360°)", href: "/explore#virtual-tours", icon: Camera },
+        { name: "Interactive Map", href: "/explore#map", icon: Map },
+        { name: "Nearby Attractions", href: "/explore#attractions", icon: Sparkles }
       ]
     },
-    { name: "Digital Archives", href: "#archives", icon: Archive },
-    { name: "Events & Festivals", href: "#events", icon: Calendar },
+    { name: "Digital Archives", href: "/archives", icon: Archive },
+    { name: "Events & Festivals", href: "/events", icon: Calendar },
     { 
       name: "Travel & Services", 
       href: "#travel",
@@ -58,13 +59,13 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-12 lg:h-14 w-full">
           {/* Logo */}
           <div className="flex-shrink-0 min-w-0">
-            <a
-              href="#"
+            <Link
+              to="/"
               className="text-lg lg:text-xl font-bold bg-gradient-text bg-clip-text text-transparent hover:scale-105 transition-all duration-500 hover:rotate-1 whitespace-nowrap"
               title="Monastery360: A Digital Heritage Platform for Sikkim's Monasteries"
             >
               🏔️ Monastery360
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -83,13 +84,13 @@ const Navbar = () => {
                       <DropdownMenuContent className="bg-background/95 backdrop-blur-lg border-white/10 shadow-2xl rounded-2xl min-w-48">
                         {item.submenu.map((subItem) => (
                           <DropdownMenuItem key={subItem.name} asChild>
-                            <a
-                              href={subItem.href}
+                            <Link
+                              to={subItem.href}
                               className="flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 hover:bg-primary/10 rounded-xl cursor-pointer"
                             >
                               {subItem.icon && <subItem.icon className="h-4 w-4" />}
                               {subItem.name}
-                            </a>
+                            </Link>
                           </DropdownMenuItem>
                         ))}
                       </DropdownMenuContent>
@@ -98,15 +99,15 @@ const Navbar = () => {
                 }
                 
                 return (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className="text-foreground/80 hover:text-foreground px-1 py-2 text-xs font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 whitespace-nowrap"
                   >
                     {item.icon && <item.icon className="h-3 w-3" />}
                     <span className="text-xs">{item.name.length > 8 ? item.name.split(' ')[0] : item.name}</span>
                     <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -162,9 +163,9 @@ const Navbar = () => {
                       </div>
                       <div className="ml-8 space-y-1">
                         {item.submenu.map((subItem, subIndex) => (
-                          <a
+                          <Link
                             key={subItem.name}
-                            href={subItem.href}
+                            to={subItem.href}
                             className="text-foreground/70 hover:text-foreground block px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-white/5 rounded-xl flex items-center gap-3"
                             onClick={() => setIsMobileMenuOpen(false)}
                             style={{
@@ -176,7 +177,7 @@ const Navbar = () => {
                           >
                             {subItem.icon && <subItem.icon className="h-4 w-4" />}
                             {subItem.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -184,9 +185,9 @@ const Navbar = () => {
                 }
                 
                 return (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className="text-foreground/80 hover:text-foreground block px-4 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 rounded-2xl flex items-center gap-3"
                     onClick={() => setIsMobileMenuOpen(false)}
                     style={{
@@ -198,7 +199,7 @@ const Navbar = () => {
                   >
                     {item.icon && <item.icon className="h-5 w-5" />}
                     {item.name}
-                  </a>
+                  </Link>
                 );
               })}
               
