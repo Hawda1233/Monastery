@@ -7,6 +7,10 @@ import Index from "./pages/Index";
 import ExploreMonasteries from "./pages/ExploreMonasteries";
 import DigitalArchives from "./pages/DigitalArchives";
 import Events from "./pages/Events";
+import TravelServices from "./pages/TravelServices";
+import AudioGuide from "./pages/AudioGuide";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +26,10 @@ const App = () => (
           <Route path="/explore" element={<ExploreMonasteries />} />
           <Route path="/archives" element={<DigitalArchives />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/travel" element={<TravelServices />} />
+          <Route path="/audio-guide" element={<AudioGuide />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

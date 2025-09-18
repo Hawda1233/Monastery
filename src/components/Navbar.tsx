@@ -33,17 +33,17 @@ const Navbar = () => {
     { name: "Events & Festivals", href: "/events", icon: Calendar },
     { 
       name: "Travel & Services", 
-      href: "#travel",
+      href: "/travel",
       icon: Car,
       submenu: [
-        { name: "Transportation", href: "#transport", icon: Car },
-        { name: "Accommodation", href: "#hotels", icon: Info },
-        { name: "Tourism Packages", href: "#packages", icon: Sparkles }
+        { name: "Transportation", href: "/travel#transport", icon: Car },
+        { name: "Accommodation", href: "/travel#accommodation", icon: Info },
+        { name: "Tourism Packages", href: "/travel#packages", icon: Sparkles }
       ]
     },
-    { name: "Audio Guide App", href: "#audio-guide", icon: Smartphone },
-    { name: "About Us", href: "#about", icon: Info },
-    { name: "Contact", href: "#contact", icon: MessageCircle },
+    { name: "Audio Guide App", href: "/audio-guide", icon: Smartphone },
+    { name: "About Us", href: "/about", icon: Info },
+    { name: "Contact", href: "/contact", icon: MessageCircle },
   ];
 
   return (
