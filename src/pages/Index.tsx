@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen w-screen bg-background overflow-x-hidden">
       <Navbar />
       <VideoHero />
     </div>
