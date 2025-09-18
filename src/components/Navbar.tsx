@@ -49,13 +49,13 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 p-4 lg:p-6">
       {/* Glassmorphic Capsule Container */}
       <div
-        className={`mx-auto max-w-5xl transition-all duration-700 ease-out ${
+        className={`mx-auto max-w-7xl transition-all duration-700 ease-out ${
           isScrolled
             ? "bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5"
             : "bg-white/5 backdrop-blur-md border border-white/5 shadow-xl shadow-black/10"
-        } rounded-full px-6 lg:px-8`}
+        } rounded-full px-4 lg:px-6`}
       >
-        <div className="flex items-center justify-between h-14 lg:h-16">
+        <div className="flex items-center justify-between h-12 lg:h-14">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a
@@ -68,15 +68,16 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:block">
-            <div className="ml-10 flex items-baseline space-x-6">
+            <div className="ml-6 flex items-baseline space-x-4">
               {navItems.map((item) => {
                 if (item.submenu) {
                   return (
                     <DropdownMenu key={item.name}>
-                      <DropdownMenuTrigger className="text-foreground/80 hover:text-foreground px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 bg-transparent border-0 hover:bg-transparent focus:bg-transparent">
-                        {item.icon && <item.icon className="h-4 w-4" />}
-                        {item.name}
-                        <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
+                      <DropdownMenuTrigger className="text-foreground/80 hover:text-foreground px-2 py-2 text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 bg-transparent border-0 hover:bg-transparent focus:bg-transparent">
+                        {item.icon && <item.icon className="h-3 w-3 lg:h-4 lg:w-4" />}
+                        <span className="hidden lg:inline">{item.name}</span>
+                        <span className="lg:hidden">{item.name.split(' ')[0]}</span>
+                        <ChevronDown className="h-2 w-2 lg:h-3 lg:w-3 transition-transform group-hover:rotate-180" />
                         <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="bg-background/95 backdrop-blur-lg border-white/10 shadow-2xl rounded-2xl min-w-48">
@@ -100,10 +101,11 @@ const Navbar = () => {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-foreground/80 hover:text-foreground px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-2"
+                    className="text-foreground/80 hover:text-foreground px-2 py-2 text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 lg:gap-2"
                   >
-                    {item.icon && <item.icon className="h-4 w-4" />}
-                    {item.name}
+                    {item.icon && <item.icon className="h-3 w-3 lg:h-4 lg:w-4" />}
+                    <span className="hidden lg:inline">{item.name}</span>
+                    <span className="lg:hidden">{item.name.split(' ')[0]}</span>
                     <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </a>
                 );
@@ -112,13 +114,13 @@ const Navbar = () => {
           </div>
 
           {/* Desktop CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="heroSecondary" size="sm" className="group">
-              <Camera className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+          <div className="hidden lg:flex items-center space-x-2">
+            <Button variant="heroSecondary" size="sm" className="group px-3 py-1.5 text-xs">
+              <Camera className="mr-1 h-3 w-3 transition-transform group-hover:scale-110" />
               Virtual Tour
             </Button>
-            <Button variant="hero" size="sm" className="group">
-              <Map className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+            <Button variant="hero" size="sm" className="group px-3 py-1.5 text-xs">
+              <Map className="mr-1 h-3 w-3 transition-transform group-hover:scale-110" />
               Explore Now
             </Button>
           </div>
