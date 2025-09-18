@@ -24,15 +24,16 @@ const Navbar = () => {
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg"
-          : "bg-gradient-to-b from-background/20 to-transparent backdrop-blur-sm"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+    <nav className="fixed top-0 left-0 right-0 z-50 p-4 lg:p-6">
+      {/* Glassmorphic Capsule Container */}
+      <div
+        className={`mx-auto max-w-5xl transition-all duration-700 ease-out ${
+          isScrolled
+            ? "bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5"
+            : "bg-white/5 backdrop-blur-md border border-white/5 shadow-xl shadow-black/10"
+        } rounded-full px-6 lg:px-8`}
+      >
+        <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a
@@ -88,55 +89,51 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
-      <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen
-            ? "max-h-96 opacity-100"
-            : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="bg-background/95 backdrop-blur-xl border-t border-border/50">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item, index) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-foreground/80 hover:text-foreground block px-3 py-3 text-base font-medium transition-all duration-300 hover:bg-primary/10 rounded-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
-                style={{
-                  animationDelay: `${index * 50}ms`,
-                  animation: isMobileMenuOpen
-                    ? "fade-in-up 0.3s ease-out forwards"
-                    : "none",
-                }}
-              >
-                {item.name}
-              </a>
-            ))}
-            
-            {/* Mobile CTA Buttons */}
-            <div className="px-3 pt-4 pb-2 space-y-3">
-              <Button
-                variant="heroSecondary"
-                className="w-full group"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Sparkles className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                Experience
-              </Button>
-              <Button
-                variant="hero"
-                className="w-full group"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Play className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
-                Watch Now
-              </Button>
+      {/* Mobile Navigation Menu - Glassmorphic Capsule */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden mt-4 mx-4">
+          <div className="bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5 rounded-3xl overflow-hidden">
+            <div className="px-4 pt-4 pb-6 space-y-2">
+              {navItems.map((item, index) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-foreground/80 hover:text-foreground block px-4 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 rounded-2xl"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  style={{
+                    animationDelay: `${index * 50}ms`,
+                    animation: isMobileMenuOpen
+                      ? "fade-in-up 0.3s ease-out forwards"
+                      : "none",
+                  }}
+                >
+                  {item.name}
+                </a>
+              ))}
+              
+              {/* Mobile CTA Buttons */}
+              <div className="pt-4 space-y-3 px-2">
+                <Button
+                  variant="heroSecondary"
+                  className="w-full group"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Sparkles className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
+                  Experience
+                </Button>
+                <Button
+                  variant="hero"
+                  className="w-full group"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Play className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+                  Watch Now
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Mobile menu backdrop */}
       {isMobileMenuOpen && (
