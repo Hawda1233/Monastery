@@ -46,38 +46,37 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 p-4 lg:p-6">
+    <nav className="fixed top-0 left-0 right-0 z-50 p-2 lg:p-4">
       {/* Glassmorphic Capsule Container */}
       <div
-        className={`mx-auto max-w-7xl transition-all duration-700 ease-out ${
+        className={`mx-auto max-w-6xl transition-all duration-700 ease-out ${
           isScrolled
             ? "bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5"
             : "bg-white/5 backdrop-blur-md border border-white/5 shadow-xl shadow-black/10"
-        } rounded-full px-4 lg:px-6`}
+        } rounded-full px-3 lg:px-4`}
       >
-        <div className="flex items-center justify-between h-12 lg:h-14">
+        <div className="flex items-center justify-between h-12 lg:h-14 w-full">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 min-w-0">
             <a
               href="#"
-              className="text-2xl font-bold bg-gradient-text bg-clip-text text-transparent hover:scale-105 transition-all duration-500 hover:rotate-1"
+              className="text-lg lg:text-xl font-bold bg-gradient-text bg-clip-text text-transparent hover:scale-105 transition-all duration-500 hover:rotate-1 whitespace-nowrap"
             >
-              🏔️ Sikkim Monasteries
+              🏔️ Sikkim
             </a>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:block">
-            <div className="ml-6 flex items-baseline space-x-4">
+          <div className="hidden xl:block flex-1 max-w-2xl">
+            <div className="flex items-center justify-center space-x-1">
               {navItems.map((item) => {
                 if (item.submenu) {
                   return (
                     <DropdownMenu key={item.name}>
-                      <DropdownMenuTrigger className="text-foreground/80 hover:text-foreground px-2 py-2 text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 bg-transparent border-0 hover:bg-transparent focus:bg-transparent">
-                        {item.icon && <item.icon className="h-3 w-3 lg:h-4 lg:w-4" />}
-                        <span className="hidden lg:inline">{item.name}</span>
-                        <span className="lg:hidden">{item.name.split(' ')[0]}</span>
-                        <ChevronDown className="h-2 w-2 lg:h-3 lg:w-3 transition-transform group-hover:rotate-180" />
+                      <DropdownMenuTrigger className="text-foreground/80 hover:text-foreground px-1 py-2 text-xs font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 bg-transparent border-0 hover:bg-transparent focus:bg-transparent whitespace-nowrap">
+                        {item.icon && <item.icon className="h-3 w-3" />}
+                        <span className="text-xs">{item.name.length > 12 ? item.name.split(' ')[0] + '...' : item.name}</span>
+                        <ChevronDown className="h-2 w-2 transition-transform group-hover:rotate-180" />
                         <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="bg-background/95 backdrop-blur-lg border-white/10 shadow-2xl rounded-2xl min-w-48">
@@ -101,11 +100,10 @@ const Navbar = () => {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-foreground/80 hover:text-foreground px-2 py-2 text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 lg:gap-2"
+                    className="text-foreground/80 hover:text-foreground px-1 py-2 text-xs font-medium transition-all duration-300 hover:scale-105 relative group flex items-center gap-1 whitespace-nowrap"
                   >
-                    {item.icon && <item.icon className="h-3 w-3 lg:h-4 lg:w-4" />}
-                    <span className="hidden lg:inline">{item.name}</span>
-                    <span className="lg:hidden">{item.name.split(' ')[0]}</span>
+                    {item.icon && <item.icon className="h-3 w-3" />}
+                    <span className="text-xs">{item.name.length > 8 ? item.name.split(' ')[0] : item.name}</span>
                     <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </a>
                 );
@@ -114,19 +112,17 @@ const Navbar = () => {
           </div>
 
           {/* Desktop CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-2">
-            <Button variant="heroSecondary" size="sm" className="group px-3 py-1.5 text-xs">
-              <Camera className="mr-1 h-3 w-3 transition-transform group-hover:scale-110" />
-              Virtual Tour
+          <div className="hidden xl:flex items-center space-x-1 flex-shrink-0">
+            <Button variant="heroSecondary" size="sm" className="group px-2 py-1.5 text-xs">
+              <Camera className="h-3 w-3" />
             </Button>
-            <Button variant="hero" size="sm" className="group px-3 py-1.5 text-xs">
-              <Map className="mr-1 h-3 w-3 transition-transform group-hover:scale-110" />
-              Explore Now
+            <Button variant="hero" size="sm" className="group px-2 py-1.5 text-xs">
+              <Map className="h-3 w-3" />
             </Button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden">
+          <div className="xl:hidden flex-shrink-0">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-foreground hover:text-primary p-2 rounded-lg transition-colors duration-300 hover:bg-background/10"
@@ -144,7 +140,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu - Glassmorphic Capsule */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden mt-4 mx-4">
+        <div className="xl:hidden mt-4 mx-4">
           <div className="bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5 rounded-3xl overflow-hidden">
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navItems.map((item, index) => {
@@ -232,7 +228,7 @@ const Navbar = () => {
       {/* Mobile menu backdrop */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-background/20 backdrop-blur-sm lg:hidden -z-10"
+          className="fixed inset-0 bg-background/20 backdrop-blur-sm xl:hidden -z-10"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
