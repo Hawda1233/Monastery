@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, Clock, MessageCircle, Handshake, FileText, Users, Send, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -346,6 +347,7 @@ const Contact = () => {
           </Card>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

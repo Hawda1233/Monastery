@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Camera, Map, Filter, Search, MapPin, Clock, Star, Eye } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const ExploreMonasteries = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -295,6 +296,7 @@ const ExploreMonasteries = () => {
           </Tabs>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

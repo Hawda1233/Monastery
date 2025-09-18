@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Users, Target, Eye, Heart, Award, ExternalLink, Calendar, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const About = () => {
   const teamMembers = [
@@ -298,6 +299,7 @@ const About = () => {
           </Card>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

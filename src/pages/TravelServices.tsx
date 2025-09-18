@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Car, MapPin, Hotel, Package, Star, Clock, Users, Phone, Calendar, Route } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const TravelServices = () => {
   const [selectedDuration, setSelectedDuration] = useState("all");
@@ -473,6 +474,7 @@ const TravelServices = () => {
           </Tabs>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

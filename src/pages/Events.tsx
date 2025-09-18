@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Calendar as CalendarIcon, MapPin, Clock, Users, Camera, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
@@ -249,6 +250,7 @@ const Events = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

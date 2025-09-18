@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Smartphone, Download, MapPin, Volume2, Wifi, Languages, Star, Play, Headphones, Bluetooth } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const AudioGuide = () => {
   const features = [
@@ -306,6 +307,7 @@ const AudioGuide = () => {
           </Card>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

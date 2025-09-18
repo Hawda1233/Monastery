@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Archive, Search, Download, Eye, FileText, Image, BookOpen, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const DigitalArchives = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -266,6 +267,7 @@ const DigitalArchives = () => {
           </Tabs>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
