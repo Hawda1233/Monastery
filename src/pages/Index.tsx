@@ -21,6 +21,7 @@ import {
   Globe
 } from "lucide-react";
 import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
+import encheyMonastery from "@/assets/enchey-monastery.png";
 
 const Index = () => {
   const features = [
@@ -69,7 +70,7 @@ const Index = () => {
       name: "Enchey Monastery",
       location: "Gangtok",
       description: "Beautiful monastery with stunning views of Kanchenjunga",
-      image: pemayangtseMonastery,
+      image: encheyMonastery,
       features: ["360° Experience", "Digital Archive", "Cultural Events"]
     }
   ];
