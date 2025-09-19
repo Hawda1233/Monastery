@@ -20,6 +20,7 @@ import {
   Camera,
   Globe
 } from "lucide-react";
+import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 
 const Index = () => {
   const features = [
@@ -61,7 +62,7 @@ const Index = () => {
       name: "Pemayangtse Monastery",
       location: "West Sikkim", 
       description: "One of the oldest and premier monasteries in Sikkim",
-      image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800&h=600&fit=crop",
+      image: pemayangtseMonastery,
       features: ["Virtual Tour", "Manuscripts", "Event Calendar"]
     },
     {

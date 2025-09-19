@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Camera, Map, Filter, Search, MapPin, Clock, Star, Eye } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
+import tashidingMonastery from "@/assets/tashiding-monastery.png";
 
 const ExploreMonasteries = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,7 +38,7 @@ const ExploreMonasteries = () => {
       founded: "1705",
       altitude: "2,085m",
       description: "Perfect Sublime Lotus monastery, one of the oldest in Sikkim.",
-      image: "https://images.unsplash.com/photo-1548013146-72479768bada?w=400",
+      image: pemayangtseMonastery,
       virtualTourAvailable: true,
       rating: 4.6,
       visitors: "1.8k"
@@ -49,7 +51,7 @@ const ExploreMonasteries = () => {
       founded: "1641",
       altitude: "1,465m",
       description: "Sacred monastery on a hilltop between Rangit and Rathong rivers.",
-      image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400",
+      image: tashidingMonastery,
       virtualTourAvailable: false,
       rating: 4.7,
       visitors: "1.5k"

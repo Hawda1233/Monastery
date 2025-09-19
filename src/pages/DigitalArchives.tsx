@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Archive, Search, Download, Eye, FileText, Image, BookOpen, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
+import tashidingMonastery from "@/assets/tashiding-monastery.png";
 
 const DigitalArchives = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,7 +36,7 @@ const DigitalArchives = () => {
       language: "Visual",
       digitized: true,
       downloadable: false,
-      thumbnail: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300"
+      thumbnail: pemayangtseMonastery
     },
     {
       id: 3,
@@ -46,7 +48,7 @@ const DigitalArchives = () => {
       language: "Tibetan/Nepali",
       digitized: true,
       downloadable: true,
-      thumbnail: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300"
+      thumbnail: tashidingMonastery
     }
   ];
 

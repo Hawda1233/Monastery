@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Smartphone, Download, MapPin, Volume2, Wifi, Languages, Star, Play, Headphones, Bluetooth } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
+import tashidingMonastery from "@/assets/tashiding-monastery.png";
 
 const AudioGuide = () => {
   const features = [
@@ -58,7 +60,7 @@ const AudioGuide = () => {
       highlights: 6,
       downloaded: "8.2k",
       rating: 4.8,
-      image: "https://images.unsplash.com/photo-1548013146-72479768bada?w=300"
+      image: pemayangtseMonastery
     },
     {
       name: "Tashiding Monastery",
@@ -68,7 +70,7 @@ const AudioGuide = () => {
       highlights: 5,
       downloaded: "6.8k",
       rating: 4.7,
-      image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=300"
+      image: tashidingMonastery
     }
   ];
 

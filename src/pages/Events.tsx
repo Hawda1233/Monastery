@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar as CalendarIcon, MapPin, Clock, Users, Camera, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import tashidingMonastery from "@/assets/tashiding-monastery.png";
 
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
@@ -50,7 +51,7 @@ const Events = () => {
       participants: "300+",
       bookingRequired: true,
       featured: false,
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400"
+      image: tashidingMonastery
     },
     {
       id: 4,
@@ -163,7 +164,7 @@ const Events = () => {
       participants: "300+",
       bookingRequired: true,
       featured: false,
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400"
+      image: tashidingMonastery
     },
     {
       id: 12,
