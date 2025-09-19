@@ -75,7 +75,7 @@ const Index = () => {
   ];
 
   const stats = [
-    { number: "25+", label: "Monasteries Covered" },
+    { number: "200+", label: "Monasteries Covered" },
     { number: "5,000+", label: "Digital Archives" },
     { number: "50,000+", label: "Virtual Visitors" },
     { number: "4.8/5", label: "User Rating" }
