@@ -16,12 +16,12 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
           clearInterval(timer);
           setTimeout(() => {
             onLoadingComplete();
-          }, 500);
+          }, 200);
           return 100;
         }
-        return prev + Math.random() * 15 + 5;
+        return prev + Math.random() * 20 + 10;
       });
-    }, 200);
+    }, 100);
 
     return () => clearInterval(timer);
   }, [onLoadingComplete]);

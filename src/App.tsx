@@ -29,12 +29,24 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate initial loading time
+    // Preload critical resources
+    const preloadVideo = document.createElement('link');
+    preloadVideo.rel = 'preload';
+    preloadVideo.href = '/videos/hero-video.mp4';
+    preloadVideo.as = 'video';
+    document.head.appendChild(preloadVideo);
+
+    // Reduced loading time for faster experience
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 100);
+    }, 50);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (document.head.contains(preloadVideo)) {
+        document.head.removeChild(preloadVideo);
+      }
+    };
   }, []);
 
   if (isLoading) {

@@ -9,10 +9,17 @@ const VideoHero = () => {
   const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        setVideoError(true);
-      });
+    const video = videoRef.current;
+    if (video) {
+      // Optimize video loading
+      video.load();
+      
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          setVideoError(true);
+        });
+      }
     }
   }, []);
 
@@ -41,10 +48,11 @@ const VideoHero = () => {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           poster={monasteryHero}
           onLoadedData={handleVideoLoad}
           onError={handleVideoError}
+          onCanPlay={() => setVideoLoaded(true)}
         >
           <source src="/videos/hero-video.mp4" type="video/mp4" />
         </video>
