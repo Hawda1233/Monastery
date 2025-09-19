@@ -56,7 +56,7 @@ const Feedback = () => {
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold text-primary">Your Feedback Matters</h1>
             <p className="text-lg text-muted-foreground">
-              Help us improve Monastery360 by sharing your thoughts and experiences
+              Help us improve Monastery 360 by sharing your thoughts and experiences
             </p>
           </div>
 
@@ -184,7 +184,7 @@ const Feedback = () => {
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-3">
                   <p>
-                    Your feedback helps us understand how well Monastery360 serves the community 
+                    Your feedback helps us understand how well Monastery 360 serves the community 
                     and visitors interested in Sikkim's monastic heritage.
                   </p>
                   <ul className="list-disc pl-4 space-y-1">

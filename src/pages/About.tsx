@@ -85,7 +85,7 @@ const About = () => {
               About
             </span>
             <br />
-            <span className="text-foreground">Monastery360</span>
+            <span className="text-foreground">Monastery 360</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
             A groundbreaking digital heritage platform preserving and sharing the sacred wisdom 

@@ -11,8 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const FAQ = () => {
   const faqs = [
     {
-      question: "What is Monastery360?",
-      answer: "Monastery360 is a digital platform that preserves and showcases Sikkim's rich monastic heritage through virtual tours, digital archives, and immersive experiences."
+      question: "What is Monastery 360?",
+      answer: "Monastery 360 is a digital platform that preserves and showcases Sikkim's rich monastic heritage through virtual tours, digital archives, and immersive experiences."
     },
     {
       question: "How can I access the virtual monastery tours?",
@@ -53,7 +53,7 @@ const FAQ = () => {
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold text-primary">Frequently Asked Questions</h1>
             <p className="text-lg text-muted-foreground">
-              Find answers to common questions about Monastery360
+              Find answers to common questions about Monastery 360
             </p>
           </div>
 
@@ -84,7 +84,7 @@ const FAQ = () => {
             <CardContent>
               <p className="text-muted-foreground">
                 If you couldn't find the answer you're looking for, please don't hesitate to contact us. 
-                Our support team is here to help you with any questions about Monastery360.
+                Our support team is here to help you with any questions about Monastery 360.
               </p>
               <div className="mt-4 space-y-2">
                 <p className="text-sm">

@@ -62,9 +62,9 @@ const Navbar = () => {
             <Link
               to="/"
               className="text-lg lg:text-xl font-bold bg-gradient-text bg-clip-text text-transparent hover:scale-105 transition-all duration-500 hover:rotate-1 whitespace-nowrap"
-              title="Monastery360: A Digital Heritage Platform for Sikkim's Monasteries"
+              title="Monastery 360: A Digital Heritage Platform for Sikkim's Monasteries"
             >
-              🏔️ Monastery360
+              🏔️ Monastery 360
             </Link>
           </div>
 

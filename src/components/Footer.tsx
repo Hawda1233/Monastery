@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-primary">Monastery360</h3>
+            <h3 className="text-lg font-bold text-primary">Monastery 360</h3>
             <p className="text-sm text-muted-foreground">
               Preserving Sikkim's monastic heritage through digital innovation and immersive experiences.
             </p>
@@ -70,7 +70,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-sm text-muted-foreground">
-            © 2025 Monastery360. A Government of Sikkim Initiative. All rights reserved.
+            © 2025 Monastery 360. A Government of Sikkim Initiative. All rights reserved.
           </p>
           <div className="flex space-x-6 text-sm">
             <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">

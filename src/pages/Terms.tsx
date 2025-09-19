@@ -22,7 +22,7 @@ const Terms = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                By accessing and using Monastery360, you accept and agree to be bound by the terms 
+                By accessing and using Monastery 360, you accept and agree to be bound by the terms 
                 and provision of this agreement.
               </p>
             </CardContent>
@@ -35,7 +35,7 @@ const Terms = () => {
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
                 Permission is granted to temporarily download one copy of the materials on 
-                Monastery360's platform for personal, non-commercial transitory viewing only.
+                Monastery 360's platform for personal, non-commercial transitory viewing only.
               </p>
               <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                 <li>This is the grant of a license, not a transfer of title</li>
@@ -52,8 +52,8 @@ const Terms = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                The materials on Monastery360's platform are provided on an 'as is' basis. 
-                Monastery360 makes no warranties, expressed or implied, and hereby disclaims and 
+                The materials on Monastery 360's platform are provided on an 'as is' basis. 
+                Monastery 360 makes no warranties, expressed or implied, and hereby disclaims and
                 negates all other warranties including without limitation, implied warranties or 
                 conditions of merchantability, fitness for a particular purpose, or 
                 non-infringement of intellectual property or other violation of rights.
@@ -67,10 +67,10 @@ const Terms = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                In no event shall Monastery360 or its suppliers be liable for any damages 
+                In no event shall Monastery 360 or its suppliers be liable for any damages
                 (including, without limitation, damages for loss of data or profit, or due to 
                 business interruption) arising out of the use or inability to use the materials 
-                on Monastery360's platform.
+                on Monastery 360's platform.
               </p>
             </CardContent>
           </Card>

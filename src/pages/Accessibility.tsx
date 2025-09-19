@@ -13,7 +13,7 @@ const Accessibility = () => {
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold text-primary">Accessibility Statement</h1>
             <p className="text-lg text-muted-foreground">
-              We're committed to making Monastery360 accessible to everyone
+              We're committed to making Monastery 360 accessible to everyone
             </p>
           </div>
 
@@ -23,7 +23,7 @@ const Accessibility = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Monastery360 is committed to ensuring digital accessibility for people with disabilities. 
+                Monastery 360 is committed to ensuring digital accessibility for people with disabilities. 
                 We continually improve the user experience for everyone and apply relevant accessibility standards.
               </p>
             </CardContent>
@@ -96,7 +96,7 @@ const Accessibility = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                Monastery360 aims to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 
+                Monastery 360 aims to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 
                 at the AA level and follows the Indian government's accessibility guidelines.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -122,7 +122,7 @@ const Accessibility = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                We welcome your feedback on the accessibility of Monastery360. Please let us know if you 
+                We welcome your feedback on the accessibility of Monastery 360. Please let us know if you 
                 encounter accessibility barriers on our platform.
               </p>
               <div className="space-y-2">
@@ -145,7 +145,7 @@ const Accessibility = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Accessibility of Monastery360 relies on the following technologies:
+                Accessibility of Monastery 360 relies on the following technologies:
               </p>
               <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
                 <li>HTML5 semantic markup</li>

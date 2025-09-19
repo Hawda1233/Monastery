@@ -131,7 +131,7 @@ const AudioGuide = () => {
                       <Smartphone className="h-6 w-6 text-primary-foreground" />
                     </div>
                     <div>
-                      <h3 className="font-bold">Monastery360 Guide</h3>
+                      <h3 className="font-bold">Monastery 360 Guide</h3>
                       <p className="text-sm text-muted-foreground">Now Playing: Rumtek Overview</p>
                     </div>
                   </div>

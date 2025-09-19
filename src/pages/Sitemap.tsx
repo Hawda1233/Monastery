@@ -48,7 +48,7 @@ const Sitemap = () => {
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold text-primary">Sitemap</h1>
             <p className="text-lg text-muted-foreground">
-              Complete overview of all pages on Monastery360
+              Complete overview of all pages on Monastery 360
             </p>
           </div>
 

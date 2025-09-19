@@ -9,7 +9,7 @@ const Help = () => {
     {
       icon: Search,
       title: "Getting Started",
-      description: "Learn the basics of navigating and using Monastery360",
+      description: "Learn the basics of navigating and using Monastery 360",
       topics: ["Creating an account", "Navigation basics", "Search functionality", "User dashboard"]
     },
     {
@@ -53,7 +53,7 @@ const Help = () => {
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold text-primary">Help Center</h1>
             <p className="text-lg text-muted-foreground">
-              Everything you need to know about using Monastery360
+              Everything you need to know about using Monastery 360
             </p>
           </div>
 
