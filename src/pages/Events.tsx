@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
 import sonamLhosarFestival from "@/assets/sonam-lhosar-festival.png";
 import losarFestival from "@/assets/losar-festival.png";
+import sagaDawaEvent from "@/assets/saga-dawa-event.png";
+import kagyedDanceFestival from "@/assets/kagyed-dance-festival.png";
+import losoongFestival from "@/assets/losoong-festival.png";
 
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
@@ -75,7 +78,7 @@ const Events = () => {
       participants: "1000+",
       bookingRequired: false,
       featured: true,
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400"
+      image: sagaDawaEvent
     },
     {
       id: 5,
@@ -117,7 +120,7 @@ const Events = () => {
       participants: "300+",
       bookingRequired: true,
       featured: false,
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400"
+      image: kagyedDanceFestival
     },
     {
       id: 8,
@@ -131,7 +134,7 @@ const Events = () => {
       participants: "600+",
       bookingRequired: false,
       featured: false,
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400"
+      image: losoongFestival
     },
     // 2026 Events
     {
@@ -188,7 +191,7 @@ const Events = () => {
       participants: "1000+",
       bookingRequired: false,
       featured: false,
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400"
+      image: sagaDawaEvent
     }
   ];
 
