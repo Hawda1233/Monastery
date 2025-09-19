@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
+import encheyMonastery from "@/assets/enchey-monastery.png";
 
 const ExploreMonasteries = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -64,7 +65,7 @@ const ExploreMonasteries = () => {
       founded: "1909",
       altitude: "1,575m",
       description: "Solitary temple monastery with beautiful mountain views.",
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400",
+      image: encheyMonastery,
       virtualTourAvailable: true,
       rating: 4.5,
       visitors: "1.2k"
