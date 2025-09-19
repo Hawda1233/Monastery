@@ -52,8 +52,8 @@ const About = () => {
     },
     {
       icon: MapPin,
-      title: "25 Monasteries Digitized",
-      description: "Complete digital documentation of 25 major monasteries across Sikkim.",
+      title: "200 Monasteries Digitized",
+      description: "Complete digital documentation of 200 major monasteries across Sikkim.",
       year: "2024"
     },
     {

@@ -75,7 +75,7 @@ const AudioGuide = () => {
   const appStats = [
     { label: "Total Downloads", value: "50,000+", icon: Download },
     { label: "Average Rating", value: "4.8/5", icon: Star },
-    { label: "Monasteries Covered", value: "25+", icon: MapPin },
+    { label: "Monasteries Covered", value: "200+", icon: MapPin },
     { label: "Languages", value: "8", icon: Languages }
   ];
 
