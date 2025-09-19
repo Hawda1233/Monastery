@@ -6,6 +6,8 @@ import { Calendar as CalendarIcon, MapPin, Clock, Users, Camera, Heart } from "l
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
+import sonamLhosarFestival from "@/assets/sonam-lhosar-festival.png";
+import losarFestival from "@/assets/losar-festival.png";
 
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
@@ -23,7 +25,7 @@ const Events = () => {
       participants: "400+",
       bookingRequired: false,
       featured: true,
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400"
+      image: sonamLhosarFestival
     },
     {
       id: 2,
@@ -37,7 +39,7 @@ const Events = () => {
       participants: "500+",
       bookingRequired: true,
       featured: true,
-      image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400"
+      image: losarFestival
     },
     {
       id: 3,
@@ -136,7 +138,7 @@ const Events = () => {
       participants: "400+",
       bookingRequired: false,
       featured: false,
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400"
+      image: sonamLhosarFestival
     },
     {
       id: 10,
@@ -150,7 +152,7 @@ const Events = () => {
       participants: "500+",
       bookingRequired: true,
       featured: false,
-      image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400"
+      image: losarFestival
     },
     {
       id: 11,
