@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoadingScreen from "@/components/LoadingScreen";
+import monasteryHero from "@/assets/monastery-hero.jpg";
 import Index from "./pages/Index";
 import ExploreMonasteries from "./pages/ExploreMonasteries";
 import DigitalArchives from "./pages/DigitalArchives";
@@ -30,22 +31,32 @@ const App = () => {
 
   useEffect(() => {
     // Preload critical resources
-    const preloadVideo = document.createElement('link');
-    preloadVideo.rel = 'preload';
-    preloadVideo.href = '/videos/hero-video.mp4';
-    preloadVideo.as = 'video';
-    document.head.appendChild(preloadVideo);
+    const preloadLinks = [
+      { href: '/videos/hero-video.mp4', as: 'video' },
+      { href: monasteryHero, as: 'image' }
+    ];
 
-    // Reduced loading time for faster experience
-    const timer = setTimeout(() => {
+    const links = preloadLinks.map(({ href, as }) => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.href = href;
+      link.as = as;
+      document.head.appendChild(link);
+      return link;
+    });
+
+    // Ultra-fast loading with performance optimization
+    const timer = requestAnimationFrame(() => {
       setIsLoading(false);
-    }, 50);
+    });
 
     return () => {
-      clearTimeout(timer);
-      if (document.head.contains(preloadVideo)) {
-        document.head.removeChild(preloadVideo);
-      }
+      cancelAnimationFrame(timer);
+      links.forEach(link => {
+        if (document.head.contains(link)) {
+          document.head.removeChild(link);
+        }
+      });
     };
   }, []);
 

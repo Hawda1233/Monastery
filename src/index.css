@@ -133,11 +133,6 @@
     100% { background-position: 200% center; }
   }
   
-  @keyframes glow-pulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.05); }
-  }
-  
   /* Responsive fade-in animation */
   @keyframes fade-in-up {
     from {
@@ -153,10 +148,32 @@
   /* Float animation for loading elements */
   @keyframes float {
     0%, 100% { 
-      transform: translateY(0px) rotate(0deg); 
+      transform: translate3d(0, 0px, 0) rotate(0deg); 
     }
     50% { 
-      transform: translateY(-10px) rotate(5deg); 
+      transform: translate3d(0, -10px, 0) rotate(5deg); 
+    }
+  }
+
+  /* Performance optimized glow pulse */
+  @keyframes glow-pulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: scale3d(1, 1, 1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale3d(1.05, 1.05, 1);
+    }
+  }
+
+  /* Shimmer effect for loading states */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
     }
   }
 
@@ -166,6 +183,16 @@
   
   .animate-glow-pulse {
     animation: glow-pulse 4s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+
+  /* GPU acceleration for better performance */
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
+    will-change: transform, opacity;
   }
 
   html, body {

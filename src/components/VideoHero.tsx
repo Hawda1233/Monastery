@@ -1,38 +1,68 @@
 import { Button } from "@/components/ui/button";
 import { Play, ChevronDown, Loader2 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import monasteryHero from "@/assets/monastery-hero.jpg";
 
 const VideoHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      // Optimize video loading
-      video.load();
-      
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          setVideoError(true);
-        });
-      }
-    }
+  const handleVideoLoad = useCallback(() => {
+    setVideoLoaded(true);
   }, []);
 
-  const handleVideoLoad = () => {
-    setVideoLoaded(true);
-  };
-
-  const handleVideoError = () => {
+  const handleVideoError = useCallback(() => {
     setVideoError(true);
-  };
+  }, []);
+
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Optimized video loading
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const video = videoRef.current;
+    if (video) {
+      // Use requestIdleCallback for non-critical loading
+      const loadVideo = () => {
+        video.load();
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => setVideoError(true));
+        }
+      };
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadVideo);
+      } else {
+        setTimeout(loadVideo, 100);
+      }
+    }
+  }, [isVisible]);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
       {/* Background Image Fallback */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -41,28 +71,32 @@ const VideoHero = () => {
       
       {/* Video Background - Perfect Full Coverage */}
       <div className="absolute inset-0 w-full h-full">
-        <video
-          ref={videoRef}
-          className="w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={monasteryHero}
-          onLoadedData={handleVideoLoad}
-          onError={handleVideoError}
-          onCanPlay={() => setVideoLoaded(true)}
-        >
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
-        </video>
+        {isVisible ? (
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            poster={monasteryHero}
+            onLoadedData={handleVideoLoad}
+            onError={handleVideoError}
+            onCanPlay={() => setVideoLoaded(true)}
+          >
+            <source src="/videos/hero-video.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <Skeleton className="w-full h-full" />
+        )}
         
         {/* Video Loading Indicator */}
-        {!videoLoaded && !videoError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-sm">
-            <div className="flex items-center gap-2 text-foreground">
-              <Loader2 className="h-6 w-6 animate-spin" />
-              <span className="text-sm">Loading experience...</span>
+        {isVisible && !videoLoaded && !videoError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-background/10 backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-foreground/80">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span className="text-xs">Loading...</span>
             </div>
           </div>
         )}
