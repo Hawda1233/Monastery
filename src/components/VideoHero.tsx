@@ -19,47 +19,20 @@ const VideoHero = () => {
     setVideoError(true);
   }, []);
 
-  // Intersection Observer for lazy loading
+  // Immediate loading for hero section - it's above the fold
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Optimized video loading
-  useEffect(() => {
-    if (!isVisible) return;
-
+    setIsVisible(true);
+    
     const video = videoRef.current;
     if (video) {
-      // Use requestIdleCallback for non-critical loading
-      const loadVideo = () => {
-        video.load();
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => setVideoError(true));
-        }
-      };
-
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(loadVideo);
-      } else {
-        setTimeout(loadVideo, 100);
+      // Preload and play immediately
+      video.load();
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => setVideoError(true));
       }
     }
-  }, [isVisible]);
+  }, []);
 
   return (
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
@@ -71,35 +44,21 @@ const VideoHero = () => {
       
       {/* Video Background - Perfect Full Coverage */}
       <div className="absolute inset-0 w-full h-full">
-        {isVisible ? (
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            poster={monasteryHero}
-            onLoadedData={handleVideoLoad}
-            onError={handleVideoError}
-            onCanPlay={() => setVideoLoaded(true)}
-          >
-            <source src="/videos/hero-video.mp4" type="video/mp4" />
-          </video>
-        ) : (
-          <Skeleton className="w-full h-full" />
-        )}
-        
-        {/* Video Loading Indicator */}
-        {isVisible && !videoLoaded && !videoError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/10 backdrop-blur-sm">
-            <div className="flex items-center gap-2 text-foreground/80">
-              <Loader2 className="h-5 w-5 animate-spin" />
-              <span className="text-xs">Loading...</span>
-            </div>
-          </div>
-        )}
+        <video
+          ref={videoRef}
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={monasteryHero}
+          onLoadedData={handleVideoLoad}
+          onError={handleVideoError}
+          onCanPlay={() => setVideoLoaded(true)}
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+        </video>
       </div>
 
       {/* Gradient Overlay */}

@@ -10,31 +10,14 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    let animationFrame: number;
-    
-    const updateProgress = () => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          setTimeout(() => onLoadingComplete(), 150);
-          return 100;
-        }
-        const increment = Math.random() * 25 + 15;
-        return Math.min(prev + increment, 100);
-      });
-    };
+    // Fast loading - complete in 800ms instead of random delays
+    const timer = setTimeout(() => {
+      setProgress(100);
+      setTimeout(() => onLoadingComplete(), 100);
+    }, 500);
 
-    const scheduleUpdate = () => {
-      animationFrame = requestAnimationFrame(() => {
-        updateProgress();
-        if (progress < 100) {
-          setTimeout(scheduleUpdate, 80);
-        }
-      });
-    };
-
-    scheduleUpdate();
-    return () => cancelAnimationFrame(animationFrame);
-  }, [onLoadingComplete, progress]);
+    return () => clearTimeout(timer);
+  }, [onLoadingComplete]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-background via-background/95 to-muted/20">

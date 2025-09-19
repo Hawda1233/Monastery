@@ -55,7 +55,7 @@ const Index = () => {
       name: "Rumtek Monastery",
       location: "East Sikkim",
       description: "The largest monastery in Sikkim and seat of the Karmapa",
-      image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=600&fit=crop",
+      image: pemayangtseMonastery,
       features: ["360° Tour", "Audio Guide", "Historical Archives"]
     },
     {
@@ -69,7 +69,7 @@ const Index = () => {
       name: "Enchey Monastery",
       location: "Gangtok",
       description: "Beautiful monastery with stunning views of Kanchenjunga",
-      image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800&h=600&fit=crop",
+      image: pemayangtseMonastery,
       features: ["360° Experience", "Digital Archive", "Cultural Events"]
     }
   ];
@@ -163,10 +163,12 @@ const Index = () => {
             {featuredMonasteries.map((monastery, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="aspect-video relative overflow-hidden">
-                  <img 
+                   <img 
                     src={monastery.image} 
                     alt={monastery.name}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute top-4 right-4">
                     <Badge className="bg-background/80 text-foreground border">
