@@ -70,7 +70,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-sm text-muted-foreground">
-            © 2024 Monastery360. A Government of Sikkim Initiative. All rights reserved.
+            © 2025 Monastery360. A Government of Sikkim Initiative. All rights reserved.
           </p>
           <div className="flex space-x-6 text-sm">
             <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">

@@ -84,19 +84,19 @@ const Index = () => {
     {
       title: "Losar Festival",
       monastery: "Rumtek Monastery",
-      date: "Feb 15, 2024",
+      date: "Feb 15, 2025",
       type: "Cultural Festival"
     },
     {
       title: "Meditation Retreat",
       monastery: "Pemayangtse",
-      date: "Mar 2, 2024", 
+      date: "Mar 2, 2025", 
       type: "Spiritual Event"
     },
     {
       title: "Heritage Walk",
       monastery: "Enchey Monastery",
-      date: "Mar 10, 2024",
+      date: "Mar 10, 2025",
       type: "Educational Tour"
     }
   ];
