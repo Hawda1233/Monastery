@@ -12,6 +12,14 @@ import losarFestival from "@/assets/losar-festival.png";
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
 
+  const calculateDaysToGo = (eventDate: string) => {
+    const today = new Date();
+    const event = new Date(eventDate);
+    const diffTime = event.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? diffDays : 0;
+  };
+
   const events = [
     {
       id: 1,
@@ -262,6 +270,11 @@ const Events = () => {
                       <Users className="h-4 w-4" />
                       {event.participants}
                     </span>
+                    {calculateDaysToGo(event.date) > 0 && (
+                      <span className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                        {calculateDaysToGo(event.date)} days to go
+                      </span>
+                    )}
                   </div>
                   <p className="text-muted-foreground mb-4">{event.description}</p>
                   <div className="flex gap-2">
@@ -313,6 +326,11 @@ const Events = () => {
                     <div className="flex items-center gap-2">
                       <CalendarIcon className="h-4 w-4" />
                       {new Date(event.date).toLocaleDateString()}
+                      {calculateDaysToGo(event.date) > 0 && (
+                        <span className="ml-2 px-2 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                          {calculateDaysToGo(event.date)} days to go
+                        </span>
+                      )}
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4" />
