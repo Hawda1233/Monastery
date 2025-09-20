@@ -3,8 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { MessageCircle, Send, X, Settings } from 'lucide-react';
+import { MessageCircle, Send, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Message {
   id: string;
@@ -18,17 +19,8 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState('');
-  const [showSettings, setShowSettings] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Load API key from localStorage
-    const savedApiKey = localStorage.getItem('monastery360_openai_key');
-    if (savedApiKey) {
-      setApiKey(savedApiKey);
-    }
-  }, []);
 
   useEffect(() => {
     // Auto-scroll to bottom when new messages are added
@@ -37,14 +29,9 @@ const ChatBot = () => {
     }
   }, [messages]);
 
-  const saveApiKey = (key: string) => {
-    localStorage.setItem('monastery360_openai_key', key);
-    setApiKey(key);
-    setShowSettings(false);
-  };
 
   const sendMessage = async () => {
-    if (!input.trim() || !apiKey) return;
+    if (!input.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -54,38 +41,29 @@ const ChatBot = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
+      const { data, error } = await supabase.functions.invoke('chat', {
+        body: {
           messages: [
-            {
-              role: 'system',
-              content: 'You are a knowledgeable guide for Monastery 360, a digital heritage platform for Sikkim\'s monasteries. Help visitors learn about Buddhist monasteries, their history, architecture, festivals, and cultural significance. Be informative, respectful, and engaging.'
-            },
             ...messages.map(msg => ({
               role: msg.role,
               content: msg.content
             })),
             {
               role: 'user',
-              content: input
+              content: currentInput
             }
-          ],
-          max_tokens: 500,
-          temperature: 0.7,
-        }),
+          ]
+        }
       });
 
-      const data = await response.json();
+      if (error) {
+        throw error;
+      }
 
       if (data.choices && data.choices[0]) {
         const assistantMessage: Message = {
@@ -100,7 +78,7 @@ const ChatBot = () => {
       console.error('Error sending message:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: 'Sorry, I encountered an error. Please check your API key and try again.',
+        content: 'Sorry, I encountered an error. Please try again.',
         role: 'assistant',
         timestamp: new Date()
       };
@@ -133,61 +111,18 @@ const ChatBot = () => {
     <Card className="fixed bottom-4 right-4 w-80 h-96 shadow-xl z-50 flex flex-col">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">Monastery Guide</CardTitle>
-        <div className="flex space-x-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-6 w-6"
-            onClick={() => setShowSettings(!showSettings)}
-          >
-            <Settings className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-6 w-6"
-            onClick={() => setIsOpen(false)}
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-6 w-6"
+          onClick={() => setIsOpen(false)}
+        >
+          <X className="h-4 w-4" />
+        </Button>
       </CardHeader>
 
-      {showSettings && (
-        <CardContent className="pb-2">
-          <div className="space-y-2">
-            <label className="text-xs font-medium">OpenAI API Key</label>
-            <div className="flex space-x-2">
-              <Input
-                type="password"
-                placeholder="sk-..."
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                className="text-xs"
-              />
-              <Button
-                size="sm"
-                onClick={() => saveApiKey(apiKey)}
-                disabled={!apiKey.trim()}
-              >
-                Save
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      )}
-
       <CardContent className="flex-1 flex flex-col space-y-2 p-3">
-        {!apiKey ? (
-          <div className="flex-1 flex items-center justify-center text-center text-sm text-muted-foreground">
-            <div>
-              <p>Please add your OpenAI API key</p>
-              <p>Click the settings icon above</p>
-            </div>
-          </div>
-        ) : (
-          <>
-            <ScrollArea className="flex-1 space-y-2" ref={scrollAreaRef}>
+        <ScrollArea className="flex-1 space-y-2" ref={scrollAreaRef}>
               {messages.length === 0 ? (
                 <div className="text-center text-sm text-muted-foreground mt-8">
                   <p>Ask me anything about Sikkim's monasteries!</p>
@@ -238,8 +173,6 @@ const ChatBot = () => {
                 <Send className="h-3 w-3" />
               </Button>
             </div>
-          </>
-        )}
       </CardContent>
     </Card>
   );
