@@ -35,7 +35,7 @@ const VideoHero = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-screen h-screen overflow-hidden" style={{ width: '100vw', height: '100vh' }}>
+    <section ref={sectionRef} className="fixed top-0 left-0 w-screen h-screen overflow-hidden z-0" style={{ width: '100vw', height: '100vh' }}>
       {/* Background Image Fallback */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
