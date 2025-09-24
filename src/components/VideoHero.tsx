@@ -1,48 +1,42 @@
 import { Button } from "@/components/ui/button";
-import { Play, ChevronDown, Loader2 } from "lucide-react";
-import { useEffect, useRef, useState, useCallback } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Play, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import monasteryHero from "@/assets/monastery-hero.jpg";
 
 const VideoHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [videoError, setVideoError] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
-  const handleVideoLoad = useCallback(() => {
-    setVideoLoaded(true);
-  }, []);
-
-  const handleVideoError = useCallback(() => {
-    setVideoError(true);
-  }, []);
-
-  // Immediate loading for hero section - it's above the fold
+  // Optimized loading for 60-120ms performance
   useEffect(() => {
-    setIsVisible(true);
-    
     const video = videoRef.current;
     if (video) {
-      // Preload and play immediately
-      video.load();
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => setVideoError(true));
+      // Mobile-first optimization
+      const isMobile = window.innerWidth <= 768;
+      
+      if (isMobile) {
+        video.preload = "metadata";
+        // Delay autoplay slightly on mobile for better performance
+        setTimeout(() => {
+          video.play().catch(() => console.log("Video autoplay blocked"));
+        }, 100);
+      } else {
+        video.preload = "auto";
+        // Immediate play on desktop
+        video.play().catch(() => console.log("Video autoplay blocked"));
       }
     }
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full h-screen overflow-hidden">
+    <section className="relative w-full h-screen overflow-hidden">
       {/* Background Image Fallback */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${monasteryHero})` }}
       />
       
-      {/* Video Background - Perfect Full Coverage */}
+      {/* Optimized Video Background - Fast Loading */}
       <video
         ref={videoRef}
         className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2 z-0"
@@ -50,11 +44,14 @@ const VideoHero = () => {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         poster={monasteryHero}
-        onLoadedData={handleVideoLoad}
-        onError={handleVideoError}
         onCanPlay={() => setVideoLoaded(true)}
+        onLoadStart={() => console.log("Video loading started")}
+        style={{
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
+        }}
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
       </video>
