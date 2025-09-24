@@ -45,7 +45,7 @@ const VideoHero = () => {
       {/* Video Background - Perfect Full Coverage */}
       <video
         ref={videoRef}
-        className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2 -z-10"
+        className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2 z-0"
         autoPlay
         muted
         loop
@@ -60,10 +60,10 @@ const VideoHero = () => {
       </video>
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-overlay" />
+      <div className="absolute inset-0 bg-gradient-overlay z-1" />
       
       {/* Subtle Pattern Overlay */}
-      <div className="absolute inset-0 bg-gradient-hero" />
+      <div className="absolute inset-0 bg-gradient-hero z-1" />
 
       {/* Hero Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4 sm:px-6 lg:px-8">
