@@ -35,7 +35,7 @@ const VideoHero = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-screen h-screen overflow-hidden" style={{ width: '100vw', height: '100vh' }}>
+    <section ref={sectionRef} className="relative w-full h-screen overflow-hidden">
       {/* Background Image Fallback */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -43,23 +43,21 @@ const VideoHero = () => {
       />
       
       {/* Video Background - Perfect Full Coverage */}
-      <div className="absolute inset-0 w-full h-full">
-        <video
-          ref={videoRef}
-          className="w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={monasteryHero}
-          onLoadedData={handleVideoLoad}
-          onError={handleVideoError}
-          onCanPlay={() => setVideoLoaded(true)}
-        >
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
-        </video>
-      </div>
+      <video
+        ref={videoRef}
+        className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2 -z-10"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={monasteryHero}
+        onLoadedData={handleVideoLoad}
+        onError={handleVideoError}
+        onCanPlay={() => setVideoLoaded(true)}
+      >
+        <source src="/videos/hero-video.mp4" type="video/mp4" />
+      </video>
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-overlay" />
@@ -68,7 +66,7 @@ const VideoHero = () => {
       <div className="absolute inset-0 bg-gradient-hero" />
 
       {/* Hero Content */}
-      <div className="relative z-10 flex h-full items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Title */}
           <h1 className="mb-6 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight animate-fade-in-up">
