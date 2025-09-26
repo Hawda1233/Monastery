@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Users, Target, Eye, Heart, Award, ExternalLink, Calendar, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackButton from "@/components/BackButton";
 
 const About = () => {
   const teamMembers = [
@@ -76,6 +77,12 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      
+      <div className="pt-20 pb-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <BackButton />
+        </div>
+      </div>
       
       {/* Hero Section */}
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">

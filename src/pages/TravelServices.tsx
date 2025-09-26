@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Car, MapPin, Hotel, Package, Star, Clock, Users, Phone, Calendar, Route } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackButton from "@/components/BackButton";
 
 const TravelServices = () => {
   const [selectedDuration, setSelectedDuration] = useState("all");
@@ -130,6 +131,12 @@ const TravelServices = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      
+      <div className="pt-20 pb-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <BackButton />
+        </div>
+      </div>
       
       {/* Hero Section */}
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">

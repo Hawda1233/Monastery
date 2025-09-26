@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Smartphone, Download, MapPin, Volume2, Wifi, Languages, Star, Play, Headphones, Bluetooth } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackButton from "@/components/BackButton";
 import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
 
@@ -84,6 +85,12 @@ const AudioGuide = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      
+      <div className="pt-20 pb-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <BackButton />
+        </div>
+      </div>
       
       {/* Hero Section */}
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">

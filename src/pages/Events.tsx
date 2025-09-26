@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar as CalendarIcon, MapPin, Clock, Users, Camera, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackButton from "@/components/BackButton";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
 import sonamLhosarFestival from "@/assets/sonam-lhosar-festival.png";
 import losarFestival from "@/assets/losar-festival.png";
@@ -211,6 +212,12 @@ const Events = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      
+      <div className="pt-20 pb-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <BackButton />
+        </div>
+      </div>
       
       {/* Hero Section */}
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">

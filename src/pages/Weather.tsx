@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackButton from "@/components/BackButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -90,6 +91,12 @@ const Weather = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      
+      <div className="pt-20 pb-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <BackButton />
+        </div>
+      </div>
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-b from-primary/10 to-background">
