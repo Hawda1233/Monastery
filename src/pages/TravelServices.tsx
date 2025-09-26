@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
 import sikkimTourismBus from "@/assets/sikkim-tourism-bus.png";
 import sikkimMountainCabs from "@/assets/sikkim-mountain-cabs.png";
+import himalayanRidesBike from "@/assets/himalayan-rides-bike.png";
 
 const TravelServices = () => {
   const [selectedDuration, setSelectedDuration] = useState("all");
@@ -51,7 +52,7 @@ const TravelServices = () => {
       features: ["Helmets included", "GPS navigation", "24/7 support"],
       rating: 4.6,
       contact: "+91 98765 43212",
-      image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300"
+      image: himalayanRidesBike
     }
   ];
 
