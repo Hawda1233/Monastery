@@ -1,44 +1,91 @@
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CloudSun, Cloud, Sun, CloudRain, Snowflake, Wind, Droplets, Eye, Thermometer, MapPin, Calendar, AlertTriangle } from "lucide-react";
+import { CloudSun, Cloud, Sun, CloudRain, Snowflake, Wind, Droplets, Eye, Thermometer, MapPin, Calendar, AlertTriangle, Loader2 } from "lucide-react";
+import { fetchWeatherData, fetchForecastData, monasteries, getWindDirection, type WeatherData, type ForecastData } from "@/lib/weatherApi";
+import { useToast } from "@/hooks/use-toast";
 
 const Weather = () => {
-  const currentWeather = {
-    location: "Gangtok",
-    temperature: 18,
-    condition: "Partly Cloudy",
-    feelsLike: 16,
-    humidity: 75,
-    visibility: 8,
-    windSpeed: 12,
-    windDirection: "NW",
-    pressure: 1013,
-    uvIndex: 4,
-    icon: CloudSun
+  const { toast } = useToast();
+  const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(null);
+  const [forecast, setForecast] = useState<ForecastData[]>([]);
+  const [monasteryWeather, setMonasteryWeather] = useState<(WeatherData & { elevation: string })[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadWeatherData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Fetch weather for all monasteries
+        const weatherPromises = monasteries.map(async (monastery) => {
+          const weatherData = await fetchWeatherData(monastery.lat, monastery.lon);
+          return {
+            ...weatherData,
+            name: monastery.name,
+            elevation: monastery.elevation
+          };
+        });
+        
+        const allWeatherData = await Promise.all(weatherPromises);
+        setMonasteryWeather(allWeatherData);
+        
+        // Set the first monastery as the main current weather
+        if (allWeatherData.length > 0) {
+          setCurrentWeather(allWeatherData[0]);
+        }
+        
+        // Fetch forecast for the first monastery
+        const forecastData = await fetchForecastData(monasteries[0].lat, monasteries[0].lon);
+        setForecast(forecastData);
+        
+      } catch (error) {
+        console.error('Error loading weather data:', error);
+        toast({
+          title: "Weather data unavailable",
+          description: "Unable to load current weather information. Please try again later.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadWeatherData();
+  }, [toast]);
+
+  const getWeatherIcon = (condition: string, iconCode?: string) => {
+    const conditionLower = condition.toLowerCase();
+    if (conditionLower.includes('clear') || conditionLower.includes('sun')) return Sun;
+    if (conditionLower.includes('cloud')) return condition.includes('partly') ? CloudSun : Cloud;
+    if (conditionLower.includes('rain') || conditionLower.includes('drizzle')) return CloudRain;
+    if (conditionLower.includes('snow')) return Snowflake;
+    return CloudSun;
   };
 
-  const forecast = [
-    { day: "Today", high: 20, low: 12, condition: "Partly Cloudy", icon: CloudSun, precipitation: 10 },
-    { day: "Tomorrow", high: 22, low: 14, condition: "Sunny", icon: Sun, precipitation: 0 },
-    { day: "Wednesday", high: 19, low: 11, condition: "Cloudy", icon: Cloud, precipitation: 20 },
-    { day: "Thursday", high: 17, low: 9, condition: "Light Rain", icon: CloudRain, precipitation: 70 },
-    { day: "Friday", high: 16, low: 8, condition: "Heavy Rain", icon: CloudRain, precipitation: 90 },
-    { day: "Saturday", high: 18, low: 10, condition: "Partly Cloudy", icon: CloudSun, precipitation: 30 },
-    { day: "Sunday", high: 21, low: 13, condition: "Sunny", icon: Sun, precipitation: 5 }
-  ];
-
-  const locations = [
-    { name: "Gangtok", temp: 18, condition: "Partly Cloudy", icon: CloudSun, elevation: "1,650m" },
-    { name: "Pelling", temp: 15, condition: "Cloudy", icon: Cloud, elevation: "2,150m" },
-    { name: "Yuksom", temp: 14, condition: "Light Rain", icon: CloudRain, elevation: "1,780m" },
-    { name: "Lachen", temp: 8, condition: "Snow", icon: Snowflake, elevation: "2,750m" },
-    { name: "Ravangla", temp: 16, condition: "Sunny", icon: Sun, elevation: "1,800m" },
-    { name: "Namchi", temp: 19, condition: "Partly Cloudy", icon: CloudSun, elevation: "1,315m" }
-  ];
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="pt-20 pb-4 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <BackButton />
+          </div>
+        </div>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+            <p className="text-muted-foreground">Loading weather data...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   const travelTips = [
     {
@@ -138,35 +185,35 @@ const Weather = () => {
                   <div>
                     <h3 className="text-3xl font-bold flex items-center gap-3">
                       <MapPin className="h-6 w-6 text-primary" />
-                      {currentWeather.location}
+                      {currentWeather?.name || 'Loading...'}
                     </h3>
-                    <p className="text-muted-foreground">{currentWeather.condition}</p>
+                    <p className="text-muted-foreground">{currentWeather?.condition}</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-6xl font-bold text-primary">{currentWeather.temperature}°C</div>
-                    <div className="text-muted-foreground">Feels like {currentWeather.feelsLike}°C</div>
+                    <div className="text-6xl font-bold text-primary">{currentWeather?.temperature}°C</div>
+                    <div className="text-muted-foreground">Feels like {currentWeather?.feelsLike}°C</div>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   <div className="text-center">
                     <Droplets className="h-6 w-6 text-blue-500 mx-auto mb-2" />
-                    <div className="font-semibold">{currentWeather.humidity}%</div>
+                    <div className="font-semibold">{currentWeather?.humidity}%</div>
                     <div className="text-sm text-muted-foreground">Humidity</div>
                   </div>
                   <div className="text-center">
                     <Eye className="h-6 w-6 text-green-500 mx-auto mb-2" />
-                    <div className="font-semibold">{currentWeather.visibility} km</div>
+                    <div className="font-semibold">{currentWeather?.visibility} km</div>
                     <div className="text-sm text-muted-foreground">Visibility</div>
                   </div>
                   <div className="text-center">
                     <Wind className="h-6 w-6 text-gray-500 mx-auto mb-2" />
-                    <div className="font-semibold">{currentWeather.windSpeed} km/h</div>
-                    <div className="text-sm text-muted-foreground">Wind {currentWeather.windDirection}</div>
+                    <div className="font-semibold">{currentWeather?.windSpeed} km/h</div>
+                    <div className="text-sm text-muted-foreground">Wind {getWindDirection(currentWeather?.windDirection || 0)}</div>
                   </div>
                   <div className="text-center">
                     <Thermometer className="h-6 w-6 text-red-500 mx-auto mb-2" />
-                    <div className="font-semibold">{currentWeather.pressure} mb</div>
+                    <div className="font-semibold">{currentWeather?.pressure} mb</div>
                     <div className="text-sm text-muted-foreground">Pressure</div>
                   </div>
                 </div>
@@ -215,7 +262,7 @@ const Weather = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
             {forecast.map((day, index) => {
-              const IconComponent = day.icon;
+              const IconComponent = getWeatherIcon(day.condition, day.icon);
               return (
                 <Card key={index} className="text-center p-4 hover:shadow-lg transition-shadow">
                   <div className="font-medium mb-2">{day.day}</div>
@@ -242,8 +289,8 @@ const Weather = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {locations.map((location, index) => {
-              const IconComponent = location.icon;
+            {monasteryWeather.map((location, index) => {
+              const IconComponent = getWeatherIcon(location.condition, location.icon);
               return (
                 <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
                   <div className="flex items-center justify-between mb-4">
@@ -254,7 +301,7 @@ const Weather = () => {
                     <IconComponent className="h-8 w-8 text-primary" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="text-2xl font-bold text-primary">{location.temp}°C</div>
+                    <div className="text-2xl font-bold text-primary">{location.temperature}°C</div>
                     <div className="text-sm text-muted-foreground">{location.condition}</div>
                   </div>
                 </Card>
