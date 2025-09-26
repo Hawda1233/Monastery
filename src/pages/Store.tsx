@@ -35,6 +35,9 @@ import lepchaTextile from "@/assets/lepcha-textile.png";
 import traditionalEarrings from "@/assets/traditional-earrings.png";
 import panchiNecklace from "@/assets/panchi-necklace.png";
 import sonsOfSikkimBook from "@/assets/sons-of-sikkim-book.png";
+import redSoilBowls from "@/assets/red-soil-bowls.png";
+import bambooBottle1 from "@/assets/bamboo-bottle-1.png";
+import bambooBottle2 from "@/assets/bamboo-bottle-2.png";
 
 const Store = () => {
   const [cart, setCart] = useState([]);
@@ -45,8 +48,8 @@ const Store = () => {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const categories = [
-    { id: "all", name: "All Products", count: 24 },
-    { id: "handicrafts", name: "Handicrafts", count: 8 },
+    { id: "all", name: "All Products", count: 27 },
+    { id: "handicrafts", name: "Handicrafts", count: 4 },
     { id: "prayer-items", name: "Prayer Items", count: 5 },
     { id: "textiles", name: "Traditional Textiles", count: 5 },
     { id: "jewelry", name: "Jewelry", count: 4 },
@@ -165,6 +168,54 @@ const Store = () => {
       inStock: true,
       bestseller: true,
       discount: 22
+    },
+    {
+      id: 8,
+      name: "Natural Red Soil Bowls Set",
+      category: "handicrafts",
+      price: 1199,
+      originalPrice: 1499,
+      image: redSoilBowls,
+      rating: 4.8,
+      reviews: 14,
+      description: "Set of 6 handcrafted bowls made from natural red soil with vibrant colors",
+      artisan: "Local Pottery Collective",
+      location: "Sikkim",
+      inStock: true,
+      bestseller: false,
+      discount: 20
+    },
+    {
+      id: 9,
+      name: "Traditional Bamboo Bottle",
+      category: "handicrafts",
+      price: 499,
+      originalPrice: 649,
+      image: bambooBottle1,
+      rating: 4.6,
+      reviews: 19,
+      description: "Eco-friendly bamboo water bottle with traditional craftsmanship",
+      artisan: "Bamboo Craft Artisans",
+      location: "Sikkim",
+      inStock: true,
+      bestseller: false,
+      discount: 23
+    },
+    {
+      id: 10,
+      name: "Premium Bamboo Bottle",
+      category: "handicrafts",
+      price: 619,
+      originalPrice: 799,
+      image: bambooBottle2,
+      rating: 4.7,
+      reviews: 12,
+      description: "Premium bamboo bottle with elegant design and superior finish",
+      artisan: "Eco Craft Masters",
+      location: "Sikkim",
+      inStock: true,
+      bestseller: false,
+      discount: 23
     }
   ];
 
