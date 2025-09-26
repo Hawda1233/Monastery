@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Camera, Map, Filter, Search, MapPin, Clock, Star, Eye } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import VirtualTour360 from "@/components/VirtualTour360";
 import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
 import encheyMonastery from "@/assets/enchey-monastery.png";
@@ -29,7 +30,8 @@ const ExploreMonasteries = () => {
       image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=400",
       virtualTourAvailable: true,
       rating: 4.8,
-      visitors: "2.3k"
+      visitors: "2.3k",
+      embedUrl: "https://www.google.com/maps/embed?pb=!4v1758915441458!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzY5ZTcxVWc.!2m2!1d27.28854528167496!2d88.56161848386864!3f189.4675483102609!4f-20.828459595355156!5f0.40000062082007154"
     },
     {
       id: 2,
@@ -42,7 +44,8 @@ const ExploreMonasteries = () => {
       image: pemayangtseMonastery,
       virtualTourAvailable: true,
       rating: 4.6,
-      visitors: "1.8k"
+      visitors: "1.8k",
+      embedUrl: "https://www.google.com/maps/embed?pb=!4v1234567890123!6m8!1m7!1sCAoSLEFGMVFpcE5XTGVjc2xOM2JKSldOWXNPSEZoTkhKN2FMckNzZnBGZjlQcE9k!2m2!1d27.212156!2d88.212156!3f0!4f0!5f0.7820865974627469"
     },
     {
       id: 3,
@@ -55,7 +58,8 @@ const ExploreMonasteries = () => {
       image: tashidingMonastery,
       virtualTourAvailable: false,
       rating: 4.7,
-      visitors: "1.5k"
+      visitors: "1.5k",
+      embedUrl: ""
     },
     {
       id: 4,
@@ -68,7 +72,8 @@ const ExploreMonasteries = () => {
       image: encheyMonastery,
       virtualTourAvailable: true,
       rating: 4.5,
-      visitors: "1.2k"
+      visitors: "1.2k",
+      embedUrl: "https://www.google.com/maps/embed?pb=!4v1234567890456!6m8!1m7!1sCAoSLEFGMVFpcE9NbHM2eWh3SmpycTlQUVZsZDFodGM2NlN6VEJpaTNsVklIOWVl!2m2!1d27.338!2d88.613!3f0!4f0!5f0.7820865974627469"
     }
   ];
 
@@ -216,11 +221,16 @@ const ExploreMonasteries = () => {
                     <CardContent>
                       <p className="text-muted-foreground mb-4">{monastery.description}</p>
                       <div className="flex gap-2">
-                        {monastery.virtualTourAvailable ? (
-                          <Button className="flex-1 group">
-                            <Camera className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
-                            Virtual Tour
-                          </Button>
+                        {monastery.virtualTourAvailable && monastery.embedUrl ? (
+                          <VirtualTour360 
+                            monasteryName={monastery.name}
+                            embedUrl={monastery.embedUrl}
+                          >
+                            <Button className="flex-1 group">
+                              <Camera className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                              Virtual Tour
+                            </Button>
+                          </VirtualTour360>
                         ) : (
                           <Button variant="secondary" className="flex-1">
                             <Eye className="h-4 w-4 mr-2" />
@@ -255,8 +265,22 @@ const ExploreMonasteries = () => {
                   through our cutting-edge virtual reality tours.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                  {monasteries.filter(m => m.virtualTourAvailable).map((monastery) => (
+                  {monasteries.filter(m => m.virtualTourAvailable && m.embedUrl).map((monastery) => (
                     <Card key={monastery.id} className="text-left hover:shadow-xl transition-all duration-300">
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={monastery.image}
+                          alt={monastery.name}
+                          className="w-full h-32 object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute top-2 left-2">
+                          <Badge className="bg-primary/80 backdrop-blur-sm">
+                            <Camera className="h-3 w-3 mr-1" />
+                            360° Live
+                          </Badge>
+                        </div>
+                      </div>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <Camera className="h-5 w-5 text-primary" />
@@ -265,10 +289,15 @@ const ExploreMonasteries = () => {
                         <CardDescription>{monastery.description}</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <Button className="w-full group">
-                          <Camera className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
-                          Start Virtual Tour
-                        </Button>
+                        <VirtualTour360 
+                          monasteryName={monastery.name}
+                          embedUrl={monastery.embedUrl}
+                        >
+                          <Button className="w-full group">
+                            <Camera className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                            Start Virtual Tour
+                          </Button>
+                        </VirtualTour360>
                       </CardContent>
                     </Card>
                   ))}
