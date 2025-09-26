@@ -75,11 +75,11 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 p-2 lg:p-4">
       {/* Glassmorphic Capsule Container */}
       <div
-        className={`mx-auto max-w-7xl transition-all duration-700 ease-out ${
+        className={`mx-auto max-w-[90rem] transition-all duration-700 ease-out ${
           isScrolled
             ? "bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5"
             : "bg-white/5 backdrop-blur-md border border-white/5 shadow-xl shadow-black/10"
-        } rounded-full px-3 lg:px-6`}
+        } rounded-full px-4 lg:px-8`}
       >
         <div className="flex items-center justify-between h-12 lg:h-14 w-full">
           {/* Logo */}
