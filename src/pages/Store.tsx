@@ -32,6 +32,8 @@ import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
 import prayerAltar from "@/assets/prayer-altar.png";
 import lepchaTextile from "@/assets/lepcha-textile.png";
+import traditionalEarrings from "@/assets/traditional-earrings.png";
+import panchiNecklace from "@/assets/panchi-necklace.png";
 
 const Store = () => {
   const [cart, setCart] = useState([]);
@@ -42,11 +44,11 @@ const Store = () => {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const categories = [
-    { id: "all", name: "All Products", count: 23 },
+    { id: "all", name: "All Products", count: 24 },
     { id: "handicrafts", name: "Handicrafts", count: 8 },
     { id: "prayer-items", name: "Prayer Items", count: 5 },
     { id: "textiles", name: "Traditional Textiles", count: 5 },
-    { id: "jewelry", name: "Jewelry", count: 3 },
+    { id: "jewelry", name: "Jewelry", count: 4 },
     { id: "books", name: "Books & Manuscripts", count: 2 }
   ];
 
@@ -117,22 +119,38 @@ const Store = () => {
     },
     {
       id: 5,
-      name: "Turquoise Jewelry Set",
+      name: "Traditional Gold Earrings",
       category: "jewelry",
-      price: 4500,
-      originalPrice: 5200,
-      image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400",
-      rating: 4.9,
-      reviews: 12,
-      description: "Authentic Tibetan turquoise necklace and earrings",
-      artisan: "Dolma Lhamu",
+      price: 199,
+      originalPrice: 299,
+      image: traditionalEarrings,
+      rating: 4.7,
+      reviews: 18,
+      description: "Beautiful traditional gold-plated earrings with colorful gemstones",
+      artisan: "Local Jewelry Artisan",
       location: "Gangtok",
-      inStock: false,
-      bestseller: false,
-      discount: 13
+      inStock: true,
+      bestseller: true,
+      discount: 33
     },
     {
       id: 6,
+      name: "Panchi Traditional Necklace",
+      category: "jewelry",
+      price: 399,
+      originalPrice: 499,
+      image: panchiNecklace,
+      rating: 4.8,
+      reviews: 15,
+      description: "Authentic Panchi necklace with traditional beadwork and pendant",
+      artisan: "Traditional Jewelry Collective",
+      location: "Sikkim",
+      inStock: true,
+      bestseller: false,
+      discount: 20
+    },
+    {
+      id: 7,
       name: "Buddhist Scripture Book",
       category: "books",
       price: 800,
