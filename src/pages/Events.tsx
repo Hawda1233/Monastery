@@ -527,13 +527,10 @@ const Events = () => {
             Subscribe to our cultural calendar and get notifications about upcoming festivals, 
             retreats, and special ceremonies at Sikkim's monasteries.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <Button className="flex-1">
+          <div className="flex justify-center">
+            <Button>
               <CalendarIcon className="h-4 w-4 mr-2" />
               Subscribe to Calendar
-            </Button>
-            <Button variant="outline" className="flex-1">
-              Download App
             </Button>
           </div>
         </div>
