@@ -74,7 +74,7 @@ const VideoHero = () => {
               Experience Peace
             </span>
             <br />
-            <span className="text-foreground">· Explore Heritage</span>
+            <span className="text-foreground">Explore Heritage</span>
           </h1>
 
           {/* Subtitle */}
