@@ -47,13 +47,18 @@ const Store = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
+  const getCategoryCount = (categoryId: string) => {
+    if (categoryId === "all") return products.length;
+    return products.filter(product => product.category === categoryId).length;
+  };
+
   const categories = [
-    { id: "all", name: "All Products", count: 27 },
-    { id: "handicrafts", name: "Handicrafts", count: 4 },
-    { id: "prayer-items", name: "Prayer Items", count: 5 },
-    { id: "textiles", name: "Traditional Textiles", count: 5 },
-    { id: "jewelry", name: "Jewelry", count: 4 },
-    { id: "books", name: "Books", count: 2 }
+    { id: "all", name: "All Products", count: getCategoryCount("all") },
+    { id: "handicrafts", name: "Handicrafts", count: getCategoryCount("handicrafts") },
+    { id: "prayer-items", name: "Prayer Items", count: getCategoryCount("prayer-items") },
+    { id: "textiles", name: "Traditional Textiles", count: getCategoryCount("textiles") },
+    { id: "jewelry", name: "Jewelry", count: getCategoryCount("jewelry") },
+    { id: "books", name: "Books", count: getCategoryCount("books") }
   ];
 
   const products = [
