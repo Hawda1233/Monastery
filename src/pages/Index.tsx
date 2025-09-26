@@ -23,6 +23,9 @@ import {
 } from "lucide-react";
 import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 import encheyMonastery from "@/assets/enchey-monastery.png";
+import pawanChamling from "@/assets/pawan-chamling.png";
+import drKarmaGyatso from "@/assets/dr-karma-gyatso.png";
+import tenzinLepcha from "@/assets/tenzin-lepcha.png";
 
 const Index = () => {
   const features = [
@@ -81,19 +84,19 @@ const Index = () => {
       name: "Pawan Chamling",
       title: "Former Chief Minister of Sikkim",
       opinion: "This digital initiative beautifully preserves our sacred heritage for future generations.",
-      image: "/api/placeholder/150/150"
+      image: pawanChamling
     },
     {
       name: "Dr. Karma Gyatso",
       title: "Buddhist Scholar & Author",
       opinion: "A remarkable fusion of spirituality and technology that makes our monasteries accessible worldwide.",
-      image: "/api/placeholder/150/150"
+      image: drKarmaGyatso
     },
     {
       name: "Tenzin Lepcha",
       title: "Cultural Ambassador",
       opinion: "This platform helps share the profound wisdom and beauty of Sikkim's monastic traditions globally.",
-      image: "/api/placeholder/150/150"
+      image: tenzinLepcha
     }
   ];
 
