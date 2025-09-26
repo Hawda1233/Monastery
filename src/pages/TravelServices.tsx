@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
 import sikkimTourismBus from "@/assets/sikkim-tourism-bus.png";
+import sikkimMountainCabs from "@/assets/sikkim-mountain-cabs.png";
 
 const TravelServices = () => {
   const [selectedDuration, setSelectedDuration] = useState("all");
@@ -26,7 +27,7 @@ const TravelServices = () => {
       features: ["English-speaking driver", "AC vehicle", "Flexible timing"],
       rating: 4.8,
       contact: "+91 98765 43210",
-      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300"
+      image: sikkimMountainCabs
     },
     {
       id: 2,
