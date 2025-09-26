@@ -108,41 +108,39 @@ const TravelServices = () => {
   const tourPackages = [
     {
       id: 1,
-      name: "Sacred Monastery Circuit",
-      duration: "5 days",
-      price: "₹18,500",
-      group: "8-12 people",
-      monasteries: ["Rumtek", "Pemayangtse", "Tashiding", "Enchey"],
-      includes: ["Transport", "Accommodation", "Meals", "Guide"],
-      highlights: ["Special prayer sessions", "Meet monks", "Cultural performances"],
+      name: "North East Retreat - Book Now Pay Later",
+      duration: "4N/5D",
+      price: "₹21,273",
+      totalPrice: "₹42,546",
+      emiPrice: "₹6,612",
+      group: "2 people",
+      destinations: ["2N Gangtok", "2N Darjeeling"],
+      hotelType: "4 Star, 3 Star Hotels",
+      includes: ["Airport Pickup & Drop", "4 Activities", "Selected Meals"],
+      highlights: [
+        "Complimentary 1 Lunch or refreshment on Day 1",
+        "Visit to Changu Lake, New Baba Mandir, Do Drul Chorten Stupa", 
+        "Visit to cottage industry, Flower Exhibition Centre, Enchey Monastery"
+      ],
       difficulty: "Easy",
-      image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300"
-    },
-    {
-      id: 2,
-      name: "Spiritual Retreat Journey",
-      duration: "7 days",
-      price: "₹25,000",
-      group: "6-10 people",
-      monasteries: ["Rumtek", "Pemayangtse", "Tashiding"],
-      includes: ["Luxury stay", "Meditation sessions", "Organic meals", "Personal guide"],
-      highlights: ["Silent retreat", "Sunrise meditation", "Cooking classes"],
-      difficulty: "Moderate",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300"
-    },
-    {
-      id: 3,
-      name: "Adventure Monastery Trek",
-      duration: "10 days",
-      price: "₹35,000",
-      group: "4-8 people",
-      monasteries: ["Remote mountain monasteries", "Hidden caves", "Ancient sites"],
-      includes: ["Trekking gear", "Camping", "Local cuisine", "Expert guide"],
-      highlights: ["High altitude monasteries", "Camping under stars", "Local village stays"],
-      difficulty: "Challenging",
-      image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=300"
+      image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300",
+      guides: [
+        { name: "Pema Bhutia", experience: "8 years", specialty: "Buddhist Culture", phone: "+91 94341 12345" },
+        { name: "Tenzin Norbu", experience: "12 years", specialty: "Mountain Heritage", phone: "+91 94341 12346" },
+        { name: "Karma Lepcha", experience: "6 years", specialty: "Local History", phone: "+91 94341 12347" }
+      ]
     }
   ];
+
+  const [selectedGuide, setSelectedGuide] = useState(null);
+  const [bookingStep, setBookingStep] = useState(1);
+  const [bookingDetails, setBookingDetails] = useState({
+    travelers: 2,
+    travelDate: '',
+    contactName: '',
+    contactPhone: '',
+    contactEmail: ''
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -175,10 +173,9 @@ const TravelServices = () => {
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-7xl mx-auto">
           <Tabs defaultValue="packages" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
+            <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="packages">Tour Packages</TabsTrigger>
               <TabsTrigger value="transport">Transport</TabsTrigger>
-              <TabsTrigger value="accommodation">Stay</TabsTrigger>
               <TabsTrigger value="planner">Trip Planner</TabsTrigger>
             </TabsList>
 
@@ -192,83 +189,239 @@ const TravelServices = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {tourPackages.map((pkg) => (
-                  <Card key={pkg.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={pkg.image}
-                        alt={pkg.name}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        <Badge className="bg-primary/80 backdrop-blur-sm text-primary-foreground">
-                          {pkg.duration}
-                        </Badge>
-                        <Badge 
-                          variant="secondary" 
-                          className={`backdrop-blur-sm ${
-                            pkg.difficulty === 'Easy' ? 'bg-green-500/80 text-white' :
-                            pkg.difficulty === 'Moderate' ? 'bg-yellow-500/80 text-white' :
-                            'bg-red-500/80 text-white'
-                          }`}
-                        >
-                          {pkg.difficulty}
-                        </Badge>
-                      </div>
-                      <div className="absolute bottom-4 left-4 text-white">
-                        <div className="text-2xl font-bold">{pkg.price}</div>
-                        <div className="text-sm opacity-90">per person</div>
-                      </div>
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="flex items-start justify-between">
-                        <span>{pkg.name}</span>
-                      </CardTitle>
-                      <CardDescription className="flex items-center gap-4 text-sm">
-                        <span className="flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
-                          {pkg.duration}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Users className="h-3 w-3" />
-                          {pkg.group}
-                        </span>
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3 mb-4">
-                        <div>
-                          <h4 className="font-medium text-sm mb-1">Monasteries Covered:</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {pkg.monasteries.slice(0, 2).map((monastery) => (
-                              <Badge key={monastery} variant="outline" className="text-xs">
-                                {monastery}
-                              </Badge>
-                            ))}
-                            {pkg.monasteries.length > 2 && (
-                              <Badge variant="outline" className="text-xs">
-                                +{pkg.monasteries.length - 2} more
-                              </Badge>
-                            )}
+              {bookingStep === 1 ? (
+                <div className="grid grid-cols-1 gap-6">
+                  {tourPackages.map((pkg) => (
+                    <Card key={pkg.id} className="group hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={pkg.image}
+                          alt={pkg.name}
+                          className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute top-4 left-4 flex gap-2">
+                          <Badge className="bg-primary/80 backdrop-blur-sm text-primary-foreground">
+                            {pkg.duration}
+                          </Badge>
+                          <Badge className="bg-green-500/80 backdrop-blur-sm text-white">
+                            Book Now Pay Later
+                          </Badge>
+                        </div>
+                        <div className="absolute bottom-4 left-4 text-white">
+                          <div className="text-3xl font-bold">{pkg.price}</div>
+                          <div className="text-sm opacity-90">/Person</div>
+                          <div className="text-lg font-semibold mt-1">Total Price {pkg.totalPrice}</div>
+                          <div className="text-sm bg-blue-500/80 px-2 py-1 rounded mt-2">
+                            No Cost EMI at ₹{pkg.emiPrice}/month
                           </div>
                         </div>
+                      </div>
+                      <CardHeader>
+                        <CardTitle className="text-2xl">{pkg.name}</CardTitle>
+                        <CardDescription className="flex items-center gap-4 text-sm">
+                          <span className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            {pkg.duration}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Users className="h-3 w-3" />
+                            Up to {pkg.group}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Hotel className="h-3 w-3" />
+                            {pkg.hotelType}
+                          </span>
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div className="space-y-4">
+                            <div>
+                              <h4 className="font-medium text-sm mb-2">Destinations:</h4>
+                              <div className="flex flex-wrap gap-2">
+                                {pkg.destinations.map((dest, index) => (
+                                  <Badge key={index} variant="outline" className="text-sm">
+                                    {dest}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                            <div>
+                              <h4 className="font-medium text-sm mb-2">Package Includes:</h4>
+                              <div className="space-y-1">
+                                {pkg.includes.map((item, index) => (
+                                  <div key={index} className="text-sm text-muted-foreground flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                                    {item}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-sm mb-2">Highlights:</h4>
+                            <div className="space-y-2">
+                              {pkg.highlights.map((highlight, index) => (
+                                <div key={index} className="text-sm text-muted-foreground flex items-start gap-2">
+                                  <Star className="h-3 w-3 text-yellow-500 mt-0.5 flex-shrink-0" />
+                                  {highlight}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <Button 
+                          className="w-full mt-6 group text-lg py-6"
+                          onClick={() => setBookingStep(2)}
+                        >
+                          <Package className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
+                          Book Package - Select Your Guide
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : bookingStep === 2 ? (
+                <div className="max-w-4xl mx-auto">
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl font-bold mb-2">Select Your Local Sikkim Guide</h3>
+                    <p className="text-muted-foreground">Choose from our certified local guides for an authentic experience</p>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-6 mb-8">
+                    {tourPackages[0].guides.map((guide, index) => (
+                      <Card 
+                        key={index} 
+                        className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
+                          selectedGuide?.name === guide.name ? 'ring-2 ring-primary shadow-lg' : ''
+                        }`}
+                        onClick={() => setSelectedGuide(guide)}
+                      >
+                        <CardHeader>
+                          <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span className="text-white font-bold text-xl">{guide.name.charAt(0)}</span>
+                          </div>
+                          <CardTitle className="text-center">{guide.name}</CardTitle>
+                          <CardDescription className="text-center">
+                            <div className="space-y-1">
+                              <div>{guide.experience} experience</div>
+                              <div className="text-primary font-medium">{guide.specialty}</div>
+                            </div>
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="text-center">
+                          <div className="flex items-center justify-center gap-1 text-yellow-500 mb-2">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-current" />
+                            ))}
+                          </div>
+                          <Button variant="outline" size="sm" className="w-full">
+                            <Phone className="h-4 w-4 mr-2" />
+                            {guide.phone}
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                  <div className="flex gap-4 justify-center">
+                    <Button variant="outline" onClick={() => setBookingStep(1)}>
+                      Back to Package
+                    </Button>
+                    <Button 
+                      onClick={() => setBookingStep(3)}
+                      disabled={!selectedGuide}
+                      className="min-w-48"
+                    >
+                      Continue with {selectedGuide?.name || 'Selected Guide'}
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="max-w-2xl mx-auto">
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl font-bold mb-2">Complete Your Booking</h3>
+                    <p className="text-muted-foreground">Fill in your details to confirm the reservation</p>
+                  </div>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Booking Summary</CardTitle>
+                      <CardDescription>
+                        Package: North East Retreat with {selectedGuide?.name}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <h4 className="font-medium text-sm mb-1">Includes:</h4>
-                          <p className="text-xs text-muted-foreground">
-                            {pkg.includes.join(", ")}
-                          </p>
+                          <label className="text-sm font-medium">Number of Travelers</label>
+                          <Select onValueChange={(value) => setBookingDetails({...bookingDetails, travelers: parseInt(value)})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select travelers" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="1">1 Person</SelectItem>
+                              <SelectItem value="2">2 People</SelectItem>
+                              <SelectItem value="3">3 People</SelectItem>
+                              <SelectItem value="4">4 People</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium">Travel Date</label>
+                          <Input 
+                            type="date" 
+                            onChange={(e) => setBookingDetails({...bookingDetails, travelDate: e.target.value})}
+                          />
                         </div>
                       </div>
-                      <Button className="w-full group">
-                        <Package className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
-                        Book Package
-                      </Button>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-sm font-medium">Contact Name</label>
+                          <Input 
+                            placeholder="Your full name"
+                            onChange={(e) => setBookingDetails({...bookingDetails, contactName: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium">Phone Number</label>
+                          <Input 
+                            placeholder="+91 XXXXX XXXXX"
+                            onChange={(e) => setBookingDetails({...bookingDetails, contactPhone: e.target.value})}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium">Email Address</label>
+                        <Input 
+                          type="email" 
+                          placeholder="your.email@example.com"
+                          onChange={(e) => setBookingDetails({...bookingDetails, contactEmail: e.target.value})}
+                        />
+                      </div>
+                      <div className="bg-muted p-4 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <span>Package Cost ({bookingDetails.travelers} person{bookingDetails.travelers > 1 ? 's' : ''})</span>
+                          <span className="font-medium">₹{(21273 * bookingDetails.travelers).toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-lg font-bold">
+                          <span>Total Amount</span>
+                          <span>₹{(21273 * bookingDetails.travelers).toLocaleString()}</span>
+                        </div>
+                        <div className="text-sm text-muted-foreground mt-1">
+                          EMI: ₹{Math.round(6612 * bookingDetails.travelers).toLocaleString()}/month
+                        </div>
+                      </div>
+                      <div className="flex gap-4">
+                        <Button variant="outline" onClick={() => setBookingStep(2)} className="flex-1">
+                          Back to Guides
+                        </Button>
+                        <Button className="flex-1">
+                          Confirm Booking & Pay
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
-                ))}
-              </div>
+                </div>
+              )}
             </TabsContent>
 
             {/* Transport Tab */}
@@ -338,67 +491,6 @@ const TravelServices = () => {
               </div>
             </TabsContent>
 
-            {/* Accommodation Tab */}
-            <TabsContent value="accommodation" className="space-y-6">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Accommodation Options</h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  From traditional monastery guest houses to luxury hotels, find the perfect stay for your journey.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {accommodations.map((hotel) => (
-                  <Card key={hotel.id} className="hover:shadow-xl transition-all duration-300">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={hotel.image}
-                        alt={hotel.name}
-                        className="w-full h-48 object-cover"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <Badge className="bg-primary/80 backdrop-blur-sm text-primary-foreground">
-                          {hotel.type}
-                        </Badge>
-                      </div>
-                      <div className="absolute bottom-4 right-4 flex items-center gap-1 text-white">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">{hotel.rating}</span>
-                      </div>
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-lg">{hotel.name}</CardTitle>
-                      <CardDescription className="flex items-center gap-2">
-                        <MapPin className="h-3 w-3" />
-                        {hotel.location}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mb-4">
-                        <div className="text-2xl font-bold text-primary mb-1">{hotel.price}</div>
-                        <p className="text-muted-foreground text-sm mb-3">
-                          {hotel.description}
-                        </p>
-                      </div>
-                      <div className="mb-4">
-                        <h4 className="font-medium text-sm mb-2">Amenities:</h4>
-                        <div className="flex flex-wrap gap-1">
-                          {hotel.amenities.map((amenity) => (
-                            <Badge key={amenity} variant="outline" className="text-xs">
-                              {amenity}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      <Button className="w-full">
-                        <Hotel className="h-4 w-4 mr-2" />
-                        Check Availability
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
 
             {/* Trip Planner Tab */}
             <TabsContent value="planner" className="space-y-6">
