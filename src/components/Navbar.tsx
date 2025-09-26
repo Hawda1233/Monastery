@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, X, Play, Sparkles, ChevronDown, Map, Camera, Archive, Calendar, Car, Smartphone, Info, MessageCircle, Home, ShoppingBag, Star, CloudSun, Newspaper, Package, LucideIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Menu, X, Play, Sparkles, ChevronDown, Map, Camera, Archive, Calendar, Car, Smartphone, Info, MessageCircle, Home, ShoppingBag, Star, CloudSun, Newspaper, Package, LucideIcon, User, LogOut, LogIn } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 type NavItem = {
   name: string;
@@ -18,6 +21,18 @@ type NavItem = {
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, signOut, loading } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast.success("Signed out successfully");
+      navigate("/");
+    } catch (error) {
+      toast.error("Error signing out");
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -142,8 +157,72 @@ const Navbar = () => {
             </div>
           </div>
 
+          {/* Desktop Auth Section */}
+          <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
+            {loading ? (
+              <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
+            ) : user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center space-x-2 bg-background/10 backdrop-blur-sm border border-white/10 rounded-full p-1 hover:bg-background/20 transition-all duration-300">
+                  <Avatar className="h-7 w-7">
+                    <AvatarFallback className="text-xs bg-primary text-primary-foreground">
+                      {user.email?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <ChevronDown className="h-3 w-3 mr-2" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  className="z-[100] bg-background/95 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl min-w-48 mt-2"
+                  sideOffset={8}
+                  align="end"
+                >
+                  <div className="px-4 py-3 border-b border-white/10">
+                    <p className="text-sm font-medium truncate">{user.email}</p>
+                    <p className="text-xs text-muted-foreground">Welcome back!</p>
+                  </div>
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 hover:bg-primary/10 rounded-xl cursor-pointer">
+                      <User className="h-4 w-4" />
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-white/10" />
+                  <DropdownMenuItem 
+                    onClick={handleSignOut}
+                    className="flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 hover:bg-red-500/10 text-red-500 rounded-xl cursor-pointer"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link to="/auth">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="bg-background/10 backdrop-blur-sm border-white/20 hover:bg-background/20 text-foreground hover:text-primary rounded-full"
+                >
+                  <LogIn className="h-3 w-3 mr-2" />
+                  Sign In
+                </Button>
+              </Link>
+            )}
+          </div>
+
           {/* Mobile menu button */}
-          <div className="lg:hidden flex-shrink-0">
+          <div className="lg:hidden flex-shrink-0 flex items-center space-x-2">
+            {loading ? (
+              <div className="w-6 h-6 rounded-full bg-muted animate-pulse" />
+            ) : user ? (
+              <div className="flex items-center space-x-2">
+                <Avatar className="h-6 w-6">
+                  <AvatarFallback className="text-xs bg-primary text-primary-foreground">
+                    {user.email?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+            ) : null}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-foreground hover:text-primary p-2 rounded-lg transition-colors duration-300 hover:bg-background/10"
@@ -224,6 +303,42 @@ const Navbar = () => {
               
               {/* Mobile CTA Buttons */}
               <div className="pt-4 space-y-3 px-2">
+                {user ? (
+                  <>
+                    <div className="flex items-center gap-3 p-3 bg-background/10 rounded-2xl border border-white/10">
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback className="text-sm bg-primary text-primary-foreground">
+                          {user.email?.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{user.email}</p>
+                        <p className="text-xs text-muted-foreground">Signed in</p>
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      className="w-full group"
+                      onClick={() => {
+                        handleSignOut();
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button
+                      variant="outline"
+                      className="w-full group"
+                    >
+                      <LogIn className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+                      Sign In
+                    </Button>
+                  </Link>
+                )}
                 <Button
                   variant="heroSecondary"
                   className="w-full group"

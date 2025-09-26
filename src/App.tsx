@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 import LoadingScreen from "@/components/LoadingScreen";
 import monasteryHero from "@/assets/monastery-hero.jpg";
 import Index from "./pages/Index";
@@ -28,6 +29,7 @@ import Weather from "./pages/Weather";
 import Newsletter from "./pages/Newsletter";
 import VirtualTour from "./pages/VirtualTour";
 import Homestay from "./pages/Homestay";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -72,38 +74,41 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/explore" element={<ExploreMonasteries />} />
-          <Route path="/archives" element={<DigitalArchives />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/travel" element={<TravelServices />} />
-          <Route path="/audio-guide" element={<AudioGuide />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/cookies" element={<Cookies />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/accessibility" element={<Accessibility />} />
-          <Route path="/sitemap" element={<Sitemap />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/business" element={<Business />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/weather" element={<Weather />} />
-          <Route path="/newsletter" element={<Newsletter />} />
-          <Route path="/virtual-tour" element={<VirtualTour />} />
-          <Route path="/homestay" element={<Homestay />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/explore" element={<ExploreMonasteries />} />
+              <Route path="/archives" element={<DigitalArchives />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/travel" element={<TravelServices />} />
+              <Route path="/audio-guide" element={<AudioGuide />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/cookies" element={<Cookies />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/accessibility" element={<Accessibility />} />
+              <Route path="/sitemap" element={<Sitemap />} />
+              <Route path="/feedback" element={<Feedback />} />
+              <Route path="/business" element={<Business />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/weather" element={<Weather />} />
+              <Route path="/newsletter" element={<Newsletter />} />
+              <Route path="/virtual-tour" element={<VirtualTour />} />
+              <Route path="/homestay" element={<Homestay />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 };
 
