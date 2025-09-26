@@ -14,6 +14,7 @@ import sikkimMountainCabs from "@/assets/sikkim-mountain-cabs.png";
 import himalayanRidesBike from "@/assets/himalayan-rides-bike.png";
 import nssBikeRental from "@/assets/nss-bike-rental.png";
 import northeastRetreatTour from "@/assets/northeast-retreat-tour.png";
+import sikkimDelightTour from "@/assets/sikkim-delight-tour.png";
 
 const TravelServices = () => {
   const [selectedDuration, setSelectedDuration] = useState("all");
@@ -125,6 +126,36 @@ const TravelServices = () => {
       ],
       difficulty: "Easy",
       image: northeastRetreatTour,
+      guides: [
+        { 
+          name: "Adarsh Tours, Treks & Expedition", 
+          experience: "Health & Safety Compliant", 
+          specialty: "Complete Tour Services", 
+          phone: "+91 97332 78527",
+          email: "sikkimtour@gmail.com",
+          address: "Hotel Mayur Building, PS Road, Near Hospital Dara, Gangtok, Sikkim"
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: "Splendid North East - Sikkim Delight",
+      duration: "5N/6D",
+      price: "₹45,863",
+      totalPrice: "₹91,726",
+      emiPrice: "₹14,238",
+      group: "2 people",
+      destinations: ["2N Gangtok", "1N Pelling", "2N Darjeeling"],
+      hotelType: "3 Star Hotels",
+      includes: ["Round Trip Flights", "Intercity Car Transfers", "Airport Transfers", "8 Activities", "Selected Meals"],
+      highlights: [
+        "Toy Train Ride in Darjeeling",
+        "Tea Tasting Session at Local Tea lounge", 
+        "Tour Manager",
+        "This price is lower than the average price in October"
+      ],
+      difficulty: "Easy",
+      image: sikkimDelightTour,
       guides: [
         { 
           name: "Adarsh Tours, Treks & Expedition", 
