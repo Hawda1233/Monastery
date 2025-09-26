@@ -353,9 +353,7 @@ const Index = () => {
                   <p className="text-muted-foreground">{item.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-primary">By: {item.artisan}</span>
-                    <Link to="/business">
-                      <Button size="sm">Order Now</Button>
-                    </Link>
+                    <Button size="sm">Order Now</Button>
                   </div>
                 </CardContent>
               </Card>
@@ -363,12 +361,10 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Link to="/business">
-              <Button size="lg" variant="outline">
-                View All Handicrafts
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </Button>  
-            </Link>
+            <Button size="lg" variant="outline">
+              View All Handicrafts
+              <ChevronRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
@@ -408,12 +404,10 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Link to="/reviews">
-              <Button size="lg" variant="outline">
-                Read All Reviews
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button size="lg" variant="outline">
+              Read All Reviews
+              <ChevronRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
@@ -460,9 +454,7 @@ const Index = () => {
                       ))}
                     </div>
                   </div>
-                  <Link to="/travel">
-                    <Button className="w-full">Book Now</Button>
-                  </Link>
+                  <Button className="w-full">Book Now</Button>
                 </CardContent>
               </Card>
             ))}
@@ -505,13 +497,6 @@ const Index = () => {
                 <div className="mt-4 text-center">
                   <Badge variant="secondary">Best time to visit monasteries: 9 AM - 4 PM</Badge>
                 </div>
-                <div className="mt-4 text-center">
-                  <Link to="/weather">
-                    <Button variant="outline" size="sm">
-                      View Full Forecast
-                    </Button>
-                  </Link>
-                </div>
               </Card>
             </div>
 
@@ -543,9 +528,7 @@ const Index = () => {
                       <option>Ravangla</option>
                     </select>
                   </div>
-                  <Link to="/travel">
-                    <Button className="w-full">Find Homestays</Button>
-                  </Link>
+                  <Button className="w-full">Find Homestays</Button>
                 </div>
               </Card>
             </div>
@@ -567,20 +550,11 @@ const Index = () => {
                 placeholder="Enter your email" 
                 className="flex-1 px-4 py-3 rounded-lg border bg-background"
               />
-              <Link to="/newsletter">
-                <Button size="lg">Subscribe</Button>
-              </Link>
+              <Button size="lg">Subscribe</Button>
             </div>
             <p className="text-sm text-muted-foreground mt-4">
               Join 10,000+ spiritual seekers and culture enthusiasts
             </p>
-            <div className="mt-4">
-              <Link to="/newsletter">
-                <Button variant="outline" size="sm">
-                  Learn More About Newsletter
-                </Button>
-              </Link>
-            </div>
           </div>
         </div>
       </section>
