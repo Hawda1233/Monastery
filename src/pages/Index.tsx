@@ -76,11 +76,94 @@ const Index = () => {
     }
   ];
 
-  const stats = [
-    { number: "200+", label: "Monasteries Covered" },
-    { number: "5,000+", label: "Digital Archives" },
-    { number: "50,000+", label: "Virtual Visitors" },
-    { number: "4.8/5", label: "User Rating" }
+  const personalityOpinions = [
+    {
+      name: "Pawan Chamling",
+      title: "Former Chief Minister of Sikkim",
+      opinion: "This digital initiative beautifully preserves our sacred heritage for future generations.",
+      image: "/api/placeholder/150/150"
+    },
+    {
+      name: "Dr. Karma Gyatso",
+      title: "Buddhist Scholar & Author",
+      opinion: "A remarkable fusion of spirituality and technology that makes our monasteries accessible worldwide.",
+      image: "/api/placeholder/150/150"
+    },
+    {
+      name: "Tenzin Lepcha",
+      title: "Cultural Ambassador",
+      opinion: "This platform helps share the profound wisdom and beauty of Sikkim's monastic traditions globally.",
+      image: "/api/placeholder/150/150"
+    }
+  ];
+
+  const touristReviews = [
+    {
+      name: "Sarah Johnson",
+      country: "USA",
+      rating: 5,
+      review: "The virtual tours are absolutely stunning! Felt like I was actually walking through the monasteries. The audio guides made it so informative.",
+      tour: "Rumtek Virtual Experience"
+    },
+    {
+      name: "Raj Patel",
+      country: "India", 
+      rating: 5,
+      review: "Excellent service! The homestay booking was seamless and the local guides were incredibly knowledgeable about Buddhist culture.",
+      tour: "Heritage Walk Package"
+    },
+    {
+      name: "Emma Chen",
+      country: "Singapore",
+      rating: 4,
+      review: "Amazing cultural immersion. The local handicrafts section helped me buy authentic Sikkimese items. Highly recommend!",
+      tour: "Cultural Discovery Tour"
+    }
+  ];
+
+  const tourPackages = [
+    {
+      name: "Monastery Circuit Tour",
+      duration: "7 Days",
+      price: "₹25,000",
+      includes: ["Accommodation", "Meals", "Guide", "Transport"],
+      highlights: ["Rumtek", "Pemayangtse", "Enchey", "Tashiding"]
+    },
+    {
+      name: "Spiritual Retreat Package",
+      duration: "3 Days",
+      price: "₹12,000",
+      includes: ["Meditation Sessions", "Organic Meals", "Yoga", "Guide"],
+      highlights: ["Morning Prayers", "Meditation", "Spiritual Talks"]
+    },
+    {
+      name: "Photography Expedition",
+      duration: "5 Days",
+      price: "₹18,000",
+      includes: ["Professional Guide", "Equipment", "Transport", "Meals"],
+      highlights: ["Golden Hour Shots", "Architecture", "Cultural Events"]
+    }
+  ];
+
+  const handicrafts = [
+    {
+      name: "Traditional Thangka Paintings",
+      price: "₹2,500 - ₹15,000",
+      description: "Handpainted religious artworks by local artisans",
+      artisan: "Tashi Art Center"
+    },
+    {
+      name: "Handwoven Carpets",
+      price: "₹8,000 - ₹25,000", 
+      description: "Pure wool carpets with traditional Tibetan designs",
+      artisan: "Sikkim Handicrafts Emporium"
+    },
+    {
+      name: "Prayer Wheels & Bowls",
+      price: "₹500 - ₹5,000",
+      description: "Authentic copper and brass spiritual items",
+      artisan: "Local Monastery Craftsmen"
+    }
   ];
 
   const recentEvents = [
@@ -216,27 +299,255 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="py-20 bg-primary/5">
+      {/* Famous Personalities Section */}
+      <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-primary mb-4">Our Impact</h2>
+            <h2 className="text-4xl font-bold text-primary mb-4">What Leaders Say</h2>
             <p className="text-lg text-muted-foreground">
-              Preserving heritage and connecting communities worldwide
+              Voices from Sikkim's cultural and spiritual leaders
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-muted-foreground font-medium">
-                  {stat.label}
-                </div>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {personalityOpinions.map((person, index) => (
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="mx-auto mb-4">
+                    <img 
+                      src={person.image} 
+                      alt={person.name}
+                      className="w-20 h-20 rounded-full object-cover border-4 border-primary/20"
+                    />
+                  </div>
+                  <CardTitle className="text-xl">{person.name}</CardTitle>
+                  <CardDescription className="text-primary font-medium">{person.title}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground italic">"{person.opinion}"</p>
+                </CardContent>
+              </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Local Business & Handicrafts Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-primary mb-4">Local Handicrafts & Business</h2>
+            <p className="text-lg text-muted-foreground">
+              Support local artisans and discover authentic Sikkimese crafts
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {handicrafts.map((item, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl">{item.name}</CardTitle>
+                  <CardDescription className="text-primary font-semibold text-lg">{item.price}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-muted-foreground">{item.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-primary">By: {item.artisan}</span>
+                    <Button size="sm">Order Now</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <Button size="lg" variant="outline">
+              View All Handicrafts
+              <ChevronRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Tourist Reviews Section */}
+      <section className="py-20 bg-primary/5">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-primary mb-4">Traveler Experiences</h2>
+            <p className="text-lg text-muted-foreground">
+              Real stories from visitors who explored Sikkim's spiritual heritage
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {touristReviews.map((review, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-lg">{review.name}</CardTitle>
+                      <CardDescription>{review.country}</CardDescription>
+                    </div>
+                    <div className="flex">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-muted-foreground italic">"{review.review}"</p>
+                  <Badge variant="secondary" className="text-xs">{review.tour}</Badge>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tour Packages Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-primary mb-4">Tour Packages</h2>
+            <p className="text-lg text-muted-foreground">
+              Carefully curated experiences with expert local guides
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {tourPackages.map((pkg, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle className="text-xl">{pkg.name}</CardTitle>
+                      <CardDescription>{pkg.duration}</CardDescription>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-primary">{pkg.price}</div>
+                      <div className="text-sm text-muted-foreground">per person</div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">Includes:</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {pkg.includes.map((item, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs">{item}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-2">Highlights:</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {pkg.highlights.map((highlight, idx) => (
+                        <Badge key={idx} variant="outline" className="text-xs">{highlight}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <Button className="w-full">Book Now</Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Weather & Homestay Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Weather Conditions */}
+            <div>
+              <h2 className="text-3xl font-bold text-primary mb-6">Current Weather</h2>
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-semibold">Gangtok</h3>
+                    <p className="text-muted-foreground">Partly Cloudy</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold">18°C</div>
+                    <div className="text-sm text-muted-foreground">Feels like 16°C</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-sm text-muted-foreground">Humidity</div>
+                    <div className="font-semibold">75%</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Visibility</div>
+                    <div className="font-semibold">8 km</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Wind</div>
+                    <div className="font-semibold">12 km/h</div>
+                  </div>
+                </div>
+                <div className="mt-4 text-center">
+                  <Badge variant="secondary">Best time to visit monasteries: 9 AM - 4 PM</Badge>
+                </div>
+              </Card>
+            </div>
+
+            {/* Homestay Booking */}
+            <div>
+              <h2 className="text-3xl font-bold text-primary mb-6">Homestay Booking</h2>
+              <Card className="p-6">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Experience Local Life</h3>
+                    <p className="text-muted-foreground">Stay with local families and immerse yourself in authentic Sikkimese culture</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Check-in</label>
+                      <input type="date" className="w-full p-2 border rounded-md" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Check-out</label>
+                      <input type="date" className="w-full p-2 border rounded-md" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Preferred Location</label>
+                    <select className="w-full p-2 border rounded-md">
+                      <option>Gangtok</option>
+                      <option>Pelling</option>
+                      <option>Yuksom</option>
+                      <option>Ravangla</option>
+                    </select>
+                  </div>
+                  <Button className="w-full">Find Homestays</Button>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-20 bg-gradient-to-r from-primary/10 to-accent/10">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold text-primary mb-4">Stay Connected</h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Get the latest updates on monastery events, cultural festivals, and spiritual insights delivered to your inbox
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="flex-1 px-4 py-3 rounded-lg border bg-background"
+              />
+              <Button size="lg">Subscribe</Button>
+            </div>
+            <p className="text-sm text-muted-foreground mt-4">
+              Join 10,000+ spiritual seekers and culture enthusiasts
+            </p>
           </div>
         </div>
       </section>

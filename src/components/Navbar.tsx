@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, X, Play, Sparkles, ChevronDown, Map, Camera, Archive, Calendar, Car, Smartphone, Info, MessageCircle } from "lucide-react";
+import { Menu, X, Play, Sparkles, ChevronDown, Map, Camera, Archive, Calendar, Car, Smartphone, Info, MessageCircle, Home, ShoppingBag, Star, CloudSun, Newspaper, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -18,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "/", icon: null },
+    { name: "Home", href: "/", icon: Home },
     { 
       name: "Explore Monasteries", 
       href: "/explore",
@@ -37,10 +37,24 @@ const Navbar = () => {
       icon: Car,
       submenu: [
         { name: "Transportation", href: "/travel#transport", icon: Car },
-        { name: "Accommodation", href: "/travel#accommodation", icon: Info },
-        { name: "Tourism Packages", href: "/travel#packages", icon: Sparkles }
+        { name: "Homestay Booking", href: "/travel#homestay", icon: Home },
+        { name: "Tour Packages", href: "/travel#packages", icon: Package },
+        { name: "Tourism Services", href: "/travel#services", icon: Sparkles }
       ]
     },
+    { 
+      name: "Local Business", 
+      href: "/business",
+      icon: ShoppingBag,
+      submenu: [
+        { name: "Handicrafts", href: "/business#handicrafts", icon: ShoppingBag },
+        { name: "Local Artisans", href: "/business#artisans", icon: Star },
+        { name: "Cultural Products", href: "/business#products", icon: Sparkles }
+      ]
+    },
+    { name: "Tourist Reviews", href: "/reviews", icon: Star },
+    { name: "Weather Info", href: "/weather", icon: CloudSun },
+    { name: "Newsletter", href: "/newsletter", icon: Newspaper },
     { name: "Audio Guide App", href: "/audio-guide", icon: Smartphone },
     { name: "About Us", href: "/about", icon: Info },
     { name: "Contact", href: "/contact", icon: MessageCircle },
