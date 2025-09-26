@@ -13,6 +13,7 @@ import sikkimTourismBus from "@/assets/sikkim-tourism-bus.png";
 import sikkimMountainCabs from "@/assets/sikkim-mountain-cabs.png";
 import himalayanRidesBike from "@/assets/himalayan-rides-bike.png";
 import nssBikeRental from "@/assets/nss-bike-rental.png";
+import northeastRetreatTour from "@/assets/northeast-retreat-tour.png";
 
 const TravelServices = () => {
   const [selectedDuration, setSelectedDuration] = useState("all");
@@ -123,7 +124,7 @@ const TravelServices = () => {
         "Visit to cottage industry, Flower Exhibition Centre, Enchey Monastery"
       ],
       difficulty: "Easy",
-      image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300",
+      image: northeastRetreatTour,
       guides: [
         { name: "Pema Bhutia", experience: "8 years", specialty: "Buddhist Culture", phone: "+91 94341 12345" },
         { name: "Tenzin Norbu", experience: "12 years", specialty: "Mountain Heritage", phone: "+91 94341 12346" },
