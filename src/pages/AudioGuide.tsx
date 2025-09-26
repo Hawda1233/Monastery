@@ -132,13 +132,6 @@ const AudioGuide = () => {
     }
   ];
 
-  const appStats = [
-    { label: "Total Downloads", value: "50,000+", icon: Download },
-    { label: "Average Rating", value: "4.8/5", icon: Star },
-    { label: "Monasteries Covered", value: "200+", icon: MapPin },
-    { label: "Languages", value: "8", icon: Languages }
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -173,12 +166,12 @@ const AudioGuide = () => {
               </div>
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
-                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span>4.8/5 rating</span>
+                  <Volume2 className="h-4 w-4" />
+                  <span>Web-based player</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Download className="h-4 w-4" />
-                  <span>50,000+ downloads</span>
+                  <Headphones className="h-4 w-4" />
+                  <span>Best with headphones</span>
                 </div>
               </div>
             </div>
@@ -226,24 +219,6 @@ const AudioGuide = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* App Stats */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {appStats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <Card key={index} className="text-center p-6 hover:shadow-lg transition-all duration-300">
-                  <Icon className="h-8 w-8 mx-auto text-primary mb-3" />
-                  <div className="text-2xl font-bold mb-1">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </Card>
-              );
-            })}
           </div>
         </div>
       </section>
