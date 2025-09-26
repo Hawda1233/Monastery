@@ -75,11 +75,11 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 p-2 lg:p-4">
       {/* Glassmorphic Capsule Container */}
       <div
-        className={`mx-auto max-w-6xl transition-all duration-700 ease-out ${
+        className={`mx-auto max-w-7xl transition-all duration-700 ease-out ${
           isScrolled
             ? "bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5"
             : "bg-white/5 backdrop-blur-md border border-white/5 shadow-xl shadow-black/10"
-        } rounded-full px-3 lg:px-4`}
+        } rounded-full px-3 lg:px-6`}
       >
         <div className="flex items-center justify-between h-12 lg:h-14 w-full">
           {/* Logo */}
@@ -140,11 +140,9 @@ const Navbar = () => {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-1 flex-shrink-0">
-            <Button variant="heroSecondary" size="sm" className="group px-2 py-1.5 text-xs">
-              <Camera className="h-3 w-3" />
-            </Button>
-            <Button variant="hero" size="sm" className="group px-2 py-1.5 text-xs">
-              <Map className="h-3 w-3" />
+            <Button variant="hero" size="sm" className="group px-3 py-1.5 text-xs">
+              <Map className="h-3 w-3 mr-1" />
+              Explore
             </Button>
           </div>
 
