@@ -69,7 +69,7 @@ const Navbar = () => {
       ]
     },
     { 
-      name: "Local Business", 
+      name: "Store", 
       href: "/business",
       icon: ShoppingBag,
       submenu: [
