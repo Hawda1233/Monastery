@@ -126,9 +126,14 @@ const TravelServices = () => {
       difficulty: "Easy",
       image: northeastRetreatTour,
       guides: [
-        { name: "Pema Bhutia", experience: "8 years", specialty: "Buddhist Culture", phone: "+91 94341 12345" },
-        { name: "Tenzin Norbu", experience: "12 years", specialty: "Mountain Heritage", phone: "+91 94341 12346" },
-        { name: "Karma Lepcha", experience: "6 years", specialty: "Local History", phone: "+91 94341 12347" }
+        { 
+          name: "Adarsh Tours, Treks & Expedition", 
+          experience: "Health & Safety Compliant", 
+          specialty: "Complete Tour Services", 
+          phone: "+91 97332 78527",
+          email: "sikkimtour@gmail.com",
+          address: "Hotel Mayur Building, PS Road, Near Hospital Dara, Gangtok, Sikkim"
+        }
       ]
     }
   ];
@@ -289,7 +294,7 @@ const TravelServices = () => {
                     <h3 className="text-2xl font-bold mb-2">Select Your Local Sikkim Guide</h3>
                     <p className="text-muted-foreground">Choose from our certified local guides for an authentic experience</p>
                   </div>
-                  <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  <div className="grid md:grid-cols-1 gap-6 mb-8">
                     {tourPackages[0].guides.map((guide, index) => (
                       <Card 
                         key={index} 
@@ -299,27 +304,39 @@ const TravelServices = () => {
                         onClick={() => setSelectedGuide(guide)}
                       >
                         <CardHeader>
-                          <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <span className="text-white font-bold text-xl">{guide.name.charAt(0)}</span>
+                          <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span className="text-white font-bold text-2xl">{guide.name.charAt(0)}</span>
                           </div>
-                          <CardTitle className="text-center">{guide.name}</CardTitle>
+                          <CardTitle className="text-center text-xl">{guide.name}</CardTitle>
                           <CardDescription className="text-center">
-                            <div className="space-y-1">
-                              <div>{guide.experience} experience</div>
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-center gap-2 text-green-600">
+                                <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                                {guide.experience}
+                              </div>
                               <div className="text-primary font-medium">{guide.specialty}</div>
+                              <div className="text-sm text-muted-foreground">
+                                {guide.address}
+                              </div>
                             </div>
                           </CardDescription>
                         </CardHeader>
-                        <CardContent className="text-center">
+                        <CardContent className="text-center space-y-3">
                           <div className="flex items-center justify-center gap-1 text-yellow-500 mb-2">
                             {[...Array(5)].map((_, i) => (
                               <Star key={i} className="h-4 w-4 fill-current" />
                             ))}
                           </div>
-                          <Button variant="outline" size="sm" className="w-full">
-                            <Phone className="h-4 w-4 mr-2" />
-                            {guide.phone}
-                          </Button>
+                          <div className="space-y-2">
+                            <Button variant="outline" size="sm" className="w-full">
+                              <Phone className="h-4 w-4 mr-2" />
+                              {guide.phone}
+                            </Button>
+                            <Button variant="outline" size="sm" className="w-full">
+                              <span className="h-4 w-4 mr-2">✉️</span>
+                              {guide.email}
+                            </Button>
+                          </div>
                         </CardContent>
                       </Card>
                     ))}
@@ -333,7 +350,7 @@ const TravelServices = () => {
                       disabled={!selectedGuide}
                       className="min-w-48"
                     >
-                      Continue with {selectedGuide?.name || 'Selected Guide'}
+                      Continue with Adarsh Tours
                     </Button>
                   </div>
                 </div>
@@ -347,7 +364,7 @@ const TravelServices = () => {
                     <CardHeader>
                       <CardTitle>Booking Summary</CardTitle>
                       <CardDescription>
-                        Package: North East Retreat with {selectedGuide?.name}
+                        Package: North East Retreat with Adarsh Tours, Treks & Expedition
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
