@@ -86,7 +86,7 @@ const VideoHero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up [animation-delay:0.4s] opacity-0 [animation-fill-mode:forwards]">
             <Button variant="hero" size="lg" className="group w-full sm:w-auto">
               <Play className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-              Start Virtual Tour
+              Start 360 Tour
             </Button>
             <Button variant="heroSecondary" size="lg" className="w-full sm:w-auto">
               Explore Monasteries
