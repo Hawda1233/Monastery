@@ -68,16 +68,7 @@ const Navbar = () => {
         { name: "Tourism Services", href: "/travel#services", icon: Sparkles }
       ]
     },
-    { 
-      name: "Store", 
-      href: "/business",
-      icon: ShoppingBag,
-      submenu: [
-        { name: "Handicrafts", href: "/business#handicrafts", icon: ShoppingBag },
-        { name: "Local Artisans", href: "/business#artisans", icon: Star },
-        { name: "Cultural Products", href: "/business#products", icon: Sparkles }
-      ]
-    },
+    { name: "Store", href: "/store", icon: ShoppingBag },
     { name: "Tourist Reviews", href: "/reviews", icon: Star },
     { name: "Weather Info", href: "/weather", icon: CloudSun },
     { name: "Newsletter", href: "/newsletter", icon: Newspaper },

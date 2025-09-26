@@ -29,6 +29,7 @@ import Weather from "./pages/Weather";
 import Newsletter from "./pages/Newsletter";
 import VirtualTour from "./pages/VirtualTour";
 import Homestay from "./pages/Homestay";
+import Store from "./pages/Store";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
@@ -98,6 +99,7 @@ const App = () => {
               <Route path="/sitemap" element={<Sitemap />} />
               <Route path="/feedback" element={<Feedback />} />
               <Route path="/business" element={<Business />} />
+              <Route path="/store" element={<Store />} />
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/weather" element={<Weather />} />
               <Route path="/newsletter" element={<Newsletter />} />

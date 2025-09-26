@@ -19,7 +19,8 @@ import {
   Play,
   BookOpen,
   Camera,
-  Globe
+  Globe,
+  ShoppingBag
 } from "lucide-react";
 import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 import encheyMonastery from "@/assets/enchey-monastery.png";
@@ -443,10 +444,10 @@ const Index = () => {
                   Start Virtual Tour
                 </Button>
               </Link>
-              <Link to="/audio-guide">
+              <Link to="/store">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                  <Download className="mr-2 h-5 w-5" />
-                  Download App
+                  <ShoppingBag className="mr-2 h-5 w-5" />
+                  Shop Now
                 </Button>
               </Link>
             </div>
