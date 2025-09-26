@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Play, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import monasteryHero from "@/assets/monastery-hero.jpg";
 
 const VideoHero = () => {
@@ -84,13 +85,17 @@ const VideoHero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up [animation-delay:0.4s] opacity-0 [animation-fill-mode:forwards]">
-            <Button variant="hero" size="lg" className="group w-full sm:w-auto">
-              <Play className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-              Start 360 Tour
-            </Button>
-            <Button variant="heroSecondary" size="lg" className="w-full sm:w-auto">
-              Explore Monasteries
-            </Button>
+            <Link to="/virtual-tour">
+              <Button variant="hero" size="lg" className="group w-full sm:w-auto">
+                <Play className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+                Start 360 Tour
+              </Button>
+            </Link>
+            <Link to="/explore">
+              <Button variant="heroSecondary" size="lg" className="w-full sm:w-auto">
+                Explore Monasteries
+              </Button>
+            </Link>
           </div>
 
           {/* Stats or Features */}
