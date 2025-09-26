@@ -22,6 +22,10 @@ import Help from "./pages/Help";
 import Accessibility from "./pages/Accessibility";
 import Sitemap from "./pages/Sitemap";
 import Feedback from "./pages/Feedback";
+import Business from "./pages/Business";
+import Reviews from "./pages/Reviews";
+import Weather from "./pages/Weather";
+import Newsletter from "./pages/Newsletter";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -87,6 +91,10 @@ const App = () => {
           <Route path="/accessibility" element={<Accessibility />} />
           <Route path="/sitemap" element={<Sitemap />} />
           <Route path="/feedback" element={<Feedback />} />
+          <Route path="/business" element={<Business />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/weather" element={<Weather />} />
+          <Route path="/newsletter" element={<Newsletter />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
