@@ -47,20 +47,6 @@ const Store = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
-  const getCategoryCount = (categoryId: string) => {
-    if (categoryId === "all") return products.length;
-    return products.filter(product => product.category === categoryId).length;
-  };
-
-  const categories = [
-    { id: "all", name: "All Products", count: getCategoryCount("all") },
-    { id: "handicrafts", name: "Handicrafts", count: getCategoryCount("handicrafts") },
-    { id: "prayer-items", name: "Prayer Items", count: getCategoryCount("prayer-items") },
-    { id: "textiles", name: "Traditional Textiles", count: getCategoryCount("textiles") },
-    { id: "jewelry", name: "Jewelry", count: getCategoryCount("jewelry") },
-    { id: "books", name: "Books", count: getCategoryCount("books") }
-  ];
-
   const products = [
     {
       id: 1,
@@ -222,6 +208,20 @@ const Store = () => {
       bestseller: false,
       discount: 23
     }
+  ];
+
+  const getCategoryCount = (categoryId: string) => {
+    if (categoryId === "all") return products.length;
+    return products.filter(product => product.category === categoryId).length;
+  };
+
+  const categories = [
+    { id: "all", name: "All Products", count: getCategoryCount("all") },
+    { id: "handicrafts", name: "Handicrafts", count: getCategoryCount("handicrafts") },
+    { id: "prayer-items", name: "Prayer Items", count: getCategoryCount("prayer-items") },
+    { id: "textiles", name: "Traditional Textiles", count: getCategoryCount("textiles") },
+    { id: "jewelry", name: "Jewelry", count: getCategoryCount("jewelry") },
+    { id: "books", name: "Books", count: getCategoryCount("books") }
   ];
 
   const addToCart = (product) => {
