@@ -159,20 +159,16 @@ const AudioGuide = () => {
                   Smart Audio
                 </span>
                 <br />
-                <span className="text-foreground">Guide App</span>
+                <span className="text-foreground">Guide Web Player</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8">
-                Experience Sikkim's monasteries like never before with our intelligent audio guide app. 
-                Get location-based narration, historical insights, and spiritual guidance directly on your phone.
+                Experience Sikkim's monasteries like never before with our intelligent web-based audio guide. 
+                Get location-based narration, historical insights, and spiritual guidance directly in your browser.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button size="lg" className="group">
-                  <Download className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
-                  Download for iOS
-                </Button>
-                <Button size="lg" variant="outline" className="group">
-                  <Download className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
-                  Download for Android
+                  <Play className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
+                  Start Web Player
                 </Button>
               </div>
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
