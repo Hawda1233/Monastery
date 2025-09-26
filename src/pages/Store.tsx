@@ -31,6 +31,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
 import prayerAltar from "@/assets/prayer-altar.png";
+import lepchaTextile from "@/assets/lepcha-textile.png";
 
 const Store = () => {
   const [cart, setCart] = useState([]);
@@ -84,19 +85,19 @@ const Store = () => {
     },
     {
       id: 3,
-      name: "Yak Wool Shawl",
+      name: "Traditional Lepcha Textile",
       category: "textiles",
-      price: 3200,
-      originalPrice: 3800,
-      image: "https://images.unsplash.com/photo-1594736797933-d0601ba2fe65?w=400",
-      rating: 4.7,
-      reviews: 15,
-      description: "Premium yak wool shawl with traditional patterns",
-      artisan: "Pema Sherpa",
-      location: "Yuksom",
+      price: 1499,
+      originalPrice: 1999,
+      image: lepchaTextile,
+      rating: 4.8,
+      reviews: 12,
+      description: "Authentic handwoven Lepcha textile with traditional geometric patterns",
+      artisan: "Lepcha Weaving Collective",
+      location: "Kalimpong",
       inStock: true,
       bestseller: false,
-      discount: 16
+      discount: 25
     },
     {
       id: 4,
