@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -140,6 +140,13 @@ const TravelServices = () => {
 
   const [selectedGuide, setSelectedGuide] = useState(null);
   const [bookingStep, setBookingStep] = useState(1);
+
+  // Auto-select Adarsh Tours when on booking step 2
+  useEffect(() => {
+    if (bookingStep === 2 && !selectedGuide) {
+      setSelectedGuide(tourPackages[0].guides[0]);
+    }
+  }, [bookingStep, selectedGuide]);
   const [bookingDetails, setBookingDetails] = useState({
     travelers: 2,
     travelDate: '',
@@ -347,14 +354,13 @@ const TravelServices = () => {
                     </Button>
                     <Button 
                       onClick={() => setBookingStep(3)}
-                      disabled={!selectedGuide}
                       className="min-w-48"
                     >
                       Continue with Adarsh Tours
                     </Button>
                   </div>
                 </div>
-              ) : (
+              ) : bookingStep === 3 ? (
                 <div className="max-w-2xl mx-auto">
                   <div className="text-center mb-8">
                     <h3 className="text-2xl font-bold mb-2">Complete Your Booking</h3>
@@ -432,8 +438,52 @@ const TravelServices = () => {
                         <Button variant="outline" onClick={() => setBookingStep(2)} className="flex-1">
                           Back to Guides
                         </Button>
-                        <Button className="flex-1">
-                          Confirm Booking & Pay
+                        <Button 
+                          className="flex-1"
+                          onClick={() => setBookingStep(4)}
+                        >
+                          Proceed to Payment
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ) : (
+                <div className="max-w-2xl mx-auto">
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl font-bold mb-2">Payment</h3>
+                    <p className="text-muted-foreground">Secure payment gateway</p>
+                  </div>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Payment Details</CardTitle>
+                      <CardDescription>
+                        Complete your booking for North East Retreat with Adarsh Tours
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="bg-muted p-4 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <span>Total Amount</span>
+                          <span className="text-2xl font-bold">₹{(21273 * bookingDetails.travelers).toLocaleString()}</span>
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          EMI Available: ₹{Math.round(6612 * bookingDetails.travelers).toLocaleString()}/month
+                        </div>
+                      </div>
+                      
+                      <div className="grid gap-4">
+                        <Button className="w-full py-3 text-lg">
+                          Pay Now - ₹{(21273 * bookingDetails.travelers).toLocaleString()}
+                        </Button>
+                        <Button variant="outline" className="w-full py-3">
+                          Book Now Pay Later (EMI Available)
+                        </Button>
+                      </div>
+
+                      <div className="flex gap-4">
+                        <Button variant="outline" onClick={() => setBookingStep(3)} className="flex-1">
+                          Back to Details
                         </Button>
                       </div>
                     </CardContent>
