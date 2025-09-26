@@ -83,8 +83,8 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:block flex-1 max-w-2xl">
-            <div className="flex items-center justify-center space-x-1">
+          <div className="hidden lg:block flex-1 max-w-4xl">
+            <div className="flex items-center justify-center space-x-1 overflow-x-auto">
               {navItems.map((item) => {
                 if (item.submenu) {
                   return (
@@ -128,7 +128,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop CTA Buttons */}
-          <div className="hidden xl:flex items-center space-x-1 flex-shrink-0">
+          <div className="hidden lg:flex items-center space-x-1 flex-shrink-0">
             <Button variant="heroSecondary" size="sm" className="group px-2 py-1.5 text-xs">
               <Camera className="h-3 w-3" />
             </Button>
@@ -138,7 +138,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="xl:hidden flex-shrink-0">
+          <div className="lg:hidden flex-shrink-0">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-foreground hover:text-primary p-2 rounded-lg transition-colors duration-300 hover:bg-background/10"
@@ -156,7 +156,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu - Glassmorphic Capsule */}
       {isMobileMenuOpen && (
-        <div className="xl:hidden mt-4 mx-4">
+        <div className="lg:hidden mt-4 mx-4">
           <div className="bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-primary/5 rounded-3xl overflow-hidden">
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navItems.map((item, index) => {
@@ -244,7 +244,7 @@ const Navbar = () => {
       {/* Mobile menu backdrop */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-background/20 backdrop-blur-sm xl:hidden -z-10"
+          className="fixed inset-0 bg-background/20 backdrop-blur-sm lg:hidden -z-10"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
