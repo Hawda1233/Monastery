@@ -30,6 +30,7 @@ import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
+import prayerAltar from "@/assets/prayer-altar.png";
 
 const Store = () => {
   const [cart, setCart] = useState([]);
@@ -40,9 +41,9 @@ const Store = () => {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const categories = [
-    { id: "all", name: "All Products", count: 24 },
+    { id: "all", name: "All Products", count: 23 },
     { id: "handicrafts", name: "Handicrafts", count: 8 },
-    { id: "prayer-items", name: "Prayer Items", count: 6 },
+    { id: "prayer-items", name: "Prayer Items", count: 5 },
     { id: "textiles", name: "Traditional Textiles", count: 5 },
     { id: "jewelry", name: "Jewelry", count: 3 },
     { id: "books", name: "Books & Manuscripts", count: 2 }
@@ -67,19 +68,19 @@ const Store = () => {
     },
     {
       id: 2,
-      name: "Singing Bowl Set",
+      name: "Traditional Prayer Altar",
       category: "prayer-items",
-      price: 1800,
-      originalPrice: 2200,
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400",
+      price: 12000,
+      originalPrice: 15000,
+      image: prayerAltar,
       rating: 4.9,
-      reviews: 18,
-      description: "Handcrafted brass singing bowl with wooden striker",
-      artisan: "Karma Dolma",
-      location: "Pelling",
+      reviews: 16,
+      description: "Handcrafted traditional Buddhist prayer altar with intricate artwork and decorative carvings",
+      artisan: "Master Craftsman Tashi",
+      location: "Gangtok",
       inStock: true,
-      bestseller: false,
-      discount: 18
+      bestseller: true,
+      discount: 20
     },
     {
       id: 3,
@@ -99,19 +100,19 @@ const Store = () => {
     },
     {
       id: 4,
-      name: "Prayer Wheel (Mani Wheel)",
+      name: "Meditation Cushion Set",
       category: "prayer-items",
-      price: 1200,
-      originalPrice: 1500,
-      image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400",
-      rating: 4.6,
-      reviews: 22,
-      description: "Traditional copper prayer wheel with mantras",
-      artisan: "Lobsang Norbu",
-      location: "Rumtek",
+      price: 2200,
+      originalPrice: 2800,
+      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
+      rating: 4.7,
+      reviews: 14,
+      description: "Traditional meditation cushions with Buddhist symbols",
+      artisan: "Dolma Tsering",
+      location: "Pelling",
       inStock: true,
-      bestseller: true,
-      discount: 20
+      bestseller: false,
+      discount: 21
     },
     {
       id: 5,
