@@ -1,5 +1,5 @@
 const API_KEY = 'zpka_3a8d373cf181421f99f6e6db64751af4_2c564706';
-const BASE_URL = 'http://dataservice.accuweather.com';
+const BASE_URL = 'https://rsjgvmceqchinpbbtius.supabase.co/functions/v1';
 
 export interface WeatherData {
   name: string;
