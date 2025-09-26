@@ -106,7 +106,7 @@ const Navbar = () => {
                         <ChevronDown className="h-2 w-2 transition-transform group-hover:rotate-180" />
                         <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent className="z-50 bg-background border border-border shadow-lg rounded-2xl min-w-48">
+                      <DropdownMenuContent className="z-50 bg-background/10 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl min-w-48">
                         {item.submenu.map((subItem) => (
                           <DropdownMenuItem key={subItem.name} asChild>
                             <Link
