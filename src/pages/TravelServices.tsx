@@ -4,8 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Car, MapPin, Hotel, Package, Star, Clock, Users, Phone, Calendar, Route } from "lucide-react";
+import { Car, MapPin, Hotel, Package, Star, Clock, Users, Phone, Calendar, Route, CheckCircle, Shield, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
@@ -320,94 +322,40 @@ const TravelServices = () => {
                           onClick={() => setBookingStep(2)}
                         >
                           <Package className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
-                          Book Package - Select Your Guide
+                          Check Availability & Book
                         </Button>
                       </CardContent>
                     </Card>
                   ))}
                 </div>
               ) : bookingStep === 2 ? (
-                <div className="max-w-4xl mx-auto">
-                  <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold mb-2">Select Your Local Sikkim Guide</h3>
-                    <p className="text-muted-foreground">Choose from our certified local guides for an authentic experience</p>
-                  </div>
-                  <div className="grid md:grid-cols-1 gap-6 mb-8">
-                    {tourPackages[0].guides.map((guide, index) => (
-                      <Card 
-                        key={index} 
-                        className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
-                          selectedGuide?.name === guide.name ? 'ring-2 ring-primary shadow-lg' : ''
-                        }`}
-                        onClick={() => setSelectedGuide(guide)}
-                      >
-                        <CardHeader>
-                          <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-white font-bold text-2xl">{guide.name.charAt(0)}</span>
-                          </div>
-                          <CardTitle className="text-center text-xl">{guide.name}</CardTitle>
-                          <CardDescription className="text-center">
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-center gap-2 text-green-600">
-                                <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                                {guide.experience}
-                              </div>
-                              <div className="text-primary font-medium">{guide.specialty}</div>
-                              <div className="text-sm text-muted-foreground">
-                                {guide.address}
-                              </div>
-                            </div>
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="text-center space-y-3">
-                          <div className="flex items-center justify-center gap-1 text-yellow-500 mb-2">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 fill-current" />
-                            ))}
-                          </div>
-                          <div className="space-y-2">
-                            <Button variant="outline" size="sm" className="w-full">
-                              <Phone className="h-4 w-4 mr-2" />
-                              {guide.phone}
-                            </Button>
-                            <Button variant="outline" size="sm" className="w-full">
-                              <span className="h-4 w-4 mr-2">✉️</span>
-                              {guide.email}
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                  <div className="flex gap-4 justify-center">
-                    <Button variant="outline" onClick={() => setBookingStep(1)}>
-                      Back to Package
-                    </Button>
-                    <Button 
-                      onClick={() => setBookingStep(3)}
-                      className="min-w-48"
-                    >
-                      Continue with Adarsh Tours
-                    </Button>
-                  </div>
-                </div>
-              ) : bookingStep === 3 ? (
+                /* Tour Package Availability Check Form */
                 <div className="max-w-2xl mx-auto">
                   <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold mb-2">Complete Your Booking</h3>
-                    <p className="text-muted-foreground">Fill in your details to confirm the reservation</p>
+                    <h2 className="text-3xl font-bold mb-2">Check Tour Availability</h2>
+                    <p className="text-muted-foreground">
+                      Please provide your details and we'll check availability for your preferred dates
+                    </p>
                   </div>
+
                   <Card>
                     <CardHeader>
-                      <CardTitle>Booking Summary</CardTitle>
+                      <CardTitle>Tour Booking Information</CardTitle>
                       <CardDescription>
-                        Package: North East Retreat with Adarsh Tours, Treks & Expedition
+                        Fill in your details for availability check and booking confirmation
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="text-sm font-medium">Number of Travelers</label>
+                        <div className="space-y-2">
+                          <Label>Preferred Travel Date</Label>
+                          <Input 
+                            type="date"
+                            onChange={(e) => setBookingDetails({...bookingDetails, travelDate: e.target.value})}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Number of Travelers</Label>
                           <Select onValueChange={(value) => setBookingDetails({...bookingDetails, travelers: parseInt(value)})}>
                             <SelectTrigger>
                               <SelectValue placeholder="Select travelers" />
@@ -416,109 +364,244 @@ const TravelServices = () => {
                               <SelectItem value="1">1 Person</SelectItem>
                               <SelectItem value="2">2 People</SelectItem>
                               <SelectItem value="3">3 People</SelectItem>
-                              <SelectItem value="4">4 People</SelectItem>
+                              <SelectItem value="4">4+ People</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
-                        <div>
-                          <label className="text-sm font-medium">Travel Date</label>
-                          <Input 
-                            type="date" 
-                            onChange={(e) => setBookingDetails({...bookingDetails, travelDate: e.target.value})}
-                          />
-                        </div>
                       </div>
+
                       <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="text-sm font-medium">Contact Name</label>
+                        <div className="space-y-2">
+                          <Label>Full Name</Label>
                           <Input 
-                            placeholder="Your full name"
+                            placeholder="Enter your full name"
                             onChange={(e) => setBookingDetails({...bookingDetails, contactName: e.target.value})}
                           />
                         </div>
-                        <div>
-                          <label className="text-sm font-medium">Phone Number</label>
+                        <div className="space-y-2">
+                          <Label>Email Address</Label>
+                          <Input 
+                            type="email"
+                            placeholder="your@email.com"
+                            onChange={(e) => setBookingDetails({...bookingDetails, contactEmail: e.target.value})}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label>Phone Number</Label>
                           <Input 
                             placeholder="+91 XXXXX XXXXX"
                             onChange={(e) => setBookingDetails({...bookingDetails, contactPhone: e.target.value})}
                           />
                         </div>
+                        <div className="space-y-2">
+                          <Label>Package Selected</Label>
+                          <Input 
+                            value="North East Retreat - 4N/5D"
+                            disabled
+                            className="bg-muted"
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <label className="text-sm font-medium">Email Address</label>
-                        <Input 
-                          type="email" 
-                          placeholder="your.email@example.com"
-                          onChange={(e) => setBookingDetails({...bookingDetails, contactEmail: e.target.value})}
+
+                      <div className="space-y-2">
+                        <Label>Special Requirements or Questions</Label>
+                        <Textarea 
+                          placeholder="Any dietary requirements, accessibility needs, special occasions, or questions about the tour..."
                         />
                       </div>
-                      <div className="bg-muted p-4 rounded-lg">
-                        <div className="flex justify-between items-center mb-2">
-                          <span>Package Cost ({bookingDetails.travelers} person{bookingDetails.travelers > 1 ? 's' : ''})</span>
-                          <span className="font-medium">₹{(21273 * bookingDetails.travelers).toLocaleString()}</span>
+
+                      <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 p-6 rounded-2xl border border-blue-200 dark:border-blue-800">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Shield className="h-5 w-5 text-primary" />
+                          <span className="font-medium text-primary">Monastery360 Platform Guarantee</span>
                         </div>
-                        <div className="flex justify-between items-center text-lg font-bold">
-                          <span>Total Amount</span>
-                          <span>₹{(21273 * bookingDetails.travelers).toLocaleString()}</span>
-                        </div>
-                        <div className="text-sm text-muted-foreground mt-1">
-                          EMI: ₹{Math.round(6612 * bookingDetails.travelers).toLocaleString()}/month
-                        </div>
+                        <ul className="text-sm text-muted-foreground space-y-2">
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span><strong>Secure Payment:</strong> All payments processed only through Monastery360 platform</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span><strong>No Hidden Charges:</strong> We will never call you to pay extra amounts</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span><strong>Verified Tours:</strong> All bookings verified through our certified partners</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span><strong>24/7 Support:</strong> Complete assistance through Monastery360 platform only</span>
+                          </li>
+                        </ul>
                       </div>
+
+                      <div className="bg-muted/50 p-4 rounded-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Clock className="h-5 w-5 text-green-500" />
+                          <span className="font-medium">What happens next?</span>
+                        </div>
+                        <ul className="text-sm text-muted-foreground space-y-1 ml-7">
+                          <li>• We'll verify tour availability for your selected dates</li>
+                          <li>• Our certified partner will contact you within 24 hours</li>
+                          <li>• Payment links will be sent only through Monastery360 platform</li>
+                          <li>• No advance payment required until availability is confirmed</li>
+                        </ul>
+                      </div>
+
                       <div className="flex gap-4">
-                        <Button variant="outline" onClick={() => setBookingStep(2)} className="flex-1">
-                          Back to Guides
+                        <Button 
+                          variant="outline" 
+                          className="flex-1"
+                          onClick={() => setBookingStep(1)}
+                        >
+                          Back to Packages
                         </Button>
                         <Button 
                           className="flex-1"
-                          onClick={() => setBookingStep(4)}
+                          onClick={() => setBookingStep(3)}
                         >
-                          Proceed to Payment
+                          Check Availability
                         </Button>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
               ) : (
-                <div className="max-w-2xl mx-auto">
-                  <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold mb-2">Payment</h3>
-                    <p className="text-muted-foreground">Secure payment gateway</p>
+                /* Thank You Confirmation */
+                <div className="max-w-2xl mx-auto text-center">
+                  <div className="mb-8">
+                    {/* Animated Success Icon */}
+                    <div className="relative mx-auto mb-6">
+                      <div className="w-32 h-32 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto animate-pulse">
+                        <CheckCircle className="h-16 w-16 text-white animate-bounce" />
+                      </div>
+                      <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping"></div>
+                    </div>
+                    
+                    <div className="space-y-4 animate-fade-in">
+                      <h2 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-green-400 bg-clip-text text-transparent">
+                        Thank You!
+                      </h2>
+                      <h3 className="text-2xl font-semibold text-foreground mb-4">
+                        Tour Availability Request Submitted
+                      </h3>
+                      <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 p-6 rounded-2xl border border-green-200 dark:border-green-800">
+                        <p className="text-lg text-muted-foreground leading-relaxed">
+                          Your request for the <span className="font-semibold text-foreground">North East Retreat Package</span> has been received. 
+                          Our certified partner will contact you within <span className="font-semibold text-green-600">24 hours</span> to confirm availability 
+                          and provide secure payment links through the Monastery360 platform.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Payment Details</CardTitle>
-                      <CardDescription>
-                        Complete your booking for North East Retreat with Adarsh Tours
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div className="bg-muted p-4 rounded-lg">
-                        <div className="flex justify-between items-center mb-2">
-                          <span>Total Amount</span>
-                          <span className="text-2xl font-bold">₹{(21273 * bookingDetails.travelers).toLocaleString()}</span>
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          EMI Available: ₹{Math.round(6612 * bookingDetails.travelers).toLocaleString()}/month
-                        </div>
-                      </div>
-                      
-                      <div className="grid gap-4">
-                        <Button className="w-full py-3 text-lg">
-                          Pay Now - ₹{(21273 * bookingDetails.travelers).toLocaleString()}
-                        </Button>
-                        <Button variant="outline" className="w-full py-3">
-                          Book Now Pay Later (EMI Available)
-                        </Button>
-                      </div>
 
-                      <div className="flex gap-4">
-                        <Button variant="outline" onClick={() => setBookingStep(3)} className="flex-1">
-                          Back to Details
-                        </Button>
+                  {/* Important Notice */}
+                  <Card className="text-left mb-8 border-2 border-primary/20">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-primary">
+                        <Shield className="h-5 w-5" />
+                        Important: Monastery360 Platform Only
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
+                        <h4 className="font-semibold text-amber-800 dark:text-amber-200 mb-2">⚠️ Payment Security Notice</h4>
+                        <ul className="text-sm text-amber-700 dark:text-amber-300 space-y-1">
+                          <li>• <strong>ONLY pay through Monastery360 platform links</strong></li>
+                          <li>• <strong>We will NEVER call you to pay extra amounts</strong></li>
+                          <li>• <strong>Beware of fake payment requests outside our platform</strong></li>
+                          <li>• <strong>All legitimate payments have Monastery360 branding</strong></li>
+                        </ul>
                       </div>
                     </CardContent>
                   </Card>
+
+                  {/* Process Steps */}
+                  <Card className="text-left mb-8">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Clock className="h-5 w-5 text-primary" />
+                        Next Steps in Your Tour Booking
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+                          <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-white text-sm font-bold">1</span>
+                          </div>
+                          <div>
+                            <p className="font-medium">Availability Verification</p>
+                            <p className="text-sm text-muted-foreground">We check tour dates and guide availability</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+                          <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-white text-sm font-bold">2</span>
+                          </div>
+                          <div>
+                            <p className="font-medium">Partner Contact (24 hrs)</p>
+                            <p className="text-sm text-muted-foreground">Certified guide contacts you with itinerary details</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+                          <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-white text-sm font-bold">3</span>
+                          </div>
+                          <div>
+                            <p className="font-medium">Secure Payment Link</p>
+                            <p className="text-sm text-muted-foreground">Receive payment link ONLY through Monastery360 platform</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+                          <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-white text-sm font-bold">4</span>
+                          </div>
+                          <div>
+                            <p className="font-medium">Tour Confirmation</p>
+                            <p className="text-sm text-muted-foreground">Complete booking with detailed travel instructions</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="border-t pt-4">
+                        <p className="text-sm text-muted-foreground flex items-center gap-2">
+                          <Package className="h-4 w-4" />
+                          Request ID: #TR2024{Math.random().toString(36).substr(2, 6).toUpperCase()}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Action Buttons */}
+                  <div className="space-y-4">
+                    <Button 
+                      className="w-full text-lg py-6"
+                      onClick={() => {
+                        setBookingStep(1);
+                        setBookingDetails({travelers: 2, travelDate: '', contactName: '', contactPhone: '', contactEmail: ''});
+                      }}
+                    >
+                      <Package className="h-5 w-5 mr-2" />
+                      Explore More Tour Packages
+                    </Button>
+                    <div className="grid grid-cols-2 gap-4">
+                      <Button variant="outline" className="w-full">
+                        <Phone className="h-4 w-4 mr-2" />
+                        Call Support
+                      </Button>
+                      <Button variant="outline" className="w-full">
+                        <Mail className="h-4 w-4 mr-2" />
+                        Email Help
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               )}
             </TabsContent>
