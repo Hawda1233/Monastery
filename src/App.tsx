@@ -27,6 +27,7 @@ import Reviews from "./pages/Reviews";
 import Weather from "./pages/Weather";
 import Newsletter from "./pages/Newsletter";
 import VirtualTour from "./pages/VirtualTour";
+import Homestay from "./pages/Homestay";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -97,6 +98,7 @@ const App = () => {
           <Route path="/weather" element={<Weather />} />
           <Route path="/newsletter" element={<Newsletter />} />
           <Route path="/virtual-tour" element={<VirtualTour />} />
+          <Route path="/homestay" element={<Homestay />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

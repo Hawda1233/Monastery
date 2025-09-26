@@ -48,7 +48,7 @@ const Navbar = () => {
       icon: Car,
       submenu: [
         { name: "Transportation", href: "/travel#transport", icon: Car },
-        { name: "Homestay Booking", href: "/travel#homestay", icon: Home },
+        { name: "Homestay Booking", href: "/homestay", icon: Home },
         { name: "Tour Packages", href: "/travel#packages", icon: Package },
         { name: "Tourism Services", href: "/travel#services", icon: Sparkles }
       ]
