@@ -1,5 +1,5 @@
-const API_KEY = '7c31eaf4750d311e6ddc0c750c3b652b';
-const BASE_URL = 'https://api.openweathermap.org/data/2.5';
+const API_KEY = 'zpka_3a8d373cf181421f99f6e6db64751af4_2c564706';
+const BASE_URL = 'http://dataservice.accuweather.com';
 
 export interface WeatherData {
   name: string;
@@ -34,31 +34,49 @@ export const monasteries = [
   { name: 'Enchey Monastery', lat: 27.3398, lon: 88.6132, elevation: '1,909m' }
 ];
 
-export const fetchWeatherData = async (lat: number, lon: number): Promise<WeatherData> => {
-  const url = `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+// Helper function to get location key from coordinates
+const getLocationKey = async (lat: number, lon: number): Promise<string> => {
+  const url = `${BASE_URL}/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${lon}`;
   
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Location API error: ${response.status}`);
+  }
+  
+  const data = await response.json();
+  return data.Key;
+};
+
+export const fetchWeatherData = async (lat: number, lon: number): Promise<WeatherData> => {
   try {
+    // First get location key
+    const locationKey = await getLocationKey(lat, lon);
+    
+    // Then get current conditions
+    const url = `${BASE_URL}/currentconditions/v1/${locationKey}?apikey=${API_KEY}&details=true`;
+    
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Weather API error: ${response.status}`);
     }
     
     const data = await response.json();
+    const current = data[0]; // AccuWeather returns array
     
     return {
-      name: data.name,
+      name: `Location ${locationKey}`, // AccuWeather doesn't return name in current conditions
       lat,
       lon,
-      temperature: Math.round(data.main.temp),
-      condition: data.weather[0].main,
-      description: data.weather[0].description,
-      feelsLike: Math.round(data.main.feels_like),
-      humidity: data.main.humidity,
-      pressure: data.main.pressure,
-      visibility: Math.round(data.visibility / 1000), // Convert to km
-      windSpeed: Math.round(data.wind?.speed * 3.6), // Convert m/s to km/h
-      windDirection: data.wind?.deg || 0,
-      icon: data.weather[0].icon
+      temperature: Math.round(current.Temperature.Metric.Value),
+      condition: current.WeatherText,
+      description: current.WeatherText,
+      feelsLike: Math.round(current.RealFeelTemperature.Metric.Value),
+      humidity: current.RelativeHumidity,
+      pressure: Math.round(current.Pressure.Metric.Value),
+      visibility: Math.round(current.Visibility.Metric.Value),
+      windSpeed: Math.round(current.Wind.Speed.Metric.Value),
+      windDirection: current.Wind.Direction.Degrees,
+      icon: current.WeatherIcon.toString()
     };
   } catch (error) {
     console.error('Error fetching weather data:', error);
@@ -67,9 +85,13 @@ export const fetchWeatherData = async (lat: number, lon: number): Promise<Weathe
 };
 
 export const fetchForecastData = async (lat: number, lon: number): Promise<ForecastData[]> => {
-  const url = `${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
-  
   try {
+    // First get location key
+    const locationKey = await getLocationKey(lat, lon);
+    
+    // Then get 5-day forecast
+    const url = `${BASE_URL}/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}&details=true&metric=true`;
+    
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Forecast API error: ${response.status}`);
@@ -77,41 +99,18 @@ export const fetchForecastData = async (lat: number, lon: number): Promise<Forec
     
     const data = await response.json();
     
-    // Group forecasts by day and get daily highs/lows
-    const dailyForecasts: { [key: string]: any[] } = {};
-    
-    data.list.forEach((item: any) => {
-      const date = new Date(item.dt * 1000);
-      const dayKey = date.toDateString();
-      
-      if (!dailyForecasts[dayKey]) {
-        dailyForecasts[dayKey] = [];
-      }
-      dailyForecasts[dayKey].push(item);
-    });
-    
     const forecast: ForecastData[] = [];
-    const dayNames = ['Today', 'Tomorrow', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const dayNames = ['Today', 'Tomorrow', 'Wednesday', 'Thursday', 'Friday'];
     
-    Object.keys(dailyForecasts).slice(0, 7).forEach((dayKey, index) => {
-      const dayData = dailyForecasts[dayKey];
-      const temps = dayData.map(item => item.main.temp);
-      const high = Math.round(Math.max(...temps));
-      const low = Math.round(Math.min(...temps));
-      
-      // Use midday forecast for general conditions
-      const middayForecast = dayData[Math.floor(dayData.length / 2)] || dayData[0];
-      const hasRain = dayData.some(item => item.weather[0].main.includes('Rain'));
-      const precipitation = hasRain ? Math.round(Math.random() * 40 + 10) : Math.round(Math.random() * 20);
-      
+    data.DailyForecasts.forEach((day: any, index: number) => {
       forecast.push({
-        day: index < dayNames.length ? dayNames[index] : new Date(dayKey).toLocaleDateString('en-US', { weekday: 'short' }),
-        high,
-        low,
-        condition: middayForecast.weather[0].main,
-        description: middayForecast.weather[0].description,
-        icon: middayForecast.weather[0].icon,
-        precipitation
+        day: index < dayNames.length ? dayNames[index] : new Date(day.Date).toLocaleDateString('en-US', { weekday: 'short' }),
+        high: Math.round(day.Temperature.Maximum.Value),
+        low: Math.round(day.Temperature.Minimum.Value),
+        condition: day.Day.IconPhrase,
+        description: day.Day.IconPhrase,
+        icon: day.Day.Icon.toString(),
+        precipitation: day.Day.PrecipitationProbability || 0
       });
     });
     
