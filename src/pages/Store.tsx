@@ -68,10 +68,10 @@ const Store = () => {
     },
     {
       id: 2,
-      name: "Traditional Prayer Altar",
+      name: "Puja Ghar",
       category: "prayer-items",
-      price: 12000,
-      originalPrice: 15000,
+      price: 4999,
+      originalPrice: 6249,
       image: prayerAltar,
       rating: 4.9,
       reviews: 16,
