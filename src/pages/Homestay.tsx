@@ -44,6 +44,9 @@ import ronglyangExterior from "@/assets/ronglyang-exterior.png";
 import ronglyangLiving from "@/assets/ronglyang-living.png";
 import ronglyangBathroom from "@/assets/ronglyang-bathroom.png";
 import ronglyangVilla from "@/assets/ronglyang-villa.png";
+import talayGharRoom1 from "@/assets/talay-ghar-room1.png";
+import talayGharRoom2 from "@/assets/talay-ghar-room2.png";
+import talayGharBathroom from "@/assets/talay-ghar-bathroom.png";
 
 const Homestay = () => {
   const [selectedHomestay, setSelectedHomestay] = useState<any>(null);
@@ -79,6 +82,34 @@ const Homestay = () => {
         "Sun terrace and garden for relaxation",
         "Outdoor fireplace and indoor play area",
         "Free WiFi throughout the property"
+      ]
+    },
+    {
+      id: 2,
+      name: "Talay Ghar Homestay",
+      location: "Kaluk - Rinchenpong Road Lower Tadong Road, 737113 Kaluk, India",
+      description: "Comfortable accommodations in Kaluk offering family rooms with private bathrooms, balconies, and garden or mountain views. Each room includes a work desk, TV, and free toiletries. Located near Rinchenpong Monastery and Kaluk Village, 133 km from Bagdogra International Airport.",
+      price: "₹2,800",
+      rating: 9.0,
+      reviews: 5,
+      amenities: ["Free Parking", "Non-smoking Rooms", "Room Service", "Family Rooms", "Bar", "Breakfast", "Garden", "Terrace", "Children's Playground", "Bicycle Parking", "Mountain Views"],
+      maxGuests: 8,
+      rooms: 4,
+      phone: "+91 98123 45678",
+      email: "talayghar@homestay.com",
+      images: [talayGharRoom1, talayGharRoom2, talayGharBathroom],
+      host: "Talay Family",
+      hostExperience: "5 years hosting experience",
+      specialties: ["Local Cuisine", "Mountain Trekking", "Cultural Tours"],
+      highlights: [
+        "Excellent location — rated 9/10! (score from 5 reviews)",
+        "Real guests • Real stays • Real opinions",
+        "Breakfast includes local specialties, warm dishes, and vegetarian and Asian options",
+        "Garden, terrace, and bar for relaxation",
+        "Children's playground and bicycle parking available",
+        "Near Rinchenpong Monastery and Kaluk Village",
+        "Free on-site private parking",
+        "133 km from Bagdogra International Airport"
       ]
     }
   ];
