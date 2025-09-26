@@ -12,6 +12,7 @@ import BackButton from "@/components/BackButton";
 import sikkimTourismBus from "@/assets/sikkim-tourism-bus.png";
 import sikkimMountainCabs from "@/assets/sikkim-mountain-cabs.png";
 import himalayanRidesBike from "@/assets/himalayan-rides-bike.png";
+import nssBikeRental from "@/assets/nss-bike-rental.png";
 
 const TravelServices = () => {
   const [selectedDuration, setSelectedDuration] = useState("all");
@@ -64,7 +65,7 @@ const TravelServices = () => {
       features: ["Multiple bike options", "Competitive rates", "Local pickup/drop"],
       rating: 4.4,
       contact: "+91 98765 43213",
-      image: himalayanRidesBike
+      image: nssBikeRental
     }
   ];
 
