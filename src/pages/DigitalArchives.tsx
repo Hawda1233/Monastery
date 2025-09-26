@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
 import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
+import rumtekGallery from "@/assets/rumtek-gallery.png";
 
 const DigitalArchives = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -50,6 +51,78 @@ const DigitalArchives = () => {
       digitized: true,
       downloadable: true,
       thumbnail: tashidingMonastery
+    },
+    {
+      id: 4,
+      title: "Dharma Chakra Centre",
+      type: "architecture",
+      monastery: "Rumtek Monastery",
+      period: "1966",
+      description: "The main seat in exile of the Gyalwang Karmapa, inaugurated in 1966 by the 16th Karmapa. Also known as Rumtek Monastery, it serves as the largest monastery in Sikkim.",
+      language: "Visual",
+      digitized: true,
+      downloadable: true,
+      thumbnail: rumtekGallery
+    },
+    {
+      id: 5,
+      title: "Sacred Prayer Wheels Collection",
+      type: "artifact",
+      monastery: "Rumtek Monastery",
+      period: "20th Century",
+      description: "Traditional Tibetan prayer wheels containing Buddhist mantras and prayers, used in daily religious practices at the Karma Kagyu lineage center.",
+      language: "Sanskrit/Tibetan",
+      digitized: true,
+      downloadable: false,
+      thumbnail: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=300"
+    },
+    {
+      id: 6,
+      title: "Rumtek Monastery Foundation Records",
+      type: "document",
+      monastery: "Rumtek Monastery",
+      period: "1959-1966",
+      description: "Official records documenting the reconstruction of Rumtek Monastery by the 16th Karmapa after fleeing Tibet, including architectural plans and royal patronage documents.",
+      language: "Tibetan/English",
+      digitized: true,
+      downloadable: true,
+      thumbnail: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300"
+    },
+    {
+      id: 7,
+      title: "Karma Kagyu Lineage Teachings",
+      type: "manuscript",
+      monastery: "Rumtek Monastery",
+      period: "16th-20th Century",
+      description: "Sacred texts and teachings from Tsurphu Monastery in Tibet, brought by the 16th Karmapa and preserved at the Karma Shri Nalanda Institute for Higher Buddhist Studies.",
+      language: "Tibetan",
+      digitized: true,
+      downloadable: true,
+      thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300"
+    },
+    {
+      id: 8,
+      title: "Traditional Monastery Doors",
+      type: "architecture",
+      monastery: "Rumtek Monastery",
+      period: "1966",
+      description: "Intricately carved wooden doors featuring traditional Tibetan Buddhist motifs and symbols, representing the entrance to sacred spaces within the monastery complex.",
+      language: "Visual",
+      digitized: true,
+      downloadable: false,
+      thumbnail: "https://images.unsplash.com/photo-1578662996442-23cb84602500?w=300"
+    },
+    {
+      id: 9,
+      title: "Golden Stupa Relics Documentation",
+      type: "document",
+      monastery: "Rumtek Monastery",
+      period: "1981-Present",
+      description: "Historical documentation of the golden stupa containing the relics of the 16th Karmapa, including construction details and ceremonial significance.",
+      language: "Tibetan/English",
+      digitized: true,
+      downloadable: false,
+      thumbnail: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300"
     }
   ];
 
@@ -58,6 +131,8 @@ const DigitalArchives = () => {
       case 'manuscript': return FileText;
       case 'mural': return Image;
       case 'document': return BookOpen;
+      case 'architecture': return Archive;
+      case 'artifact': return Archive;
       default: return Archive;
     }
   };
