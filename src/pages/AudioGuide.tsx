@@ -430,28 +430,25 @@ const AudioGuide = () => {
         </div>
       </section>
 
-      {/* Demo Section */}
+      {/* Cultural Experience Section */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-4xl mx-auto text-center">
           <Card className="p-8 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-            <Smartphone className="h-16 w-16 mx-auto text-primary mb-6" />
-            <h2 className="text-3xl font-bold mb-4">Experience the Demo</h2>
+            <Volume2 className="h-16 w-16 mx-auto text-primary mb-6" />
+            <h2 className="text-3xl font-bold mb-4">Experience the History, Culture & Tradition</h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Try our location-based audio guide system right from your browser. 
-              Get a taste of what awaits you at Sikkim's monasteries.
+              Immerse yourself in Sikkim's rich cultural heritage through authentic traditional music, 
+              ancient chants, and stories passed down through generations. Experience the living traditions 
+              of Buddhist monasteries with our interactive cultural guide.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <Button size="lg" className="group">
+            <div className="flex justify-center max-w-sm mx-auto">
+              <Button size="lg" className="group w-full">
                 <Play className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
-                Try Web Demo
-              </Button>
-              <Button size="lg" variant="outline" className="group">
-                <Bluetooth className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
-                Learn How It Works
+                Experience Traditional Music
               </Button>
             </div>
             <div className="mt-8 text-sm text-muted-foreground">
-              <p>📱 Works on all modern smartphones | 🎧 Best with headphones | 📍 GPS required</p>
+              <p>🎵 Traditional chants & music | 📿 Cultural rituals | 🏔️ Mountain monastery atmosphere</p>
             </div>
           </Card>
         </div>
