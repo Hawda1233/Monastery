@@ -9,6 +9,7 @@ import { Car, MapPin, Hotel, Package, Star, Clock, Users, Phone, Calendar, Route
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
+import sikkimTourismBus from "@/assets/sikkim-tourism-bus.png";
 
 const TravelServices = () => {
   const [selectedDuration, setSelectedDuration] = useState("all");
@@ -37,7 +38,7 @@ const TravelServices = () => {
       features: ["Fixed schedule", "Budget-friendly", "Tourist guide"],
       rating: 4.2,
       contact: "+91 98765 43211",
-      image: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=300"
+      image: sikkimTourismBus
     },
     {
       id: 3,
