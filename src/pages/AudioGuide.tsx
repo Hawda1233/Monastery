@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Smartphone, Download, MapPin, Volume2, Wifi, Languages, Star, Play, Headphones, Bluetooth } from "lucide-react";
+import { Smartphone, Download, MapPin, Volume2, Wifi, Languages, Star, Play, Headphones, Bluetooth, Pause, SkipForward, SkipBack } from "lucide-react";
+import { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
@@ -9,6 +10,62 @@ import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
 
 const AudioGuide = () => {
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const sikkimHistorySeries = [
+    {
+      title: "Introduction to Sikkim",
+      duration: "8:32",
+      file: "/audio/sikkim-history-1.mp3"
+    },
+    {
+      title: "Ancient Kingdoms",
+      duration: "12:45",
+      file: "/audio/sikkim-history-2.mp3"
+    },
+    {
+      title: "Buddhist Heritage",
+      duration: "15:20",
+      file: "/audio/sikkim-history-3.mp3"
+    },
+    {
+      title: "Modern Sikkim",
+      duration: "11:15",
+      file: "/audio/sikkim-history-4.mp3"
+    }
+  ];
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const playTrack = (index: number) => {
+    setCurrentTrack(index);
+    setIsPlaying(true);
+    if (audioRef.current) {
+      audioRef.current.src = sikkimHistorySeries[index].file;
+      audioRef.current.play();
+    }
+  };
+
+  const nextTrack = () => {
+    const next = (currentTrack + 1) % sikkimHistorySeries.length;
+    playTrack(next);
+  };
+
+  const prevTrack = () => {
+    const prev = (currentTrack - 1 + sikkimHistorySeries.length) % sikkimHistorySeries.length;
+    playTrack(prev);
+  };
   const features = [
     {
       icon: MapPin,
@@ -286,6 +343,89 @@ const AudioGuide = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sikkim History Series */}
+      <section className="px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Sikkim History in English</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Discover the rich heritage of Sikkim through our comprehensive audio series covering ancient kingdoms to modern times.
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <Card className="p-8 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
+              {/* Current Track Display */}
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold mb-2">{sikkimHistorySeries[currentTrack].title}</h3>
+                <p className="text-muted-foreground mb-4">Episode {currentTrack + 1} of {sikkimHistorySeries.length}</p>
+                <Badge variant="secondary" className="mb-6">
+                  Duration: {sikkimHistorySeries[currentTrack].duration}
+                </Badge>
+              </div>
+
+              {/* Audio Player Controls */}
+              <div className="flex items-center justify-center gap-6 mb-8">
+                <Button variant="ghost" size="icon" onClick={prevTrack}>
+                  <SkipBack className="h-6 w-6" />
+                </Button>
+                <Button size="lg" onClick={togglePlay} className="rounded-full w-16 h-16">
+                  {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
+                </Button>
+                <Button variant="ghost" size="icon" onClick={nextTrack}>
+                  <SkipForward className="h-6 w-6" />
+                </Button>
+              </div>
+
+              {/* Track List */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {sikkimHistorySeries.map((track, index) => (
+                  <Card 
+                    key={index} 
+                    className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
+                      currentTrack === index ? 'border-primary bg-primary/5' : ''
+                    }`}
+                    onClick={() => playTrack(index)}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-medium mb-1">{track.title}</h4>
+                          <p className="text-sm text-muted-foreground">Episode {index + 1}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-muted-foreground">{track.duration}</span>
+                          {currentTrack === index && isPlaying ? (
+                            <Volume2 className="h-4 w-4 text-primary animate-pulse" />
+                          ) : (
+                            <Play className="h-4 w-4 text-muted-foreground" />
+                          )}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Hidden Audio Element */}
+              <audio
+                ref={audioRef}
+                onEnded={nextTrack}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                className="hidden"
+              />
+              
+              <div className="mt-8 text-center">
+                <p className="text-sm text-muted-foreground">
+                  🎧 Best experienced with headphones | 📱 Available for download on mobile app
+                </p>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
