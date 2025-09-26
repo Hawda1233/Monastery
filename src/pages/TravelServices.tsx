@@ -45,7 +45,7 @@ const TravelServices = () => {
     {
       id: 3,
       type: "Motorcycle Rental",
-      provider: "Himalayan Rides",
+      provider: "Travel Gangtok Rental Services",
       description: "Self-drive motorcycle rentals for adventurous travelers.",
       price: "₹800/day",
       capacity: "2 passengers",
