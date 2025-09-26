@@ -45,9 +45,44 @@ const Weather = () => {
         
       } catch (error) {
         console.error('Error loading weather data:', error);
+        
+        // Fallback to mock data when API fails
+        const fallbackWeatherData = monasteries.map((monastery, index) => ({
+          name: monastery.name,
+          lat: monastery.lat,
+          lon: monastery.lon,
+          elevation: monastery.elevation,
+          temperature: [18, 15, 16, 17][index] || 16,
+          condition: ['Clear', 'Partly Cloudy', 'Cloudy', 'Clear'][index] || 'Clear',
+          description: 'clear sky',
+          feelsLike: [16, 13, 14, 15][index] || 14,
+          humidity: [65, 72, 68, 70][index] || 68,
+          pressure: [1013, 1015, 1012, 1014][index] || 1013,
+          visibility: 10,
+          windSpeed: [8, 12, 6, 10][index] || 9,
+          windDirection: [45, 90, 180, 270][index] || 90,
+          icon: '01d'
+        }));
+        
+        setMonasteryWeather(fallbackWeatherData);
+        setCurrentWeather(fallbackWeatherData[0]);
+        
+        // Fallback forecast
+        const fallbackForecast = [
+          { day: "Today", high: 20, low: 12, condition: "Clear", description: "clear sky", icon: "01d", precipitation: 5 },
+          { day: "Tomorrow", high: 22, low: 14, condition: "Partly Cloudy", description: "few clouds", icon: "02d", precipitation: 10 },
+          { day: "Wednesday", high: 19, low: 11, condition: "Cloudy", description: "scattered clouds", icon: "03d", precipitation: 20 },
+          { day: "Thursday", high: 17, low: 9, condition: "Rain", description: "light rain", icon: "10d", precipitation: 70 },
+          { day: "Friday", high: 16, low: 8, condition: "Rain", description: "moderate rain", icon: "10d", precipitation: 90 },
+          { day: "Saturday", high: 18, low: 10, condition: "Partly Cloudy", description: "few clouds", icon: "02d", precipitation: 30 },
+          { day: "Sunday", high: 21, low: 13, condition: "Clear", description: "clear sky", icon: "01d", precipitation: 5 }
+        ];
+        
+        setForecast(fallbackForecast);
+        
         toast({
-          title: "Weather data unavailable",
-          description: "Unable to load current weather information. Please try again later.",
+          title: "Using sample weather data",
+          description: "Weather API is currently unavailable. Please check your API key configuration.",
           variant: "destructive",
         });
       } finally {
