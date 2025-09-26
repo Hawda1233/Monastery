@@ -53,6 +53,18 @@ const TravelServices = () => {
       rating: 4.6,
       contact: "+91 98765 43212",
       image: himalayanRidesBike
+    },
+    {
+      id: 4,
+      type: "Bike & Scooty Rental",
+      provider: "NSS Bike and Scooty Rental",
+      description: "Affordable bike and scooty rentals perfect for exploring monastery routes at your own pace.",
+      price: "₹750/day",
+      capacity: "2 passengers",
+      features: ["Multiple bike options", "Competitive rates", "Local pickup/drop"],
+      rating: 4.4,
+      contact: "+91 98765 43213",
+      image: himalayanRidesBike
     }
   ];
 
