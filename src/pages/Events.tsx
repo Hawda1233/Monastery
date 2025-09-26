@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Calendar } from "@/components/ui/calendar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar as CalendarIcon, MapPin, Clock, Users, Camera, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -15,6 +17,8 @@ import losoongFestival from "@/assets/losoong-festival.png";
 
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [activeTab, setActiveTab] = useState("list");
 
   const calculateDaysToGo = (eventDate: string) => {
     const today = new Date();
@@ -23,6 +27,22 @@ const Events = () => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 0;
   };
+
+  // Check if a date has events
+  const hasEvents = (date: Date) => {
+    const dateString = date.toISOString().split('T')[0];
+    return events.some(event => event.date === dateString);
+  };
+
+  // Get events for a specific date
+  const getEventsForDate = (date: Date | undefined) => {
+    if (!date) return [];
+    const dateString = date.toISOString().split('T')[0];
+    return events.filter(event => event.date === dateString);
+  };
+
+  // Get events for selected date
+  const selectedDateEvents = getEventsForDate(selectedDate);
 
   const events = [
     {
@@ -239,138 +259,262 @@ const Events = () => {
       {/* Featured Events */}
       <section className="px-4 sm:px-6 lg:px-8 pb-12">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Featured Events</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {featuredEvents.map((event) => (
-              <Card key={event.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                <div className="relative overflow-hidden">
-                  <img
-                    src={event.image}
-                    alt={event.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <Badge className={getCategoryColor(event.category)}>
-                      {event.category}
-                    </Badge>
-                    <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
-                      Featured
-                    </Badge>
-                  </div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h3 className="text-2xl font-bold mb-2">{event.name}</h3>
-                    <p className="flex items-center gap-2 text-sm">
-                      <MapPin className="h-4 w-4" />
-                      {event.monastery}
-                    </p>
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                    <span className="flex items-center gap-1">
-                      <CalendarIcon className="h-4 w-4" />
-                      {new Date(event.date).toLocaleDateString()}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      {event.duration}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Users className="h-4 w-4" />
-                      {event.participants}
-                    </span>
-                    {calculateDaysToGo(event.date) > 0 && (
-                      <span className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
-                        {calculateDaysToGo(event.date)} days to go
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-muted-foreground mb-4">{event.description}</p>
-                  <div className="flex gap-2">
-                    <Button className="flex-1">
-                      <Heart className="h-4 w-4 mr-2" />
-                      {event.bookingRequired ? 'RSVP Required' : 'Join Event'}
-                    </Button>
-                    <Button variant="outline">
-                      <Camera className="h-4 w-4 mr-2" />
-                      Details
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+              <h2 className="text-3xl font-bold mb-4 md:mb-0">Events & Festivals</h2>
+              <TabsList className="grid w-full md:w-auto grid-cols-2">
+                <TabsTrigger value="list">List View</TabsTrigger>
+                <TabsTrigger value="calendar">Calendar View</TabsTrigger>
+              </TabsList>
+            </div>
 
-      {/* All Events */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Upcoming Events</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {upcomingEvents.map((event) => (
-              <Card key={event.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-                <div className="relative overflow-hidden">
-                  <img
-                    src={event.image}
-                    alt={event.name}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <Badge className={getCategoryColor(event.category)}>
-                      {event.category}
-                    </Badge>
-                  </div>
+            <TabsContent value="list" className="space-y-12">
+              {/* Featured Events */}
+              <div>
+                <h3 className="text-2xl font-bold mb-6">Featured Events</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {featuredEvents.map((event) => (
+                    <Card key={event.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={event.image}
+                          alt={event.name}
+                          className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute top-4 left-4 flex gap-2">
+                          <Badge className={getCategoryColor(event.category)}>
+                            {event.category}
+                          </Badge>
+                          <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
+                            Featured
+                          </Badge>
+                        </div>
+                        <div className="absolute bottom-4 left-4 text-white">
+                          <h3 className="text-2xl font-bold mb-2">{event.name}</h3>
+                          <p className="flex items-center gap-2 text-sm">
+                            <MapPin className="h-4 w-4" />
+                            {event.monastery}
+                          </p>
+                        </div>
+                      </div>
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                          <span className="flex items-center gap-1">
+                            <CalendarIcon className="h-4 w-4" />
+                            {new Date(event.date).toLocaleDateString()}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            {event.duration}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Users className="h-4 w-4" />
+                            {event.participants}
+                          </span>
+                          {calculateDaysToGo(event.date) > 0 && (
+                            <span className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                              {calculateDaysToGo(event.date)} days to go
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-muted-foreground mb-4">{event.description}</p>
+                        <div className="flex gap-2">
+                          <Button className="flex-1">
+                            <Heart className="h-4 w-4 mr-2" />
+                            {event.bookingRequired ? 'RSVP Required' : 'Join Event'}
+                          </Button>
+                          <Button variant="outline">
+                            <Camera className="h-4 w-4 mr-2" />
+                            Details
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
-                <CardHeader>
-                  <CardTitle className="line-clamp-1">{event.name}</CardTitle>
-                  <CardDescription className="flex items-center gap-1">
-                    <MapPin className="h-3 w-3" />
-                    {event.monastery}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm text-muted-foreground mb-4">
-                    <div className="flex items-center gap-2">
-                      <CalendarIcon className="h-4 w-4" />
-                      {new Date(event.date).toLocaleDateString()}
-                      {calculateDaysToGo(event.date) > 0 && (
-                        <span className="ml-2 px-2 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
-                          {calculateDaysToGo(event.date)} days to go
-                        </span>
-                      )}
+              </div>
+
+              {/* All Events */}
+              <div>
+                <h3 className="text-2xl font-bold mb-6">Upcoming Events</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {upcomingEvents.map((event) => (
+                    <Card key={event.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={event.image}
+                          alt={event.name}
+                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                        <div className="absolute top-4 left-4">
+                          <Badge className={getCategoryColor(event.category)}>
+                            {event.category}
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardHeader>
+                        <CardTitle className="line-clamp-1">{event.name}</CardTitle>
+                        <CardDescription className="flex items-center gap-1">
+                          <MapPin className="h-3 w-3" />
+                          {event.monastery}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-2 text-sm text-muted-foreground mb-4">
+                          <div className="flex items-center gap-2">
+                            <CalendarIcon className="h-4 w-4" />
+                            {new Date(event.date).toLocaleDateString()}
+                            {calculateDaysToGo(event.date) > 0 && (
+                              <span className="ml-2 px-2 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                                {calculateDaysToGo(event.date)} days to go
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Clock className="h-4 w-4" />
+                            {event.time}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Users className="h-4 w-4" />
+                            {event.participants} expected
+                          </div>
+                        </div>
+                        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                          {event.description}
+                        </p>
+                        <Button className="w-full group">
+                          {event.bookingRequired ? (
+                            <>
+                              <Heart className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                              RSVP Now
+                            </>
+                          ) : (
+                            <>
+                              <CalendarIcon className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                              Add to Calendar
+                            </>
+                          )}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="calendar" className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Calendar */}
+                <div className="lg:col-span-2">
+                  <Card className="p-6">
+                    <CardHeader className="p-0 mb-4">
+                      <CardTitle className="flex items-center gap-2">
+                        <CalendarIcon className="h-5 w-5" />
+                        Events Calendar
+                      </CardTitle>
+                      <CardDescription>
+                        Click on a date to view events
+                      </CardDescription>
+                    </CardHeader>
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={setSelectedDate}
+                      className="w-full pointer-events-auto"
+                      modifiers={{
+                        hasEvents: (date) => hasEvents(date)
+                      }}
+                      modifiersStyles={{
+                        hasEvents: {
+                          backgroundColor: 'hsl(var(--primary))',
+                          color: 'hsl(var(--primary-foreground))',
+                          borderRadius: '6px',
+                          fontWeight: 'bold'
+                        }
+                      }}
+                    />
+                    <div className="mt-4 p-3 bg-muted/30 rounded-lg">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <div className="w-3 h-3 bg-primary rounded" />
+                        <span>Dates with events</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4" />
-                      {event.time}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4" />
-                      {event.participants} expected
-                    </div>
-                  </div>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                    {event.description}
-                  </p>
-                  <Button className="w-full group">
-                    {event.bookingRequired ? (
-                      <>
-                        <Heart className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
-                        RSVP Now
-                      </>
+                  </Card>
+                </div>
+
+                {/* Selected Date Events */}
+                <div className="lg:col-span-1">
+                  <Card className="p-6 h-fit">
+                    <CardHeader className="p-0 mb-4">
+                      <CardTitle>
+                        {selectedDate ? 
+                          `Events on ${selectedDate.toLocaleDateString()}` : 
+                          'Select a Date'
+                        }
+                      </CardTitle>
+                      <CardDescription>
+                        {selectedDate ? 
+                          `${selectedDateEvents.length} event(s) found` : 
+                          'Choose a date to view events'
+                        }
+                      </CardDescription>
+                    </CardHeader>
+                    
+                    {selectedDate ? (
+                      <div className="space-y-4">
+                        {selectedDateEvents.length > 0 ? (
+                          selectedDateEvents.map((event) => (
+                            <Card key={event.id} className="p-4 hover:shadow-md transition-shadow">
+                              <div className="space-y-2">
+                                <div className="flex items-start justify-between">
+                                  <h4 className="font-semibold text-sm line-clamp-2">{event.name}</h4>
+                                  <Badge className={`${getCategoryColor(event.category)} text-xs ml-2`}>
+                                    {event.category}
+                                  </Badge>
+                                </div>
+                                <div className="space-y-1 text-xs text-muted-foreground">
+                                  <div className="flex items-center gap-1">
+                                    <MapPin className="h-3 w-3" />
+                                    {event.monastery}
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <Clock className="h-3 w-3" />
+                                    {event.time}
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <Users className="h-3 w-3" />
+                                    {event.participants}
+                                  </div>
+                                </div>
+                                <p className="text-xs text-muted-foreground line-clamp-2">
+                                  {event.description}
+                                </p>
+                                <Button size="sm" className="w-full mt-2">
+                                  View Details
+                                </Button>
+                              </div>
+                            </Card>
+                          ))
+                        ) : (
+                          <div className="text-center py-8 text-muted-foreground">
+                            <CalendarIcon className="h-12 w-12 mx-auto mb-2 opacity-50" />
+                            <p className="text-sm">No events on this date</p>
+                          </div>
+                        )}
+                      </div>
                     ) : (
-                      <>
-                        <CalendarIcon className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
-                        Add to Calendar
-                      </>
+                      <div className="text-center py-8 text-muted-foreground">
+                        <CalendarIcon className="h-12 w-12 mx-auto mb-2 opacity-50" />
+                        <p className="text-sm">Select a date to view events</p>
+                      </div>
                     )}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  </Card>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
