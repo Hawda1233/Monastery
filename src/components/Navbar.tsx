@@ -1,8 +1,19 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, X, Play, Sparkles, ChevronDown, Map, Camera, Archive, Calendar, Car, Smartphone, Info, MessageCircle, Home, ShoppingBag, Star, CloudSun, Newspaper, Package } from "lucide-react";
+import { Menu, X, Play, Sparkles, ChevronDown, Map, Camera, Archive, Calendar, Car, Smartphone, Info, MessageCircle, Home, ShoppingBag, Star, CloudSun, Newspaper, Package, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+
+type NavItem = {
+  name: string;
+  href: string;
+  icon: LucideIcon;
+  submenu?: {
+    name: string;
+    href: string;
+    icon: LucideIcon;
+  }[];
+};
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +28,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: "Home", href: "/", icon: Home },
     { 
       name: "Explore Monasteries", 
@@ -95,7 +106,7 @@ const Navbar = () => {
                         <ChevronDown className="h-2 w-2 transition-transform group-hover:rotate-180" />
                         <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent className="bg-background/95 backdrop-blur-lg border-white/10 shadow-2xl rounded-2xl min-w-48">
+                      <DropdownMenuContent className="z-50 bg-background border border-border shadow-lg rounded-2xl min-w-48">
                         {item.submenu.map((subItem) => (
                           <DropdownMenuItem key={subItem.name} asChild>
                             <Link
