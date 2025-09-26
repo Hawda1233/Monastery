@@ -73,7 +73,7 @@ const ExploreMonasteries = () => {
       virtualTourAvailable: true,
       rating: 4.5,
       visitors: "1.2k",
-      embedUrl: "https://www.google.com/maps/embed?pb=!4v1234567890456!6m8!1m7!1sCAoSLEFGMVFpcE9NbHM2eWh3SmpycTlQUVZsZDFodGM2NlN6VEJpaTNsVklIOWVl!2m2!1d27.338!2d88.613!3f0!4f0!5f0.7820865974627469"
+      embedUrl: "https://www.google.com/maps/embed?pb=!4v1758916368268!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0pzTXEzOWdF!2m2!1d27.33593677395685!2d88.61916587167339!3f44.015686!4f0!5f0.7820865974627469"
     }
   ];
 
