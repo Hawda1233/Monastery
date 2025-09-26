@@ -34,6 +34,7 @@ import prayerAltar from "@/assets/prayer-altar.png";
 import lepchaTextile from "@/assets/lepcha-textile.png";
 import traditionalEarrings from "@/assets/traditional-earrings.png";
 import panchiNecklace from "@/assets/panchi-necklace.png";
+import sonsOfSikkimBook from "@/assets/sons-of-sikkim-book.png";
 
 const Store = () => {
   const [cart, setCart] = useState([]);
@@ -49,7 +50,7 @@ const Store = () => {
     { id: "prayer-items", name: "Prayer Items", count: 5 },
     { id: "textiles", name: "Traditional Textiles", count: 5 },
     { id: "jewelry", name: "Jewelry", count: 4 },
-    { id: "books", name: "Books & Manuscripts", count: 2 }
+    { id: "books", name: "Books", count: 2 }
   ];
 
   const products = [
@@ -151,19 +152,19 @@ const Store = () => {
     },
     {
       id: 7,
-      name: "Buddhist Scripture Book",
+      name: "Sons of Sikkim",
       category: "books",
-      price: 800,
-      originalPrice: 1000,
-      image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400",
-      rating: 4.8,
-      reviews: 8,
-      description: "Traditional Buddhist texts in English and Tibetan",
-      artisan: "Monastery Publications",
-      location: "Pemayangtse",
+      price: 699,
+      originalPrice: 899,
+      image: sonsOfSikkimBook,
+      rating: 4.9,
+      reviews: 25,
+      description: "The Rise and Fall of the Namgyal Dynasty of Sikkim by Jigme N. Kazi",
+      artisan: "Jigme N. Kazi",
+      location: "Sikkim",
       inStock: true,
-      bestseller: false,
-      discount: 20
+      bestseller: true,
+      discount: 22
     }
   ];
 
