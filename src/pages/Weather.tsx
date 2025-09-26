@@ -5,7 +5,8 @@ import BackButton from "@/components/BackButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CloudSun, Cloud, Sun, CloudRain, Snowflake, Wind, Droplets, Eye, Thermometer, MapPin, Calendar, AlertTriangle, Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { CloudSun, Cloud, Sun, CloudRain, Snowflake, Wind, Droplets, Eye, Thermometer, MapPin, Calendar, AlertTriangle, Loader2, Search } from "lucide-react";
 import { fetchWeatherData, fetchForecastData, monasteries, getWindDirection, type WeatherData, type ForecastData } from "@/lib/weatherApi";
 import { useToast } from "@/hooks/use-toast";
 
@@ -15,6 +16,8 @@ const Weather = () => {
   const [forecast, setForecast] = useState<ForecastData[]>([]);
   const [monasteryWeather, setMonasteryWeather] = useState<(WeatherData & { elevation: string })[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredMonasteries, setFilteredMonasteries] = useState<(WeatherData & { elevation: string })[]>([]);
 
   useEffect(() => {
     const loadWeatherData = async () => {
@@ -33,6 +36,7 @@ const Weather = () => {
         
         const allWeatherData = await Promise.all(weatherPromises);
         setMonasteryWeather(allWeatherData);
+        setFilteredMonasteries(allWeatherData);
         
         // Set the first monastery as the main current weather
         if (allWeatherData.length > 0) {
@@ -65,6 +69,7 @@ const Weather = () => {
         }));
         
         setMonasteryWeather(fallbackWeatherData);
+        setFilteredMonasteries(fallbackWeatherData);
         setCurrentWeather(fallbackWeatherData[0]);
         
         // Fallback forecast
@@ -92,6 +97,18 @@ const Weather = () => {
 
     loadWeatherData();
   }, [toast]);
+
+  // Filter monasteries based on search query
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredMonasteries(monasteryWeather);
+    } else {
+      const filtered = monasteryWeather.filter(monastery =>
+        monastery.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredMonasteries(filtered);
+    }
+  }, [searchQuery, monasteryWeather]);
 
   const getWeatherIcon = (condition: string, iconCode?: string) => {
     const conditionLower = condition.toLowerCase();
@@ -190,15 +207,16 @@ const Weather = () => {
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
               Plan your monastery visit with real-time weather information and seasonal travel guides for Sikkim
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg">
-                <CloudSun className="mr-2 h-5 w-5" />
-                Current Conditions
-              </Button>
-              <Button size="lg" variant="outline">
-                <Calendar className="mr-2 h-5 w-5" />
-                Monthly Guide
-              </Button>
+            <div className="max-w-md mx-auto">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  placeholder="Search monasteries..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 h-12 text-lg"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -324,24 +342,32 @@ const Weather = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {monasteryWeather.map((location, index) => {
-              const IconComponent = getWeatherIcon(location.condition, location.icon);
-              return (
-                <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <h3 className="font-semibold">{location.name}</h3>
-                      <p className="text-sm text-muted-foreground">{location.elevation}</p>
+            {filteredMonasteries.length > 0 ? (
+              filteredMonasteries.map((location, index) => {
+                const IconComponent = getWeatherIcon(location.condition, location.icon);
+                return (
+                  <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <h3 className="font-semibold">{location.name}</h3>
+                        <p className="text-sm text-muted-foreground">{location.elevation}</p>
+                      </div>
+                      <IconComponent className="h-8 w-8 text-primary" />
                     </div>
-                    <IconComponent className="h-8 w-8 text-primary" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="text-2xl font-bold text-primary">{location.temperature}°C</div>
-                    <div className="text-sm text-muted-foreground">{location.condition}</div>
-                  </div>
-                </Card>
-              );
-            })}
+                    <div className="flex items-center justify-between">
+                      <div className="text-2xl font-bold text-primary">{location.temperature}°C</div>
+                      <div className="text-sm text-muted-foreground">{location.condition}</div>
+                    </div>
+                  </Card>
+                );
+              })
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-muted-foreground mb-2">No monasteries found</h3>
+                <p className="text-muted-foreground">Try adjusting your search terms</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
