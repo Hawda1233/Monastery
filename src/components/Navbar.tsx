@@ -138,14 +138,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-1 flex-shrink-0">
-            <Button variant="hero" size="sm" className="group px-3 py-1.5 text-xs">
-              <Map className="h-3 w-3 mr-1" />
-              Explore
-            </Button>
-          </div>
-
           {/* Mobile menu button */}
           <div className="lg:hidden flex-shrink-0">
             <button
