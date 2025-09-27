@@ -31,6 +31,7 @@ import VirtualTour from "./pages/VirtualTour";
 import Homestay from "./pages/Homestay";
 import Store from "./pages/Store";
 import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -83,6 +84,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/explore" element={<ExploreMonasteries />} />
               <Route path="/archives" element={<DigitalArchives />} />
               <Route path="/events" element={<Events />} />
