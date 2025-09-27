@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import VirtualTour360 from "@/components/VirtualTour360";
 import BackButton from "@/components/BackButton";
+import InteractiveMap from "@/components/InteractiveMap";
 import pemayangtseMonastery from "@/assets/pemayangtse-monastery.png";
 import tashidingMonastery from "@/assets/tashiding-monastery.png";
 import encheyMonastery from "@/assets/enchey-monastery.png";
@@ -314,22 +315,16 @@ const ExploreMonasteries = () => {
 
             {/* Map Tab */}
             <TabsContent value="map" className="space-y-6">
-              <div className="bg-card rounded-2xl border p-8 text-center">
-                <Map className="h-16 w-16 mx-auto text-primary mb-6" />
-                <h3 className="text-2xl font-bold mb-4">Interactive Monastery Map</h3>
-                <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  Explore monasteries across Sikkim with our interactive map featuring geo-tagged locations, 
-                  travel routes, and nearby attractions.
-                </p>
-                <div className="bg-muted rounded-xl h-96 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                    <p className="text-muted-foreground">Interactive map will be integrated here</p>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      Features: GPS locations, travel routes, nearby attractions
-                    </p>
-                  </div>
+              <div className="bg-card rounded-2xl border p-8">
+                <div className="text-center mb-8">
+                  <Map className="h-16 w-16 mx-auto text-primary mb-6" />
+                  <h3 className="text-2xl font-bold mb-4">Interactive Monastery Map</h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Explore monasteries across Sikkim with our interactive map featuring geo-tagged locations, 
+                    travel routes, and nearby attractions.
+                  </p>
                 </div>
+                <InteractiveMap />
               </div>
             </TabsContent>
           </Tabs>
