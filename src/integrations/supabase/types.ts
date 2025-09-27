@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      live_experiences: {
+        Row: {
+          created_at: string
+          experience_text: string
+          experience_type: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          location: string | null
+          updated_at: string
+          user_country: string | null
+          user_id: string | null
+          user_name: string
+        }
+        Insert: {
+          created_at?: string
+          experience_text: string
+          experience_type?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          location?: string | null
+          updated_at?: string
+          user_country?: string | null
+          user_id?: string | null
+          user_name: string
+        }
+        Update: {
+          created_at?: string
+          experience_text?: string
+          experience_type?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          location?: string | null
+          updated_at?: string
+          user_country?: string | null
+          user_id?: string | null
+          user_name?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

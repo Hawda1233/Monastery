@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, User, Camera, MapPin, Calendar, ThumbsUp, MessageCircle } from "lucide-react";
+import LiveExperienceShare from "@/components/LiveExperienceShare";
 
 const Reviews = () => {
   const touristReviews = [
@@ -175,8 +176,15 @@ const Reviews = () => {
         </div>
       </section>
 
+      {/* Live Experiences Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <LiveExperienceShare />
+        </div>
+      </section>
+
       {/* Reviews Section */}
-      <section className="py-20">
+      <section className="py-20 bg-muted/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-primary mb-4">Traveler Stories</h2>
